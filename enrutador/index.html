@@ -1,0 +1,18 @@
+<script>
+    // Función para verificar si hay una sesión activa
+    function checkSession() {
+        const token = localStorage.getItem('token');
+        const id_ru = localStorage.getItem('id_ru');
+
+        if (!token || !id_ru) {
+            // Si no hay token, redirigir a la página de inicio de sesión
+            window.location.href = 'login.html';
+        } else {
+            // Si no hay token, redirigir a la página de inicio de sesión
+            window.location.href = 'master.html';
+        }
+    }
+
+    // Verificar la sesión al cargar la página
+    checkSession();
+</script>

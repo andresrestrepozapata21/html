@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master paky</title>
+    <!-- Style CSS Customer -->
+    <link rel="stylesheet" href="assets/css/master.css">
+    <!-- Import font style -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <!-- Import Font Awesome CDN-->
+    <script src="https://kit.fontawesome.com/0a0c61a66b.js" crossorigin="anonymous"></script>
+    <!-- Add the icon page -->
+    <link rel="icon" href="assets/images/p.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="menu">
+            <a href="master.html"><img src="assets/images/p.png" alt="Logo"></a>
+            <div class="opciones">
+                <div class="op1">
+                    <h4>Opciones</h4>
+                </div>
+                <div class="op2">
+                    <h4 class="modulo">Paquetería Local</h4>
+                    <a href="view_city_package.html"><i class="fa-solid fa-box"></i>Visor de Paquetes Locales</a>
+                    <a href="to_asignate_city_package.html"><i class="fa-solid fa-boxes-packing"></i>Asignar Paquetes Locales</a>
+
+                    <h4 class="modulo">Paquetería Nacional</h4>
+                    <a href="view_intercity_package.html"><i class="fa-solid fa-box"></i>Visor de Paquetes Nacionales</a>
+                    <a href="to_asignate_intercity_package.html"><i class="fa-solid fa-boxes-packing"></i>Asignar Paquetes Nacionales</a>
+                </div>
+            </div>
+        </div>
+        <button id="cerrarSesion" class="btn-cerrar-sesion">Cerrar Sesión</button>
+    </div>
+
+    <div class="content">
+        <img src="assets/images/pakylogo.svg" alt="Imagen Central">
+    </div>
+
+    <!-- Import js personalized-->
+    <script src="js/master.js"></script>
+    <script src="js/logout.js"></script>
+    <script>
+        // Verification sesion active
+        function checkSession() {
+            const token = localStorage.getItem('token');
+            const id_ru = localStorage.getItem('id_ru');
+
+            if (!token || !id_ru) {
+                // redirection login if sesion non existing
+                window.location.href = 'login.html';
+            }
+        }
+        // To call method checkSession
+        checkSession();
+    </script>
+</body>
+
+</html>

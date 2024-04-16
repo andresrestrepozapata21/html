@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAPM paky</title>
+    <!-- Style CSS Customer -->
+    <link rel="stylesheet" href="assets/css/detail_to_asignate_city_package.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <!-- Import font style -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <!-- Import Font Awesome CDN-->
+    <script src="https://kit.fontawesome.com/0a0c61a66b.js" crossorigin="anonymous"></script>
+    <!-- Add the icon page -->
+    <link rel="icon" href="assets/images/p.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="menu">
+            <a href="master.html"><img src="assets/images/p.png" alt="Logo"></a>
+            <div class="opciones">
+                <div class="op1">
+                    <h4>Opciones</h4>
+                </div>
+                <div class="op2">
+                    <h4 class="modulo">Paquetería Local</h4>
+                    <a href="view_city_package.html"><i class="fa-solid fa-box"></i>Visor de Paquetes Locales</a>
+                    <a href="to_asignate_city_package.html" class="active"><i class="fa-solid fa-boxes-packing"></i>Asignar Paquetes Locales</a>
+
+                    <h4 class="modulo">Paquetería Nacional</h4>
+                    <a href="view_intercity_package.html"><i class="fa-solid fa-box"></i>Visor de Paquetes Nacionales</a>
+                    <a href="to_asignate_intercity_package.html"><i class="fa-solid fa-boxes-packing"></i>Asignar Paquetes Nacionales</a>
+                </div>
+            </div>
+        </div>
+        <button id="cerrarSesion" class="btn-cerrar-sesion">Cerrar Sesión</button>
+    </div>
+
+    <div class="content">
+        <h1>Asignar Paquetes Locales</h1>
+        <div id="transportista-component" class="component">
+            <div class="info-section">
+                <h2>Información del Transportista</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombres:</label>
+                        <input type="text" id="nombreTransportista" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellidos:</label>
+                        <input type="text" id="apellidoTransportista" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono:</label>
+                        <input type="text" id="telefonoTransportista" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="text" id="emailTransportista" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="info-section">
+                <h2>Información del Vehículo</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Placa:</label>
+                        <input type="text" id="placaTransportista" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Marca:</label>
+                        <input type="text" id="marcaTransportista" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Línea:</label>
+                        <input type="text" id="lineaTransportista" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Modelo:</label>
+                        <input type="text" id="modeloTransportista" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Color:</label>
+                        <input type="text" id="colorTransportista" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Clase Vehículo:</label>
+                        <input type="text" id="claseTransportista" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Capacidad Paquetes:</label>
+                        <input type="text" id="capacidadVehiculo" class="capacidadVehiculo" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción:</label>
+                        <textarea id="descripcionVehiculo" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="table-wrapper">
+            <table id="tabla-paquetes-asignated">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Orden</th>
+                        <th>Cliente</th>
+                        <th>Número de Teléfono</th>
+                        <th>Número de Guía</th>
+                        <th>Estado</th>
+                        <th>Con recaudo</th>
+                        <th>Total</th>
+                        <th>Productos</th>
+                        <th>Seleccionar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos se agregarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+        <div class="table-wrapper">
+            <table id="tabla-paquetes">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Orden</th>
+                        <th>Cliente</th>
+                        <th>Número de Teléfono</th>
+                        <th>Número de Guía</th>
+                        <th>Estado</th>
+                        <th>Con recaudo</th>
+                        <th>Total</th>
+                        <th>Productos</th>
+                        <th>Seleccionar</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <!-- Justo después de tu tabla de paquetes -->
+        <div class="acciones">
+            <button id="btnAsignar" class="disabled" disabled>Asignar</button>
+            <button id="btnRegresar">Regresar</button>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Productos del Paquete</h2>
+            <table id="productTable" class="display">
+                <thead>
+                    <tr>
+                        <th>ID Producto</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                        <th>Tamaño</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos se agregarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Import js personalized-->
+    <script src="config/config.js"></script>
+    <script src="js/detail_to_asignate_city_package.js"></script>
+    <script src="js/logout.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script>
+        // Verification sesion active
+        function checkSession() {
+            const token = localStorage.getItem('token');
+            const id_ru = localStorage.getItem('id_ru');
+
+            if (!token || !id_ru) {
+                // redirection login if sesion non existing
+                window.location.href = 'login.html';
+            }
+        }
+        // To call method checkSession
+        checkSession();
+    </script>
+</body>
+
+</html>

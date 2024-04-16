@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Dropshipper Paky</title>
+    <!-- Style CSS Customer -->
+    <link rel="stylesheet" href="assets/css/login.css">
+    <!-- Import font style -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <!-- Import Font Awesome CDN-->
+    <script src="https://kit.fontawesome.com/0a0c61a66b.js" crossorigin="anonymous"></script>
+    <!-- Add the icon page -->
+    <link rel="icon" href="assets/images/p.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <form id="uploadForm">
+            <div class="container_img">
+                <img src="assets/images/pakylogo.svg">
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Ej: correo@gmail.com" required>
+                <label for="email">Correo Electrónico:</label>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="***********" required>
+                <i class="fa-regular fa-eye-slash toggle-password"></i>
+                <label for="password">Contraseña:</label>
+            </div>
+            <button type="submit">Ingresar</button>
+            <div class="alert" id="alert"></div>
+        </form>
+    </div>
+    <!-- Import config URLS dev and prod, etc... -->
+    <!-- Import js login -->
+    <script src="config/config.js"></script>
+    <script src="js/login.js"></script>
+</body>
+
+</html>

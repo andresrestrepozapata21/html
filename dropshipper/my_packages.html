@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP paky</title>
+    <!-- Style CSS Customer -->
+    <link rel="stylesheet" href="assets/css/my_packages.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <!-- Import font style -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <!-- Import Font Awesome CDN-->
+    <script src="https://kit.fontawesome.com/0a0c61a66b.js" crossorigin="anonymous"></script>
+    <!-- Add the icon page -->
+    <link rel="icon" href="assets/images/p.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="menu">
+            <a href="master.html"><img src="assets/images/p.png" alt="Logo"></a>
+            <div class="opciones">
+                <div class="op1">
+                    <h4>Opciones</h4>
+                </div>
+                <div class="op2">
+                    <h4 class="modulo">Paquetería</h4>
+                    <a href="my_packages.html"><i class="fa-solid fa-box"></i>Mis pedidos</a>
+
+                    <h4 class="modulo">Configuración</h4>
+                    <a href="data_banks.html"><i class="fa-solid fa-money-bill"></i>Datos bancarios</a>
+
+                    <h4 class="modulo">Utilidades</h4>
+                    <a href="payments.html"><i class="fa-solid fa-wallet"></i>Retiro de saldo</a>
+                    <a href="portfolio_history.html"><i class="fa-solid fa-wallet"></i>Historial de cartera</a>
+                </div>
+            </div>
+        </div>
+        <button id="cerrarSesion" class="btn-cerrar-sesion">Cerrar Sesión</button>
+    </div>
+
+    <div class="content">
+        <h1>Mis Pedidos</h1>
+        <div class="table-wrapper">
+            <table id="dataTable" class="display">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Orden</th>
+                        <th>Fecha de creación</th>
+                        <th>Cliente</th>
+                        <th>Tipo Paquete</th>
+                        <th>Estado del paquete</th>
+                        <th>Transportista</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos se agregarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Import js personalized-->
+    <script src="config/config.js"></script>
+    <script src="js/my_packages.js"></script>
+    <script src="js/logout.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script>
+        // Verification sesion active
+        function checkSession() {
+            const token = localStorage.getItem('token');
+            const id_dropshipper = localStorage.getItem('id_dropshipper');
+
+            if (!token || !id_dropshipper) {
+                // redirection login if sesion non existing
+                window.location.href = 'login.html';
+            }
+        }
+        // To call method checkSession
+        checkSession();
+    </script>
+</body>
+
+</html>

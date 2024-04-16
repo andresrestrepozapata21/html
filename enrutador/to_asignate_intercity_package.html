@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACP paky</title>
+    <!-- Style CSS Customer -->
+    <link rel="stylesheet" href="assets/css/to_asignate_intercity_package.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <!-- Import font style -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <!-- Import Font Awesome CDN-->
+    <script src="https://kit.fontawesome.com/0a0c61a66b.js" crossorigin="anonymous"></script>
+    <!-- Add the icon page -->
+    <link rel="icon" href="assets/images/p.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="menu">
+            <a href="master.html"><img src="assets/images/p.png" alt="Logo"></a>
+            <div class="opciones">
+                <div class="op1">
+                    <h4>Opciones</h4>
+                </div>
+                <div class="op2">
+                    <h4 class="modulo">Paquetería Local</h4>
+                    <a href="view_city_package.html"><i class="fa-solid fa-box"></i>Visor de Paquetes Locales</a>
+                    <a href="to_asignate_city_package.html"><i class="fa-solid fa-boxes-packing"></i>Asignar Paquetes Locales</a>
+
+                    <h4 class="modulo">Paquetería Nacional</h4>
+                    <a href="view_intercity_package.html"><i class="fa-solid fa-box"></i>Visor de Paquetes Nacionales</a>
+                    <a href="to_asignate_intercity_package.html" class="active"><i class="fa-solid fa-boxes-packing"></i>Asignar Paquetes Nacionales</a>
+                </div>
+            </div>
+        </div>
+        <button id="cerrarSesion" class="btn-cerrar-sesion">Cerrar Sesión</button>
+    </div>
+
+    <div class="content">
+        <h1>Asignar Paquetes Nacionales</h1>
+        <div class="table-wrapper">
+            <table id="dataTable" class="display">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo de Documento</th>
+                        <th>Número de Documento</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Tipo Transportista</th>
+                        <th>Paquetes</th>
+                        <th>Estado de Capacidad</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos se agregarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Modal para mostrar los paquetes -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Paquetes Asignados</h2>
+            <table id="packageTable" class="display">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Orden</th>
+                        <th>Nombre del Cliente</th>
+                        <th>Teléfono del Cliente</th>
+                        <th>Número de Guía</th>
+                        <th>Estado</th>
+                        <th>¿Con Cobro?</th>
+                        <th>Precio Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos de los paquetes se agregarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Import js personalized-->
+    <script src="config/config.js"></script>
+    <script src="js/to_asignate_intercity_package.js"></script>
+    <script src="js/logout.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script>
+        // Verification sesion active
+        function checkSession() {
+            const token = localStorage.getItem('token');
+            const id_ru = localStorage.getItem('id_ru');
+
+            if (!token || !id_ru) {
+                // redirection login if sesion non existing
+                window.location.href = 'login.html';
+            }
+        }
+        // To call method checkSession
+        checkSession();
+    </script>
+</body>
+
+</html>
