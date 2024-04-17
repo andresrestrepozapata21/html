@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $('.asignate-packages').click(function () {
                 const carrierId = $(this).data('id');
                 // Llamar a la función para ver los paquetes
-                window.location = '../detail_to_asignate_city_package.html?id_carrier=' + carrierId;
+                window.location = './detail_to_asignate_city_package.html?id_carrier=' + carrierId;
             });
         })
         .catch(error => {

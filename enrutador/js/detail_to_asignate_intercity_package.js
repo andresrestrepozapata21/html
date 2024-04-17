@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Añadir evento al botón regresar si es necesario
     document.getElementById('btnRegresar').addEventListener('click', function () {
-        window.location = '../to_asignate_intercity_package.html';
+        window.location = './to_asignate_intercity_package.html';
     });
 
     // Captura del evento click del botón "Asignar"
@@ -51,6 +51,8 @@ async function cargarDatosDelServidor() {
 
         // 'data' contiene las propiedades 'data_carrier' y 'data_packages'
         cargarInformacionTransportista(data.data_carrier);
+        console.log(data.data_asignated_packages)
+
         cargarTablaPaquetes(data.data_free_packages, data.data_asignated_packages, data.data_carrier.vehicle.capacity_vehicle);
     } catch (error) {
         console.error('Error al cargar los datos del servidor:', error);
@@ -89,106 +91,98 @@ function cargarInformacionTransportista(transportista) {
 }
 // Cargo la tabla de los paquetes
 function cargarTablaPaquetes(paquetes, paquetes_asignados, capacidadVehiculo) {
+    // Obtener las referencias de los cuerpos de las tablas
     const tbody = document.getElementById('tabla-paquetes').getElementsByTagName('tbody')[0];
     const tbody2 = document.getElementById('tabla-paquetes-asignated').getElementsByTagName('tbody')[0];
+
+    // Limpiar las tablas antes de insertar nuevos datos
+    tbody.innerHTML = '';
+    tbody2.innerHTML = '';
+
+    // Inicializar los DataTables para cada tabla
+    const dataTablePackages = $('#tabla-paquetes').DataTable();
+    const dataTableAsignated = $('#tabla-paquetes-asignated').DataTable();
+
+    // Iterar sobre los paquetes asignados y agregarlos al DataTable correspondiente
     paquetes_asignados.forEach((paquete) => {
-        const tr = document.createElement('tr');
-        let statusText;
-        let withCollectionText;
-        switch (paquete.status_p) {
-            case 1:
-                statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
-                break;
-            case 2:
-                statusText = "<span style='color: #5BC0DE'>Bodega central origen</span>";
-                break;
-            case 3:
-                statusText = "<span style='color: #F0AD4E'>En camino entre bodegas centrales</span>";
-                break;
-            case 4:
-                statusText = "<span style='color: #5BC0DE'>En bodega central destino</span>";
-                break;
-            case 5:
-                statusText = "<span style='color: #F0AD4E'>En camino a entrega final</span>";
-                break;
-            case 6:
-                statusText = "<span style='color: #22BB33'>Entregado</span>";
-                break;
-            case 7:
-                statusText = "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
-                break;
-        }
-        switch (paquete.with_collection_p) {
-            case 0:
-                withCollectionText = "Con Recaudo";
-                break;
-            case 1:
-                withCollectionText = "Sin Recaudo";
-                break;
-        }
-        tr.innerHTML = `
-            <td>${paquete.id_p}</td>
-            <td>${paquete.orden_p}</td>
-            <td>${paquete.name_client_p}</td>
-            <td>${paquete.phone_number_client_p}</td>
-            <td>${paquete.guide_number_p}</td>
-            <td>${statusText}</td>
-            <td>${withCollectionText}</td>
-            <td>${paquete.total_price_p}</td>
-            <td><a href="#" class="view-products" onclick="mostrarDetallePaquete(${paquete.id_p})">Ver Productos</a></td>
-            <td><input type="checkbox" disabled checked></td>
-        `;
-        tbody2.appendChild(tr);
+        // Construir el HTML de la fila con los datos del paquete asignado
+        const statusText = getStatusText(paquete.status_p);
+        const withCollectionText = getWithCollectionText(paquete.with_collection_p);
+        const row = [
+            paquete.id_p,
+            paquete.orden_p,
+            paquete.name_client_p,
+            paquete.phone_number_client_p,
+            paquete.guide_number_p,
+            statusText,
+            withCollectionText,
+            paquete.total_price_p,
+            `<a href="#" class="view-products" onclick="mostrarDetallePaquete(${paquete.id_p})">Ver Productos</a>`,
+            '<input type="checkbox" disabled checked>'
+        ];
+        dataTableAsignated.row.add(row).draw();
     });
+
+    // Iterar sobre los paquetes y agregarlos al DataTable correspondiente
     paquetes.forEach((paquete) => {
-        const tr = document.createElement('tr');
-        let statusText;
-        let withCollectionText;
-        switch (paquete.status_p) {
-            case 1:
-                statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
-                break;
-            case 2:
-                statusText = "<span style='color: #5BC0DE'>Bodega central origen</span>";
-                break;
-            case 3:
-                statusText = "<span style='color: #F0AD4E'>En camino entre bodegas centrales</span>";
-                break;
-            case 4:
-                statusText = "<span style='color: #5BC0DE'>En bodega central destino</span>";
-                break;
-            case 5:
-                statusText = "<span style='color: #F0AD4E'>En camino a entrega final</span>";
-                break;
-            case 6:
-                statusText = "<span style='color: #22BB33'>Entregado</span>";
-                break;
-            case 7:
-                statusText = "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
-                break;
-        }
-        switch (paquete.with_collection_p) {
-            case 0:
-                withCollectionText = "Con Recaudo";
-                break;
-            case 1:
-                withCollectionText = "Sin Recaudo";
-                break;
-        }
-        tr.innerHTML = `
-            <td>${paquete.id_p}</td>
-            <td>${paquete.orden_p}</td>
-            <td>${paquete.name_client_p}</td>
-            <td>${paquete.phone_number_client_p}</td>
-            <td>${paquete.guide_number_p}</td>
-            <td>${statusText}</td>
-            <td>${withCollectionText}</td>
-            <td>${paquete.total_price_p}</td>
-            <td><a href="#" class="view-products" onclick="mostrarDetallePaquete(${paquete.id_p})">Ver Productos</a></td>
-            <td><input type="checkbox" name="seleccionPaquete" value="${paquete.id_p}" onchange="verificarSeleccionPaquetes(${capacidadVehiculo})"></td>
-        `;
-        tbody.appendChild(tr);
+        // Construir el HTML de la fila con los datos del paquete
+        const statusText = getStatusText(paquete.status_p);
+        const withCollectionText = getWithCollectionText(paquete.with_collection_p);
+        const row = [
+            paquete.id_p,
+            paquete.orden_p,
+            paquete.name_client_p,
+            paquete.phone_number_client_p,
+            paquete.guide_number_p,
+            statusText,
+            withCollectionText,
+            paquete.total_price_p,
+            `<a href="#" class="view-products" onclick="mostrarDetallePaquete(${paquete.id_p})">Ver Productos</a>`,
+            `<input type="checkbox" name="seleccionPaquete" value="${paquete.id_p}" onchange="verificarSeleccionPaquetes(${capacidadVehiculo})">`
+        ];
+        dataTablePackages.row.add(row).draw();
     });
+}
+
+// Función para obtener el texto de estado
+function getStatusText(status) {
+    switch (status) {
+        case 1:
+            return "<span style='color: #BB2124'>Bodega dropshipper</span>";
+
+        case 2:
+            return "<span style='color: #5BC0DE'>Bodega central origen</span>";
+
+        case 3:
+            return "<span style='color: #F0AD4E'>En camino entre bodegas centrales</span>";
+
+        case 4:
+            return "<span style='color: #5BC0DE'>En bodega central destino</span>";
+
+        case 5:
+            return "<span style='color: #F0AD4E'>En camino a entrega final</span>";
+
+        case 6:
+            return "<span style='color: #22BB33'>Entregado</span>";
+
+        case 7:
+            return "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
+
+        default:
+            return "";
+    }
+}
+
+// Función para obtener el texto de recaudo
+function getWithCollectionText(withCollection) {
+    switch (withCollection) {
+        case 0:
+            return "Con Recaudo";
+        case 1:
+            return "Sin Recaudo";
+        default:
+            return "";
+    }
 }
 // Envio los datos de asignaicion
 function enviarDatosDeAsignacion() {

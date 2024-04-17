@@ -24,8 +24,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Replace 'login.html' with the actual URL of your login page
                 window.location.href = 'login.html';
             }
+            // i capture the wallet value dropshipper
+            const wallet = data.data.wallet_dropshipper;
+            // Formatear el valor como moneda
+            let valorFormateado = wallet.toLocaleString('es-CO', {
+                style: 'currency',
+                currency: 'COP'
+            });
+            // i select wallet component
+            const walletElement = document.querySelector('.wallet');
+            // To asignate wallet value
+            walletElement.textContent = valorFormateado;
+             // Save the token and id user router to local storage
+             localStorage.setItem('wallet', valorFormateado);
 
-            console.log(data)
+
         })
         .catch(error => {
             console.error('Error en la petición Fetch:', error);

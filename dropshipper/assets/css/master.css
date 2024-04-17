@@ -117,6 +117,12 @@ body {
                         Lo estandar de todas las pantallas
 ============================================================================*/
 
+.header{
+    background-color: #FFFFFF;
+    padding: 10px;
+    text-align: right;
+}
+
 .titulo {
     width: 100%;
     background-color: #bbbbbb;
