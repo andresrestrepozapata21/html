@@ -212,10 +212,6 @@ th {
     cursor: pointer;
 }
 
-.enlaces {
-    color: #892CFF;
-}
-
 .acciones {
     width: 100%;
     padding: 10px;
@@ -225,8 +221,38 @@ th {
     align-items: center;
 }
 
-.acciones input {
-    background-color: #892CFF;
+/* Estilo general para los botones que solo muestran un ícono */
+button.enlaces {
+    background: none;       /* Sin fondo */
+    border: none;           /* Sin bordes */
+    color: inherit;         /* Hereda el color de texto del padre */
+    padding: 5px;           /* Espaciado interno para hacer clic más fácilmente */
+    cursor: pointer;        /* Cursor indica que es un elemento clickeable */
+    outline: none;          /* Sin contorno al hacer clic */
+}
+
+button.enlaces:focus {
+    outline: none;          /* Elimina el contorno al estar enfocado (para accesibilidad, considera otra forma de indicar foco) */
+}
+
+button.enlaces:hover,
+button.enlaces:focus {
+    background: #eceaee;
+    border-radius: 3px; /* Opcional: un ligero cambio de fondo al pasar el mouse o al estar enfocado */
+}
+
+button.enlaces i {
+    font-size: 12px;
+    color: #892CFF;        /* Tamaño del ícono */
+}
+
+.check{
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.checked{
+        margin: 0 5px;
 }
 
 .component {

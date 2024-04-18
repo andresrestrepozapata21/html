@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MP paky</title>
     <!-- Style CSS Customer -->
-    <link rel="stylesheet" href="assets/css/my_packages.css">
+    <link rel="stylesheet" href="assets/css/detail_package.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <!-- Import font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
@@ -45,43 +45,69 @@
         <div class="header">
             <h2><i class="fa-solid fa-wallet"></i> <span class="wallet"></span></h2>
         </div>
-        <h1>Mis Pedidos</h1>
+        <h2>Detalles del paquete <button type="button" id="btnEdit" class="enlaces"><i
+                    class="fa-regular fa-pen-to-square"></i></button></h2>
         <div class="component">
-            <div class="info-section">
-                <h2>Filtro de Pedidos</h2>
-                <form id="form">
-                    <div class="inputs">
-                        <div class="form-group">
-                            <label for="fechaInicio">Fecha Inicio:</label>
-                            <input type="date" id="fechaInicio" name="fechaInicio" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fechaFin">Fecha Fin:</label>
-                            <input type="date" id="fechaFin" name="fechaFin" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" id="btnFiltrar">Filtrar</button>
-                        <button type="button" id="btnRegresar">Recargar</button>
-                        <button type="button" id="btnDescargar"><i class="fa-regular fa-file-excel"></i>Descargar
-                            Excel</button>
-                    </div>
-                </form>
+            <div class="logo">
+                <img src="assets/images/pakylogo.svg" alt="">
+            </div>
+            <div class="content_timeline">
+                <div class="timeline">
+                    <div class="circle" id="1"><p>Bodega Inicial</p></div>
+                    <div class="circle" id="7"><p>En camino al centro de distribución</p></div>
+                    <div class="circle" id="2"><p>Centro distribución</p></div>
+                    <div class="circle" id="5"><p>En Camino</p></div>
+                    <div class="circle" id="6"><p>Entregado</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="content_info">
+            <div class="izq">
+                <p>Orden para:</p>
+                <p></p>
+                <p></p>
+                <p class="p_wpp"><i class="fa-brands fa-whatsapp"></i></p>
+                <p></p>
+            </div>
+            <div class="der">
+                <p class="orden"></p>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
             </div>
         </div>
         <div class="table-wrapper">
-            <table id="dataTable" class="display">
+            <h2>Productos del paquete</h2>
+            <table class="display">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Orden</th>
-                        <th>Fecha de creación</th>
-                        <th>Bodega</th>
-                        <th>Cliente</th>
-                        <th>Tipo Paquete</th>
-                        <th>Estado del paquete</th>
+                        <th>Nombre producto</th>
+                        <th>Descripción</th>
+                        <th>Dimensiones</th>
+                        <th>Precio costo</th>
+                        <th>Precio venta</th>
+                        <th>Cant.</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos se agregarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+        <div class="table-wrapper">
+            <h2>Historial de Estados</h2>
+            <table class="history" class="display">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Fecha del estado</th>
+                        <th>Estado</th>
                         <th>Transportista</th>
-                        <th>Acciones</th>
+                        <th>Comentarios</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,7 +118,7 @@
     </div>
     <!-- Import js personalized-->
     <script src="config/config.js"></script>
-    <script src="js/my_packages.js"></script>
+    <script src="js/detail_package.js"></script>
     <script src="js/logout.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
