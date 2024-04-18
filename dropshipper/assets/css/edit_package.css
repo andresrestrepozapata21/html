@@ -236,35 +236,68 @@ button i {
     margin-left: 50px; /* Adjusts the space between circles */
 }
 
-.content_info{
+.content_info {
     width: 100%;
-    margin-top: 80px;
-    padding: 20px 20px 0 20px;
+    margin-top: 20px; /* Reducido de 80px */
+    padding: 20px; /* Modificado para aplicar padding uniforme */
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-self: center;
+    justify-content: space-between; /* Modificado para separar los elementos */
+    align-items: flex-start; /* Modificado para alinear los elementos en la parte superior */
 }
 
-.content_info .izq{
-    width: 50%;
+.content_info .izq {
+    width: 50%; /* Reducido para dar espacio al elemento .der */
     text-align: left;
-    padding-top: 45px;
+    display: flex;
+    flex-direction: column;
 }
 
-.p_wpp i{
-    color: #25D366;
-    cursor: pointer;
-}
-
-.orden{
-    font-size: 30px;
-    color: #892CFF;
-}
-
-.content_info .der{
-    width: 50%;
+.content_info .der {
+    width: 50%; /* Reducido para dar espacio al elemento .izq */
     text-align: right;
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+}
+
+/* Agregado para dar espacio entre los elementos dentro de .izq y .der */
+.content_info .izq > p,
+.content_info .der > p {
+    margin-bottom: 10px;
+}
+
+/* Agregado para dar espacio entre los elementos dentro de .p_wpp */
+.content_info input, .content_info select {
+    width: 70%;
+}
+
+.form-group{
+    width: 100%;
+    padding: 20px;
+}
+
+.form-group button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-group button:nth-child(2) {
+    margin-left: 10px;
+    background-color: #ba0000; /* rojo */
+}
+
+.form-group button:hover {
+    background-color: #45a049; /* Verde más oscuro */
+}
+
+.form-group button:nth-child(2):hover {
+    background-color: #910101; /* Azul más oscuro */
 }
 
 .table-wrapper {
@@ -344,4 +377,65 @@ th {
 
 .none {
     display: none;
+}
+
+.content_products{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.component_products{
+    width: 100%;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 20px;
+    margin: 10px;
+}
+
+.formDataCenter{
+    width: 100%;
+}
+
+.info-section {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.form-row1 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-group1 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding-right: 20px;
+    margin-bottom: 15px;
+}
+
+.form-group1 input{
+    width: 50%;
+    box-sizing: border-box;
+    padding-right: 20px;
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.id_product_pp {
+    width: 100%;
 }

@@ -46,11 +46,23 @@ document.addEventListener('DOMContentLoaded', function () {
             let type_send = data.data.fk_id_tp_p;
             //capturo el status del paquete, el estado y el id de circulo tienen el mismo numero, por eso
             let status = data.data.status_p;
-            //busco el id correcpondiente al stado y lo pinto con la clase active.
-            if (status != 0 && status != 6) {
-                document.getElementById(status).classList.add('active');
-            } else if(status == 6){
-                document.getElementById(status).classList.add('entregadoStatus');
+            //estructura condicional para saber que timline mostrar el local o nacional
+            if (type_send == 1) {
+                document.getElementById('local').classList.remove('none');
+                //busco el id correcpondiente al stado y lo pinto con la clase active.
+                if (status != 0 && status != 6) {
+                    document.getElementById(status).classList.add('active');
+                } else if (status == 6) {
+                    document.getElementById(status).classList.add('entregadoStatus');
+                }
+            } else if (type_send == 2) {
+                document.getElementById('nacional').classList.remove('none');
+                //busco el id correcpondiente al stado y lo pinto con la clase active.
+                if (status != 0 && status != 6) {
+                    document.getElementById('N' + status).classList.add('active');
+                } else if (status == 6) {
+                    document.getElementById('N' + status).classList.add('entregadoStatus');
+                }
             }
             //pongo los datos del cliente en la parte izquierda
             document.querySelector('.izq p:nth-child(2)').textContent = data.data.name_client_p;
@@ -164,17 +176,17 @@ document.addEventListener('DOMContentLoaded', function () {
             let totalCosto = 0;
             data.data.package_products.forEach(product => {
                 const row = `
-        <tr>
-            <td>${product.product.id_product}</td>
-            <td>${product.product.name_product}</td>
-            <td>${product.product.description_product}</td>
-            <td>${product.product.size_product}</td>
-            <td>${product.product.price_cost_product.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-            <td>${product.product.price_sale_product.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-            <td>${product.cuantity_pp}</td>
-            <td>${(product.product.price_sale_product * product.cuantity_pp).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-        </tr>
-    `;
+                <tr>
+                    <td>${product.product.id_product}</td>
+                    <td>${product.product.name_product}</td>
+                    <td>${product.product.description_product}</td>
+                    <td>${product.product.size_product}</td>
+                    <td>${product.product.price_cost_product.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                    <td>${product.product.price_sale_product.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                    <td>${product.cuantity_pp}</td>
+                    <td>${(product.product.price_sale_product * product.cuantity_pp).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                </tr>
+            `;
                 productsTable.innerHTML += row;
                 totalVenta += product.product.price_sale_product * product.cuantity_pp;
                 totalCosto += product.product.price_cost_product * product.cuantity_pp;
@@ -182,27 +194,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Agrega los totales al final de la tabla
             const footerRow = `
-    <tr>
-        <td colspan="6"></td>
-        <td>Costo de Envio:</td>
-        <td>${data.data.profit_carrier_p.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-    </tr>
-    <tr>
-        <td colspan="6"></td>
-        <td>Ganancia:</td>
-        <td>${data.data.profit_dropshipper_p.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-    </tr>
-    <tr>
-        <td colspan="6"></td>
-        <td>Total Costo:</td>
-        <td>${totalCosto.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-    </tr>
-    <tr>
-        <td colspan="6"></td>
-        <td>Total Neto:</td>
-        <td>${(totalVenta + data.data.profit_carrier_p).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-    </tr>
-`;
+            <tr>
+                <td colspan="6"></td>
+                <td>Costo de Envio:</td>
+                <td>${data.data.profit_carrier_p.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+            </tr>
+            <tr>
+                <td colspan="6"></td>
+                <td>Ganancia:</td>
+                <td>${data.data.profit_dropshipper_p.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+            </tr>
+            <tr>
+                <td colspan="6"></td>
+                <td>Total Costo:</td>
+                <td>${totalCosto.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+            </tr>
+            <tr>
+                <td colspan="6"></td>
+                <td>Total Neto:</td>
+                <td>${(totalVenta + data.data.profit_carrier_p).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+            </tr>
+        `;
 
             // Agrega los totales al final de la tabla
             productsTable.innerHTML += footerRow;
@@ -240,14 +252,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         break;
                 }
                 const row = `
-        <tr>
-            <td>${index + 1}</td>
-            <td>${new Date(event.createdAt).toLocaleString('es-CO')}</td>
-            <td>${statusText}</td>
-            <td>${event.carrier.name_carrier} ${event.carrier.last_name_carrier}</td>
-            <td>${event.comentary_sh}</td>
-        </tr>
-    `;
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${new Date(event.createdAt).toLocaleString('es-CO')}</td>
+                    <td>${statusText}</td>
+                    <td>${event.carrier.name_carrier} ${event.carrier.last_name_carrier}</td>
+                    <td>${event.comentary_sh}</td>
+                </tr>
+            `;
                 historyTable.innerHTML += row;
             });
             //estructura condicional para verificar si esta entregado o cancelado
@@ -276,3 +288,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+// Añadir evento al botón regresar si es necesario
+document.getElementById('btnEdit').addEventListener('click', function () {
+    window.location = "./edit_package.html?id_p=" + id_p;
+});

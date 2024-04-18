@@ -368,5 +368,5 @@ function detallePaquete(id_p) {
 
 //Metodo para editar el paquete.
 function editarPaquete(id_p) {
-    console.log("editar")
+    window.location = "./edit_package.html?id_p=" + id_p;
 }

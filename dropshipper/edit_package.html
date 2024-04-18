@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DP paky</title>
+    <title>EP paky</title>
     <!-- Style CSS Customer -->
-    <link rel="stylesheet" href="assets/css/detail_package.css">
+    <link rel="stylesheet" href="assets/css/edit_package.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <!-- Import font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
@@ -45,51 +45,102 @@
         <div class="header">
             <h2><i class="fa-solid fa-wallet"></i> <span class="wallet"></span></h2>
         </div>
-        <h2>Detalles del paquete <button type="button" id="btnEdit" class="enlaces"><i
-                    class="fa-regular fa-pen-to-square"></i></button></h2>
+        <h2>Editar paquete</h2>
         <div class="component">
             <div class="logo">
                 <img src="assets/images/pakylogo.svg" alt="">
             </div>
             <div class="content_timeline none" id="local">
                 <div class="timeline">
-                    <div class="circle" id="1"><p>Bodega Dropshipper</p></div>
-                    <div class="circle" id="7"><p>En camino al centro de distribución</p></div>
-                    <div class="circle" id="2"><p>Centro distribución</p></div>
-                    <div class="circle" id="5"><p>En Camino</p></div>
-                    <div class="circle" id="6"><p>Entregado</p></div>
+                    <div class="circle" id="1">
+                        <p>Bodega Dropshipper</p>
+                    </div>
+                    <div class="circle" id="7">
+                        <p>En camino al centro de distribución</p>
+                    </div>
+                    <div class="circle" id="2">
+                        <p>Centro distribución</p>
+                    </div>
+                    <div class="circle" id="5">
+                        <p>En Camino</p>
+                    </div>
+                    <div class="circle" id="6">
+                        <p>Entregado</p>
+                    </div>
                 </div>
             </div>
             <div class="content_timeline none" id="nacional">
                 <div class="timeline">
-                    <div class="circle" id="N1"><p>Bodega Dropshipper</p></div>
-                    <div class="circle" id="N7"><p>En camino al centro de distribución</p></div>
-                    <div class="circle" id="N2"><p>Centro distribución</p></div>
-                    <div class="circle" id="N3"><p>Bodega Dropshipper</p></div>
-                    <div class="circle" id="N4"><p>Bodega Dropshipper</p></div>
-                    <div class="circle" id="N5"><p>En Camino</p></div>
-                    <div class="circle" id="N6"><p>Entregado</p></div>
+                    <div class="circle" id="N1">
+                        <p>Bodega Dropshipper</p>
+                    </div>
+                    <div class="circle" id="N7">
+                        <p>En camino al centro de distribución</p>
+                    </div>
+                    <div class="circle" id="N2">
+                        <p>Centro distribución</p>
+                    </div>
+                    <div class="circle" id="N3">
+                        <p>Bodega Dropshipper</p>
+                    </div>
+                    <div class="circle" id="N4">
+                        <p>Bodega Dropshipper</p>
+                    </div>
+                    <div class="circle" id="N5">
+                        <p>En Camino</p>
+                    </div>
+                    <div class="circle" id="N6">
+                        <p>Entregado</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="content_info">
-            <div class="izq">
-                <p>Orden para:</p>
-                <p></p>
-                <p></p>
-                <p class="p_wpp"><i class="fa-brands fa-whatsapp"></i></p>
-                <p></p>
+        <form id="formDataCenter">
+            <div class="content_info">
+                <div class="izq">
+                    <p>Orden para:</p>
+                    <label for="">Nombre del Cliente:</label>
+                    <input type="text" name="name_client" value="">
+                    <label for="">Dirección del Cliente:</label>
+                    <input type="text" name="direction_client" value="">
+                    <label for="">Teléfono del Cliente:</label>
+                    <input type="text" name="phone_number_client" value="">
+                    <label for="">Email del Cliente:</label>
+                    <input type="email" name="email_client" value="">
+                </div>
+                <div class="der">
+                    <p>Orden:</p>
+                    <label for="">Número de orden:</label>
+                    <input type="text" name="orden_number" value="">
+                    <label for="">Fecha de creación:</label>
+                    <input type="text" name="order_date" value="">
+                    <label for="">Estado del Paquete:</label>
+                    <select name="status_p">
+                        <option value="0">CANCELADO</option>
+                        <option value="1">Bodega dropshipper</option>
+                        <option value="2">Bodega central origen</option>
+                        <option value="3">En camino entre bodegas centrales</option>
+                        <option value="4">En bodega central destino</option>
+                        <option value="5">En camino a entrega final</option>
+                        <option value="6">Entregado</option>
+                        <option value="7">En camino de bodega dropshipper a bodega central</option>
+                    </select>
+                    <label for="">Número de Guía:</label>
+                    <input type="text" name="guide_number" value="">
+                    <label for="">Nombre del Transportista:</label>
+                    <input type="text" name="carrier_name" value="">
+                    <label for="">Tipo de Pago:</label>
+                    <select name="type_of_shipping">
+                        <option value="0">SIN RECAUDO</option>
+                        <option value="1">CON RECAUDO</option>
+                    </select>
+                </div>
             </div>
-            <div class="der">
-                <p class="orden"></p>
-                <p></p>
-                <p></p>
-                <p></p>
-                <p></p>
-                <p></p>
-                <p class="extra"></p>
+            <div class="form-group">
+                <button type="submit" id="btnEditar">Guardar</button>
+                <button type="button" id="btnRegresar">Recargar</button>
             </div>
-        </div>
+        </form>
         <div class="address">
             <div class="izq">
                 <p></p>
@@ -100,47 +151,15 @@
                 <p></p>
             </div>
         </div>
-        <div class="table-wrapper">
-            <h2>Productos del paquete</h2>
-            <table class="display">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre producto</th>
-                        <th>Descripción</th>
-                        <th>Dimensiones</th>
-                        <th>Precio costo</th>
-                        <th>Precio venta</th>
-                        <th>Cant.</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los datos se agregarán aquí dinámicamente -->
-                </tbody>
-            </table>
-        </div>
-        <div class="table-wrapper">
-            <h2>Historial de Estados</h2>
-            <table class="history" class="display">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Fecha del estado</th>
-                        <th>Estado</th>
-                        <th>Transportista</th>
-                        <th>Comentarios</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los datos se agregarán aquí dinámicamente -->
-                </tbody>
-            </table>
+        <div class="content_products">
+            <form id="formDataCenter" class="formDataCenter">
+                <div id="component_products" class="component_products"></div>
+            </form>
         </div>
     </div>
     <!-- Import js personalized-->
     <script src="config/config.js"></script>
-    <script src="js/detail_package.js"></script>
+    <script src="js/edit_package.js"></script>
     <script src="js/logout.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
