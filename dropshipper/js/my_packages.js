@@ -43,6 +43,9 @@ document.addEventListener('DOMContentLoaded', function () {
             data.data.forEach(item => {
                 let statusText;
                 switch (item.status_p) {
+                    case 0:
+                        statusText = "<span style='color: #BB2124'>CANCELADO</span>";
+                        break;
                     case 1:
                         statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
                         break;
@@ -139,6 +142,9 @@ document.getElementById("form").addEventListener('submit', function (event) {
             data.data.forEach(item => {
                 let statusText;
                 switch (item.status_p) {
+                    case 0:
+                        statusText = "<span style='color: #BB2124'>CANCELADO</span>";
+                        break;
                     case 1:
                         statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
                         break;

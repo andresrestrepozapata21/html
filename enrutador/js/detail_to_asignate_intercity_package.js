@@ -148,26 +148,19 @@ function cargarTablaPaquetes(paquetes, paquetes_asignados, capacidadVehiculo) {
 function getStatusText(status) {
     switch (status) {
         case 1:
-            return "<span style='color: #BB2124'>Bodega dropshipper</span>";
-
+            return statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
         case 2:
-            return "<span style='color: #5BC0DE'>Bodega central origen</span>";
-
+            return statusText = "<span style='color: #5BC0DE'>Bodega central origen</span>";
         case 3:
-            return "<span style='color: #F0AD4E'>En camino entre bodegas centrales</span>";
-
+            return statusText = "<span style='color: #F0AD4E'>En camino entre bodegas centrales</span>";
         case 4:
-            return "<span style='color: #5BC0DE'>En bodega central destino</span>";
-
+            return statusText = "<span style='color: #5BC0DE'>En bodega central destino</span>";
         case 5:
-            return "<span style='color: #F0AD4E'>En camino a entrega final</span>";
-
+            return statusText = "<span style='color: #F0AD4E'>En camino a entrega final</span>";
         case 6:
-            return "<span style='color: #22BB33'>Entregado</span>";
-
+            return statusText = "<span style='color: #22BB33'>Entregado</span>";
         case 7:
-            return "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
-
+            return statusText = "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
         default:
             return "";
     }

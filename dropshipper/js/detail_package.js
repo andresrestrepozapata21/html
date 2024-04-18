@@ -42,10 +42,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Replace 'login.html' with the actual URL of your login page
                 window.location.href = 'login.html';
             }
+            //Capturo el tipo de envio
+            let type_send = data.data.fk_id_tp_p;
             //capturo el status del paquete, el estado y el id de circulo tienen el mismo numero, por eso
             let status = data.data.status_p;
             //busco el id correcpondiente al stado y lo pinto con la clase active.
-            document.getElementById(status).classList.add('active');
+            if (status != 0 && status != 6) {
+                document.getElementById(status).classList.add('active');
+            } else if(status == 6){
+                document.getElementById(status).classList.add('entregadoStatus');
+            }
             //pongo los datos del cliente en la parte izquierda
             document.querySelector('.izq p:nth-child(2)').textContent = data.data.name_client_p;
             document.querySelector('.izq p:nth-child(3)').textContent = data.data.direction_client_p;
@@ -78,6 +84,9 @@ document.addEventListener('DOMContentLoaded', function () {
             //estructura para validar el estado del paquete y mostrar algo bonito
             let statusText;
             switch (data.data.status_p) {
+                case 0:
+                    statusText = "CANCELADO";
+                    break;
                 case 1:
                     statusText = "Bodega dropshipper";
                     break;
@@ -103,8 +112,50 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelector('.der p:nth-child(3)').textContent = `Estado: ${statusText}`;
             //continuo colocando datos faciles
             document.querySelector('.der p:nth-child(4)').textContent = `Número de guia: ${data.data.guide_number_p}`;
-            document.querySelector('.der p:nth-child(5)').textContent = `Transportista: ${data.data.carrier.name_carrier} ${data.data.carrier.last_name_carrier}`;
+            //Estrucuta condicional por si no tiene transporitsta asignado
+            if (data.data.carrier != null) {
+                document.querySelector('.der p:nth-child(5)').textContent = `Transportista: ${data.data.carrier.name_carrier} ${data.data.carrier.last_name_carrier}`;
+            } else {
+                document.querySelector('.der p:nth-child(5)').textContent = `Transportista: N/A`;
+            }
+            // expongo eltipó de envio
             document.querySelector('.der p:nth-child(6)').textContent = `Tipo de envio: ${data.data.with_collection_p === 1 ? "CON RECAUDO" : "SIN RECAUDO"}`;
+            //Estructura condicional y creacion de los nodos correspondientes, si el tipo de envio del paquete es nacional se muestran las direcciones de las centrales, ciduda y departamento respectivo con el diseño mockup definido
+            if (type_send === 2) {
+                // Selecciona el elemento .izq .p_wpp
+                var elemento1 = document.querySelector('.address .izq p:nth-child(1)');
+                var elemento2 = document.querySelector('.address .izq p:nth-child(2)');
+                var elemento3 = document.querySelector('.address .der p:nth-child(1)');
+                var elemento4 = document.querySelector('.address .der p:nth-child(2)');
+                // Crea un elemento span 1
+                var span1 = document.createElement('span');
+                span1.classList.add('morado');
+                span1.textContent = `${data.data.store.city.central_warehouses[0].direction_cw}`;
+                elemento1.textContent = '';
+                elemento1.appendChild(document.createTextNode(`Dirección B.C Origen: `));
+                elemento1.appendChild(span1);
+                // Crea un elemento span 2
+                var span2 = document.createElement('span');
+                span2.classList.add('morado');
+                span2.textContent = `${data.data.city.central_warehouses[0].direction_cw}`;
+                elemento2.textContent = '';
+                elemento2.appendChild(document.createTextNode(`Dirección B.C Destino: `));
+                elemento2.appendChild(span2);
+                // Crea un elemento span 3
+                var span3 = document.createElement('span');
+                span3.classList.add('morado');
+                span3.textContent = `${data.data.store.city.name_city} - ${data.data.store.city.department.name_d}`;
+                elemento3.textContent = '';
+                elemento3.appendChild(document.createTextNode(`Ciudad Origen: `));
+                elemento3.appendChild(span3);
+                // Crea un elemento span 4
+                var span4 = document.createElement('span');
+                span4.classList.add('morado');
+                span4.textContent = `${data.data.city.name_city} - ${data.data.city.department.name_d}`;
+                elemento4.textContent = '';
+                elemento4.appendChild(document.createTextNode(`Ciudad Destino: `));
+                elemento4.appendChild(span4);
+            }
             //aqui vamos a rellenar los data tables
             const productsTable = document.querySelector('.table-wrapper table tbody');
             productsTable.innerHTML = ''; // Clear existing rows
@@ -158,10 +209,13 @@ document.addEventListener('DOMContentLoaded', function () {
             //Ahora el dataTable del historial
             const historyTable = document.querySelector('.history tbody');
             historyTable.innerHTML = ''; // Clear existing rows
-
+            let fecha_de_entrega;
             data.data_history.forEach((event, index) => {
                 let statusText;
                 switch (event.status_sh) {
+                    case 0:
+                        statusText = "<span style='color: #BB2124'>CANCELADO</span>";
+                        break;
                     case 1:
                         statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
                         break;
@@ -179,6 +233,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         break;
                     case 6:
                         statusText = "<span style='color: #22BB33'>Entregado</span>";
+                        fecha_de_entrega = event.createdAt
                         break;
                     case 7:
                         statusText = "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
@@ -195,6 +250,24 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
                 historyTable.innerHTML += row;
             });
+            //estructura condicional para verificar si esta entregado o cancelado
+            if (status === 0) {
+                // Selecciona el elemento .izq .p_wpp
+                var elemento = document.querySelector('.der .extra');
+                // Crea un elemento
+                var span = document.createElement('span');
+                span.classList.add('cancelado');
+                span.textContent = `CANCELADO`
+                elemento.appendChild(span);
+            } else if (status === 6) {
+                // Selecciona el elemento .izq .p_wpp
+                var elemento = document.querySelector('.der .extra');
+                // Crea un elemento
+                var span = document.createElement('span');
+                span.classList.add('entregado');
+                span.textContent = `Fecha de entrega: ${new Date(fecha_de_entrega).toLocaleString('es-CO')}`
+                elemento.appendChild(span);
+            }
 
         })
         .catch(error => {
