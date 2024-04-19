@@ -3,13 +3,18 @@ const token = localStorage.getItem('token');
 const id_dropshipper = localStorage.getItem('id_dropshipper');
 const wallet = localStorage.getItem('wallet');
 const eliminado = localStorage.getItem('eliminado');
+const confirmado = localStorage.getItem('confirmado');
 
 // cuando se carga la pantalla
 document.addEventListener('DOMContentLoaded', function () {
     if (eliminado) {
         // Llamar a showToast
-        showToast('Paquete eliminado correctamente.');
+        showToast('Paquete eliminado existosamente.');
         localStorage.removeItem('eliminado');
+    } else if (confirmado) {
+        // Llamar a showToast
+        showToast('Paquete confirmado existosamente.');
+        localStorage.removeItem('confirmado');
     }
     // Formatear el valor como moneda
     let valorFormateado = wallet.toLocaleString('es-CO', {
@@ -308,6 +313,9 @@ function verificarSeleccionPaquetes() {
                     window.location.href = 'login.html';
                 }
                 if (data.result === 1) {
+                    // Save the token and id user router to local storage
+                    localStorage.setItem('confirmado', true);
+                    // Recargo la pagina
                     window.location.reload();
                 }
             })

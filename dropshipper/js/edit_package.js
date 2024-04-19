@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div class="form-row1">
                             <div class="form-group1">
                                 <label>Producto</label>
-                                <input type="hidden" id="id_product_pp_${index}" name="id_product_pp" value="${product.product.id_product}">
+                                <input type="hidden" id="id_product_pp_${index}" name="id_product_pp" value="${product.id_pp}">
                                 <input type="text" id="info" name="info" style="cursor: not-allowed; text-align: center;" value="${product.product.id_product} - ${product.product.description_product} - ${product.product.size_product} - ${product.product.price_sale_product.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}" readonly>
                             </div>
                             <div class="form-group1">
@@ -271,7 +271,6 @@ document.getElementById('formDataCenterProducts').addEventListener('submit', fun
 
     // Obtener todos los elementos que tienen IDs dinámicos de productos
     const productInputs = document.querySelectorAll('[id^="id_product_pp_"]');
-
     // Iterar sobre cada elemento de producto
     productInputs.forEach(productInput => {
         const id_pp = productInput.value; // Obtener el ID del producto

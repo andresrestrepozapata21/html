@@ -3,9 +3,14 @@ const urlParams = new URLSearchParams(window.location.search);
 const id_carrier = urlParams.get('id_carrier');
 const token = localStorage.getItem('token');
 const id_ru = localStorage.getItem('id_ru');
-
+const asignado = localStorage.getItem('asignado');
 // Inicializo la pagina
 document.addEventListener('DOMContentLoaded', function () {
+    if (asignado) {
+        // Llamar a showToast
+        showToast('Paquetes asignados existosamente.');
+        localStorage.removeItem('asignado');
+    }
     //Llamo el metodo cargar datos del servidor
     cargarDatosDelServidor();
 
@@ -141,7 +146,6 @@ function cargarTablaPaquetes(paquetes, paquetes_asignados, capacidadVehiculo) {
         dataTablePackages.row.add(row).draw();
     });
 }
-
 // Función para obtener el texto de estado
 function getStatusText(status) {
     switch (status) {
@@ -159,7 +163,6 @@ function getStatusText(status) {
             return "";
     }
 }
-
 // Función para obtener el texto de recaudo
 function getWithCollectionText(withCollection) {
     switch (withCollection) {
@@ -202,7 +205,8 @@ function enviarDatosDeAsignacion() {
         .then(data => {
             console.log(data);
             if (data.result = 1) {
-                alert('Paquetes asignados correctamente.');
+                // Save the token and id user router to local storage
+                localStorage.setItem('asignado', true);
                 window.location.reload();
             }
         })
@@ -281,3 +285,31 @@ function cerrarModal() {
 }
 // Evento que captura el clic de la X para cerrar el modal de los productos del paquete
 document.querySelector('.close').addEventListener('click', cerrarModal);
+
+// funion para mostrar notificaiciones toast
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    const toastContainer = document.getElementById('toast-container');
+    if (toastContainer) {
+        toastContainer.appendChild(toast);
+    }
+
+    // Agrega la clase para mostrar el toast
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100); // Pequeño retraso antes de mostrar el toast
+
+    // Ocultar el toast después de 3 segundos
+    setTimeout(() => {
+        toast.classList.remove('show');
+
+        // Espera a que la transición termine para eliminar el toast
+        toast.addEventListener('transitionend', () => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        });
+    }, 3000);
+}
