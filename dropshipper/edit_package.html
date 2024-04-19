@@ -53,16 +53,16 @@
             <div class="content_timeline none" id="local">
                 <div class="timeline">
                     <div class="circle" id="1">
-                        <p>Bodega Dropshipper</p>
+                        <p>En Bodega Dropshipper</p>
                     </div>
                     <div class="circle" id="7">
                         <p>En camino al centro de distribución</p>
                     </div>
-                    <div class="circle" id="2">
-                        <p>Centro distribución</p>
+                    <div class="circle" id="4">
+                        <p>En centro de distribución</p>
                     </div>
                     <div class="circle" id="5">
-                        <p>En Camino</p>
+                        <p>En camino a entrega final</p>
                     </div>
                     <div class="circle" id="6">
                         <p>Entregado</p>
@@ -72,22 +72,22 @@
             <div class="content_timeline none" id="nacional">
                 <div class="timeline">
                     <div class="circle" id="N1">
-                        <p>Bodega Dropshipper</p>
+                        <p>En Bodega Dropshipper</p>
                     </div>
                     <div class="circle" id="N7">
-                        <p>En camino al centro de distribución</p>
+                        <p>En camino al centro de distribución origen</p>
                     </div>
                     <div class="circle" id="N2">
-                        <p>Centro distribución</p>
+                        <p>En centro de distribución origen</p>
                     </div>
                     <div class="circle" id="N3">
-                        <p>Bodega Dropshipper</p>
+                        <p>En camino entre centrales</p>
                     </div>
                     <div class="circle" id="N4">
-                        <p>Bodega Dropshipper</p>
+                        <p>En centro de distribucion destino</p>
                     </div>
                     <div class="circle" id="N5">
-                        <p>En Camino</p>
+                        <p>En Camino a entrega final</p>
                     </div>
                     <div class="circle" id="N6">
                         <p>Entregado</p>
@@ -95,50 +95,55 @@
                 </div>
             </div>
         </div>
-        <form id="formDataCenter">
+        <form id="formDataCenterPackage">
             <div class="content_info">
                 <div class="izq">
                     <p>Orden para:</p>
                     <label for="">Nombre del Cliente:</label>
-                    <input type="text" name="name_client" value="">
+                    <input type="hidden" name="id_p" id="id_p" value="">
+                    <input type="text" name="name_client" id="name_client" value="">
                     <label for="">Dirección del Cliente:</label>
-                    <input type="text" name="direction_client" value="">
+                    <input type="text" name="direction_client" id="direction_client" value="">
                     <label for="">Teléfono del Cliente:</label>
-                    <input type="text" name="phone_number_client" value="">
+                    <input type="text" name="phone_number_client" id="phone_number_client" value="">
                     <label for="">Email del Cliente:</label>
-                    <input type="email" name="email_client" value="">
+                    <input type="email" name="email_client" id="email_client" value="">
                 </div>
                 <div class="der">
                     <p>Orden:</p>
                     <label for="">Número de orden:</label>
-                    <input type="text" name="orden_number" value="">
+                    <input type="text" name="orden_number" id="orden_number" value="">
                     <label for="">Fecha de creación:</label>
-                    <input type="text" name="order_date" value="">
+                    <input type="date" name="order_date"id="order_date" value="">
                     <label for="">Estado del Paquete:</label>
-                    <select name="status_p">
-                        <option value="0">CANCELADO</option>
-                        <option value="1">Bodega dropshipper</option>
-                        <option value="2">Bodega central origen</option>
-                        <option value="3">En camino entre bodegas centrales</option>
-                        <option value="4">En bodega central destino</option>
-                        <option value="5">En camino a entrega final</option>
-                        <option value="6">Entregado</option>
-                        <option value="7">En camino de bodega dropshipper a bodega central</option>
+                    <select name="status_p" id="status_p">
+                        <option id="s0" value="0" class="none">CANCELADO</option>
+                        <option id="s1" value="1" class="none">En bodega dropshipper</option>
+                        <option id="s7" value="7" class="none">En camino de bodega dropshipper a bodega central</option>
+                        <option id="s2" value="2" class="none">En bodega central origen</option>
+                        <option id="s3" value="3" class="none">En camino entre bodegas centrales</option>
+                        <option id="s4" value="4" class="none">En bodega central destino</option>
+                        <option id="s5" value="5" class="none">En camino a entrega final</option>
+                        <option id="s6" value="6" class="none">Entregado</option>
                     </select>
                     <label for="">Número de Guía:</label>
-                    <input type="text" name="guide_number" value="">
+                    <input type="text" name="guide_number" id="guide_number" value="">
+
                     <label for="">Nombre del Transportista:</label>
-                    <input type="text" name="carrier_name" value="">
+                    <select name="carrier" id="carrier">
+                        <!--Aqui van los transportistas disponibles-->
+                    </select>
+
                     <label for="">Tipo de Pago:</label>
-                    <select name="type_of_shipping">
+                    <select name="type_of_shipping" id="type_of_shipping">
                         <option value="0">SIN RECAUDO</option>
                         <option value="1">CON RECAUDO</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" id="btnEditar">Guardar</button>
-                <button type="button" id="btnRegresar">Recargar</button>
+                <button type="submit" id="btnEditarPackage">Guardar</button>
+                <button type="button" id="btnRegresar">Regresar</button>
             </div>
         </form>
         <div class="address">
@@ -152,7 +157,7 @@
             </div>
         </div>
         <div class="content_products">
-            <form id="formDataCenter" class="formDataCenter">
+            <form id="formDataCenterProducts" class="formDataCenter">
                 <div id="component_products" class="component_products"></div>
             </form>
         </div>
