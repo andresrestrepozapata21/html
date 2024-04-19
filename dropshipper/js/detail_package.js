@@ -2,6 +2,8 @@
 const token = localStorage.getItem('token');
 const id_dropshipper = localStorage.getItem('id_dropshipper');
 const wallet = localStorage.getItem('wallet');
+const paqueteEditado = localStorage.getItem('paqueteEditado');
+const productosEditado = localStorage.getItem('productosEditado');
 // Obtener la URL actual
 // Crear un objeto URLSearchParams
 // Acceder al parámetro específico
@@ -10,6 +12,15 @@ const urlParams = new URLSearchParams(queryString);
 const id_p = urlParams.get('id_p');
 // cuando se carga la pantalla
 document.addEventListener('DOMContentLoaded', function () {
+    if (paqueteEditado) {
+        // Llamar a showToast
+        showToast('Paquete editado correctamente.');
+        localStorage.removeItem('paqueteEditado');
+    } else if(productosEditado){
+         // Llamar a showToast
+         showToast('Cantidad de productos editados correctamente.');
+         localStorage.removeItem('productosEditado');
+    }
     // Formatear el valor como moneda
     let valorFormateado = wallet.toLocaleString('es-CO', {
         style: 'currency',
@@ -46,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function () {
             let type_send = data.data.fk_id_tp_p;
             //capturo el status del paquete, el estado y el id de circulo tienen el mismo numero, por eso
             let status = data.data.status_p;
+            console.log(type_send)
+            console.log(status)
             //estructura condicional para saber que timline mostrar el local o nacional
             if (type_send == 1) {
                 document.getElementById('local').classList.remove('none');
@@ -286,9 +299,34 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error en la petición Fetch:', error);
         });
 });
-
-
 // Añadir evento al botón regresar si es necesario
 document.getElementById('btnEdit').addEventListener('click', function () {
     window.location = "./edit_package.html?id_p=" + id_p;
 });
+// funion para mostrar notificaiciones toast
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    const toastContainer = document.getElementById('toast-container');
+    if (toastContainer) {
+        toastContainer.appendChild(toast);
+    }
+
+    // Agrega la clase para mostrar el toast
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100); // Pequeño retraso antes de mostrar el toast
+
+    // Ocultar el toast después de 3 segundos
+    setTimeout(() => {
+        toast.classList.remove('show');
+
+        // Espera a que la transición termine para eliminar el toast
+        toast.addEventListener('transitionend', () => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        });
+    }, 3000);
+}

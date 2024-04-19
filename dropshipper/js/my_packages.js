@@ -2,9 +2,15 @@
 const token = localStorage.getItem('token');
 const id_dropshipper = localStorage.getItem('id_dropshipper');
 const wallet = localStorage.getItem('wallet');
+const eliminado = localStorage.getItem('eliminado');
 
 // cuando se carga la pantalla
 document.addEventListener('DOMContentLoaded', function () {
+    if (eliminado) {
+        // Llamar a showToast
+        showToast('Paquete eliminado correctamente.');
+        localStorage.removeItem('eliminado');
+    }
     // Formatear el valor como moneda
     let valorFormateado = wallet.toLocaleString('es-CO', {
         style: 'currency',
@@ -47,10 +53,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         statusText = "<span style='color: #BB2124'>CANCELADO</span>";
                         break;
                     case 1:
-                        statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
+                        statusText = "<span style='color: #BB2124'>En bodega dropshipper</span>";
                         break;
                     case 2:
-                        statusText = "<span style='color: #5BC0DE'>Bodega central origen</span>";
+                        statusText = "<span style='color: #5BC0DE'>En bodega central origen</span>";
                         break;
                     case 3:
                         statusText = "<span style='color: #F0AD4E'>En camino entre bodegas centrales</span>";
@@ -146,10 +152,10 @@ document.getElementById("form").addEventListener('submit', function (event) {
                         statusText = "<span style='color: #BB2124'>CANCELADO</span>";
                         break;
                     case 1:
-                        statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
+                        statusText = "<span style='color: #BB2124'>En bodega dropshipper</span>";
                         break;
                     case 2:
-                        statusText = "<span style='color: #5BC0DE'>Bodega central origen</span>";
+                        statusText = "<span style='color: #5BC0DE'>En bodega central origen</span>";
                         break;
                     case 3:
                         statusText = "<span style='color: #F0AD4E'>En camino entre bodegas centrales</span>";
@@ -349,6 +355,8 @@ function eliminarPaquete(id_p) {
                     window.location.href = 'login.html';
                 }
                 if (data.result === 1) {
+                    // Save the token and id user router to local storage
+                    localStorage.setItem('eliminado', true);
                     window.location.reload();
                 }
             })
@@ -369,4 +377,32 @@ function detallePaquete(id_p) {
 //Metodo para editar el paquete.
 function editarPaquete(id_p) {
     window.location = "./edit_package.html?id_p=" + id_p;
+}
+
+// funion para mostrar notificaiciones toast
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    const toastContainer = document.getElementById('toast-container');
+    if (toastContainer) {
+        toastContainer.appendChild(toast);
+    }
+
+    // Agrega la clase para mostrar el toast
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100); // Pequeño retraso antes de mostrar el toast
+
+    // Ocultar el toast después de 3 segundos
+    setTimeout(() => {
+        toast.classList.remove('show');
+
+        // Espera a que la transición termine para eliminar el toast
+        toast.addEventListener('transitionend', () => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        });
+    }, 3000);
 }

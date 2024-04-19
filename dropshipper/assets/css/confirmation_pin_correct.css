@@ -161,7 +161,7 @@ tbody tr:nth-child(odd) {
 
 /* Estilo para el encabezado de la tabla */
 th {
-    background-color: #892CFF;
+    background-color: #878787;
     color: white;
 }
 
@@ -217,42 +217,51 @@ th {
     padding: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
 /* Estilo general para los botones que solo muestran un ícono */
 button.enlaces {
-    background: none;       /* Sin fondo */
-    border: none;           /* Sin bordes */
-    color: inherit;         /* Hereda el color de texto del padre */
-    padding: 5px;           /* Espaciado interno para hacer clic más fácilmente */
-    cursor: pointer;        /* Cursor indica que es un elemento clickeable */
-    outline: none;          /* Sin contorno al hacer clic */
+    background: none;
+    /* Sin fondo */
+    border: none;
+    /* Sin bordes */
+    color: inherit;
+    /* Hereda el color de texto del padre */
+    padding: 5px;
+    /* Espaciado interno para hacer clic más fácilmente */
+    cursor: pointer;
+    /* Cursor indica que es un elemento clickeable */
+    outline: none;
+    /* Sin contorno al hacer clic */
 }
 
 button.enlaces:focus {
-    outline: none;          /* Elimina el contorno al estar enfocado (para accesibilidad, considera otra forma de indicar foco) */
+    outline: none;
+    /* Elimina el contorno al estar enfocado (para accesibilidad, considera otra forma de indicar foco) */
 }
 
 button.enlaces:hover,
 button.enlaces:focus {
     background: #eceaee;
-    border-radius: 3px; /* Opcional: un ligero cambio de fondo al pasar el mouse o al estar enfocado */
+    border-radius: 3px;
+    /* Opcional: un ligero cambio de fondo al pasar el mouse o al estar enfocado */
 }
 
 button.enlaces i {
     font-size: 12px;
-    color: #892CFF;        /* Tamaño del ícono */
+    color: #892CFF;
+    /* Tamaño del ícono */
 }
 
-.check{
+.check {
     cursor: pointer;
     margin: 0 5px;
 }
 
-.checked{
-        margin: 0 5px;
+.checked {
+    margin: 0 5px;
 }
 
 .component {
@@ -267,16 +276,44 @@ button.enlaces i {
 }
 
 .form-group {
-    flex: 1 1 25%;
-    box-sizing: border-box;
-    padding-right: 20px;
     margin-bottom: 15px;
 }
 
-/* Ajustes para el último elemento de cada fila para evitar el espacio extra a la derecha */
-.form-group:nth-child(4n) {
-    padding-right: 0;
+.btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.pin-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.pin-group .icon{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.pin-group .icon i{
+    font-size: 50px;
+    color: #FF9900;
+}
+
+.pin-group .text{
+    width: 100%;
+    text-align: center;
+}
+
+.pin-group .text p{
+    font-size: 20px;
+    color: #828282;
+}
+
 
 label {
     display: block;
@@ -284,57 +321,50 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="date"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: none;
-}
 
 .form-group button {
     padding: 10px 20px;
     border-radius: 5px;
     border: none;
-    background-color: #4CAF50; /* Verde */
+    background-color: #892CFF;
+    /* Verde */
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.form-group button:nth-child(2) {
-    margin-left: 10px;
-    background-color: #ba0000; /* rojo */
-}
-.form-group button:nth-child(3) {
-    margin-left: 10px;
-    background-color: #008CBA; /* Azul */
-}
-
 .form-group button:hover {
-    background-color: #45a049; /* Verde más oscuro */
+    background-color: #4c1891;
+    /* Verde más oscuro */
 }
 
-.form-group button:nth-child(2):hover {
-    background-color: #910101; /* Azul más oscuro */
-}
 
-.form-group button:nth-child(3):hover {
-    margin-left: 10px;
-    background-color: #007197; /* Azul */
-}
-
-#btnDescargar i{
+#btnDescargar i {
     margin-right: 5px;
 }
 
-.inputs{
+.inputs {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+}
+
+.componentInfo {
+    border-radius: 10px;
+    background-color: rgba(137, 44, 255, 0.1);
+    padding: 20px;
+    margin: 10px;
+}
+
+.form-groupInfo {
+    box-sizing: border-box;
+}
+
+.form-groupInfo p {
+    color: #797979;
 }
 
 #toast-container {

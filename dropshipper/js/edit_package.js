@@ -205,7 +205,6 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error en la petición Fetch:', error);
         });
 });
-
 // edit package button click event
 document.getElementById('formDataCenterPackage').addEventListener('submit', function (event) {
     // I drop default form behavior
@@ -254,7 +253,8 @@ document.getElementById('formDataCenterPackage').addEventListener('submit', func
         })
         .then(data => {
             if (data.result == 1) {
-                alert('Editado exitosamente');
+                // Save the token and id user router to local storage
+                localStorage.setItem('paqueteEditado', true);
                 // Redirect to home page
                 window.location = `./detail_package.html?id_p=${id_p}`;
             }
@@ -264,8 +264,7 @@ document.getElementById('formDataCenterPackage').addEventListener('submit', func
             console.error('Error de editar:', error.message);
         });
 });
-
-// edit package button click event
+// edit products package cuatity button click event
 document.getElementById('formDataCenterProducts').addEventListener('submit', function (event) {
     // I drop default form behavior
     event.preventDefault();
@@ -300,7 +299,8 @@ document.getElementById('formDataCenterProducts').addEventListener('submit', fun
         })
         .then(data => {
             if (data.result == 1) {
-                alert('Productos Editados Exitosamente');
+                // Save the token and id user router to local storage
+                localStorage.setItem('productosEditado', true);
                 // Redireccionar a la página de inicio
                 window.location = `./detail_package.html?id_p=${id_p}`;
             }
@@ -311,17 +311,19 @@ document.getElementById('formDataCenterProducts').addEventListener('submit', fun
         });
     });
 });
-
 // Añadir evento al botón regresar si es necesario
 document.getElementById('btnRegresar').addEventListener('click', function () {
     window.location = "./detail_package.html?id_p=" + id_p;
 });
-
+/*
+===================================================================
+                            Funciones
+===================================================================
+*/
 // Añadir evento al botón regresar si es necesario
 function regresar() {
     window.location = "./detail_package.html?id_p=" + id_p;
 };
-
 //obtener los carriers de la ciudad
 function obtenerCarrier(idCarrier, city) {
     // Make the HTTP request to log in

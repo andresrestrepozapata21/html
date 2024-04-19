@@ -161,7 +161,7 @@ tbody tr:nth-child(odd) {
 
 /* Estilo para el encabezado de la tabla */
 th {
-    background-color: #892CFF;
+    background-color: #878787;
     color: white;
 }
 
@@ -217,7 +217,7 @@ th {
     padding: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -284,7 +284,7 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="date"] {
+.form-group select, .form-group input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -335,29 +335,4 @@ input[type="date"] {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-}
-
-#toast-container {
-    position: fixed;
-    top: 40px;
-    right: 20px;
-    z-index: 9999;
-}
-
-.toast {
-    display: block;
-    background-color: #892CFF;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    opacity: 0;
-    transition: opacity 0.5s, transform 0.5s;
-    transform: translateX(100px);
-}
-
-.toast.show {
-    opacity: 1;
-    transform: translateX(0);
 }

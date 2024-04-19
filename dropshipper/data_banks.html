@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MP paky</title>
+    <title>DB paky</title>
     <!-- Style CSS Customer -->
-    <link rel="stylesheet" href="assets/css/my_packages.css">
+    <link rel="stylesheet" href="assets/css/data_banks.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <!-- Import font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
@@ -17,7 +17,7 @@
 </head>
 
 <body>
-
+    
     <div id="toast-container"></div>
 
     <div class="sidebar">
@@ -29,10 +29,10 @@
                 </div>
                 <div class="op2">
                     <h4 class="modulo">Paquetería</h4>
-                    <a href="my_packages.html" class="active"><i class="fa-solid fa-box"></i>Mis pedidos</a>
+                    <a href="my_packages.html"><i class="fa-solid fa-box"></i>Mis pedidos</a>
 
                     <h4 class="modulo">Configuración</h4>
-                    <a href="data_banks.html"><i class="fa-solid fa-money-bill"></i>Datos bancarios</a>
+                    <a href="data_banks.html" class="active"><i class="fa-solid fa-money-bill"></i>Datos bancarios</a>
 
                     <h4 class="modulo">Utilidades</h4>
                     <a href="payments.html"><i class="fa-solid fa-wallet"></i>Retiro de saldo</a>
@@ -47,26 +47,41 @@
         <div class="header">
             <h2><i class="fa-solid fa-wallet"></i> <span class="wallet"></span></h2>
         </div>
-        <h1>Mis Pedidos</h1>
+        <h1>Datos Bancarios</h1>
         <div class="component">
             <div class="info-section">
-                <h2>Filtro de Pedidos</h2>
+                <h2>Agregar cuenta bancaria</h2>
                 <form id="form">
                     <div class="inputs">
                         <div class="form-group">
-                            <label for="fechaInicio">Fecha Inicio:</label>
-                            <input type="date" id="fechaInicio" name="fechaInicio" required>
+                            <label for="numeroCuenta">Número de cuenta:</label>
+                            <input type="text" id="numeroCuenta" name="numeroCuenta" required>
                         </div>
                         <div class="form-group">
-                            <label for="fechaFin">Fecha Fin:</label>
-                            <input type="date" id="fechaFin" name="fechaFin" required>
+                            <label for="tipoCuenta">Tipo cuenta:</label>
+                            <select name="tipoCuenta" id="tipoCuenta" required>
+                                <option value="">Seleccionar Tipo Cuenta</option>
+                                <option value="Ahorros">Ahorros</option>
+                                <option value="Corriente">Corriente</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="banco">banco:</label>
+                            <select name="banco" id="banco" required>
+                                <option value="">Seleccionar Banco</option>
+                                <option value="Bancolombia">Bancolombia</option>
+                                <option value="Davivienda">Davivienda</option>
+                                <option value="Banco de Bogotá">Banco de Bogotá</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción:</label>
+                            <input type="text" id="descripcion" name="descripcion" required>
                         </div>
                     </div>
+                    <br>
                     <div class="form-group">
-                        <button type="submit" id="btnFiltrar">Filtrar</button>
-                        <button type="button" id="btnRegresar">Recargar</button>
-                        <button type="button" id="btnDescargar"><i class="fa-regular fa-file-excel"></i>Descargar
-                            Excel</button>
+                        <button type="submit" id="btnAgregar">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -75,15 +90,11 @@
             <table id="dataTable" class="display">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Orden</th>
-                        <th>Fecha de creación</th>
-                        <th>Bodega</th>
-                        <th>Cliente</th>
-                        <th>Tipo Paquete</th>
-                        <th>Estado del paquete</th>
-                        <th>Transportista</th>
-                        <th>Acciones</th>
+                        <th># Cuenta</th>
+                        <th>Tipo de Cuenta</th>
+                        <th>Banco</th>
+                        <th>Descripción</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,7 +105,7 @@
     </div>
     <!-- Import js personalized-->
     <script src="config/config.js"></script>
-    <script src="js/my_packages.js"></script>
+    <script src="js/data_banks.js"></script>
     <script src="js/logout.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>

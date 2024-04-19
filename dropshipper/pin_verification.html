@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MP paky</title>
+    <title>PV paky</title>
     <!-- Style CSS Customer -->
-    <link rel="stylesheet" href="assets/css/my_packages.css">
+    <link rel="stylesheet" href="assets/css/pin_verification.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <!-- Import font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
@@ -29,13 +29,13 @@
                 </div>
                 <div class="op2">
                     <h4 class="modulo">Paquetería</h4>
-                    <a href="my_packages.html" class="active"><i class="fa-solid fa-box"></i>Mis pedidos</a>
+                    <a href="my_packages.html"><i class="fa-solid fa-box"></i>Mis pedidos</a>
 
                     <h4 class="modulo">Configuración</h4>
                     <a href="data_banks.html"><i class="fa-solid fa-money-bill"></i>Datos bancarios</a>
 
                     <h4 class="modulo">Utilidades</h4>
-                    <a href="payments.html"><i class="fa-solid fa-wallet"></i>Retiro de saldo</a>
+                    <a href="payments.html" class="active"><i class="fa-solid fa-wallet"></i>Retiro de saldo</a>
                     <a href="portfolio_history.html"><i class="fa-solid fa-wallet"></i>Historial de cartera</a>
                 </div>
             </div>
@@ -47,54 +47,49 @@
         <div class="header">
             <h2><i class="fa-solid fa-wallet"></i> <span class="wallet"></span></h2>
         </div>
-        <h1>Mis Pedidos</h1>
+        <h1>Solicitar Retiros</h1>
+        <div class="componentInfo">
+            <div class="info-sectionInfo">
+                <div class="Info">
+                    <div class="form-groupInfo">
+                        <p>- Por razones de seguridad se ha enviado un codigo de 6 digitos via SMS al numero que tienes registrado en Paky.</p>
+                    </div>
+                    <br>
+                    <div class="form-groupInfo">
+                        <p>- Ingresa el código y hasclic en siguiente para efectuar la solicitud de retiro </p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="component">
             <div class="info-section">
-                <h2>Filtro de Pedidos</h2>
+                <h2>Ingresa el código que te enviamos por SMS:</h2>
+                <br>
+                <div class="btn">
+                    <p>En ocasiones el SMS puede tardar unos minutos en ser recepcionado y enviado, depende del operador que uses.</p>
+                </div>
                 <form id="form">
                     <div class="inputs">
-                        <div class="form-group">
-                            <label for="fechaInicio">Fecha Inicio:</label>
-                            <input type="date" id="fechaInicio" name="fechaInicio" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fechaFin">Fecha Fin:</label>
-                            <input type="date" id="fechaFin" name="fechaFin" required>
+                        <div class="form-group pin-group">
+                            <input type="text" inputmode="numeric" maxlength="1" class="pin-input" id="pin1" name="pin1" required>
+                            <input type="text" inputmode="numeric" maxlength="1" class="pin-input" id="pin2" name="pin2" required>
+                            <input type="text" inputmode="numeric" maxlength="1" class="pin-input" id="pin3" name="pin3" required>
+                            <input type="text" inputmode="numeric" maxlength="1" class="pin-input" id="pin4" name="pin4" required>
+                            <input type="text" inputmode="numeric" maxlength="1" class="pin-input" id="pin5" name="pin4" required>
+                            <input type="text" inputmode="numeric" maxlength="1" class="pin-input" id="pin6" name="pin4" required>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <button type="submit" id="btnFiltrar">Filtrar</button>
-                        <button type="button" id="btnRegresar">Recargar</button>
-                        <button type="button" id="btnDescargar"><i class="fa-regular fa-file-excel"></i>Descargar
-                            Excel</button>
+                    <br>
+                    <div class="form-group btn">
+                        <button type="submit" id="btnValidar">Validar</button>
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="table-wrapper">
-            <table id="dataTable" class="display">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Orden</th>
-                        <th>Fecha de creación</th>
-                        <th>Bodega</th>
-                        <th>Cliente</th>
-                        <th>Tipo Paquete</th>
-                        <th>Estado del paquete</th>
-                        <th>Transportista</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los datos se agregarán aquí dinámicamente -->
-                </tbody>
-            </table>
-        </div>
+        </div>        
     </div>
     <!-- Import js personalized-->
     <script src="config/config.js"></script>
-    <script src="js/my_packages.js"></script>
+    <script src="js/pin_verification.js"></script>
     <script src="js/logout.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
