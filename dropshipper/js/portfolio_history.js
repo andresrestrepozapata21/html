@@ -110,7 +110,8 @@ document.getElementById('btnDescargar').addEventListener('click', function (even
             URL.revokeObjectURL(url);
             // Llamar a showToast
             showToast('Reporte descargado correctamente.');
-
+            // Resetear el formulario después de una descarga exitosa
+            document.getElementById('form').reset();
         })
         .catch(error => {
             // Handle login errors

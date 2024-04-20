@@ -4,9 +4,11 @@ const id_dropshipper = localStorage.getItem('id_dropshipper');
 const wallet = localStorage.getItem('wallet');
 const eliminado = localStorage.getItem('eliminado');
 const confirmado = localStorage.getItem('confirmado');
+const recargado = localStorage.getItem('recargado');
 
 // cuando se carga la pantalla
 document.addEventListener('DOMContentLoaded', function () {
+    //estrutura condicional para mostrar los toast correspondientes
     if (eliminado) {
         // Llamar a showToast
         showToast('Paquete eliminado existosamente.');
@@ -15,6 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
         // Llamar a showToast
         showToast('Paquete confirmado existosamente.');
         localStorage.removeItem('confirmado');
+    } else if (recargado) {
+        // Llamar a showToast
+        showToast('Tabla recargada existosamente.');
+        localStorage.removeItem('recargado');
     }
     // Formatear el valor como moneda
     let valorFormateado = wallet.toLocaleString('es-CO', {
@@ -203,6 +209,8 @@ document.getElementById("form").addEventListener('submit', function (event) {
                     `
                 ]).draw();
             });
+            //llamo mi notificacion toast
+            showToast("Tabla filtrada existosamente.")
         })
         .catch(error => {
             // Handle login errors
@@ -263,6 +271,10 @@ document.getElementById('btnDescargar').addEventListener('click', function (even
             a.click();
             // Libera el URL de objeto cuando ya no se necesite
             URL.revokeObjectURL(url);
+            //Muestro el toast correspondiente
+            showToast('Descarga existosa.');
+            // Resetear el formulario después de una descarga exitosa
+            document.getElementById('form').reset();
         })
         .catch(error => {
             // Handle login errors
@@ -272,6 +284,8 @@ document.getElementById('btnDescargar').addEventListener('click', function (even
 
 // Añadir evento al botón regresar si es necesario
 document.getElementById('btnRegresar').addEventListener('click', function () {
+    // Save the token and id user router to local storage
+    localStorage.setItem('recargado', true);
     window.location.reload();
 });
 

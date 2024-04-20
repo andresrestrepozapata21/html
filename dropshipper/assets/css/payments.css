@@ -336,3 +336,28 @@ label {
     align-items: center;
     margin-top: 20px;
 }
+
+#toast-container {
+    position: fixed;
+    top: 40px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    display: block;
+    background-color: #892CFF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.5s;
+    transform: translateX(100px);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}

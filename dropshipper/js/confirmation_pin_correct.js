@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // To asignate wallet value
     walletElement.textContent = valorFormateado;
 
+    // Ejemplo de cómo llamar a showToast
+    showToast('Solicitud validadada con exito.');
 });
 
 // Añadir evento al botón regresar si es necesario
@@ -47,6 +49,3 @@ function showToast(message) {
         });
     }, 3000);
 }
-
-// Ejemplo de cómo llamar a showToast
-showToast('Solicitud validadada con exito.');

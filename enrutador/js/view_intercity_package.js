@@ -61,8 +61,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     item.direction_client_p,
                     item.createdAt.slice(0, 19).replace("T", " "),
                     item.with_collection_p ? "Sí" : "No",
-                    item.profit_carrier_p,
-                    item.total_price_p,
+                    item.profit_carrier_p.toLocaleString('es-CO', {
+                        style: 'currency',
+                        currency: 'COP'
+                    }),
+                    item.total_price_p.toLocaleString('es-CO', {
+                        style: 'currency',
+                        currency: 'COP'
+                    }),
                     statusText,
                     `<a href="#" class="show-modal" data-id="${item.id_p}">Ver Productos</a>`
                 ]).draw();
@@ -100,14 +106,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Procesar los datos y llenar la tabla de productos del paquete
                 data.data.forEach(item => {
                     item.package_products.forEach(product => {
+                        let total = parseInt(product.product.price_sale_product) * parseInt(product.cuantity_pp);
                         productTable.row.add([
                             product.product.id_product,
                             product.product.name_product,
                             product.product.description_product,
+                            product.product.size_product,
                             product.cuantity_pp,
-                            product.product.price_sale_product,
-                            product.product.price_cost_product,
-                            product.product.size_product
+                            product.product.price_sale_product.toLocaleString('es-CO', {
+                                style: 'currency',
+                                currency: 'COP'
+                            }),
+                            total.toLocaleString('es-CO', {
+                                style: 'currency',
+                                currency: 'COP'
+                            })
                         ]).draw();
                     });
                 });

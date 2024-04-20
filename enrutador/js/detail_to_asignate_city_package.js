@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
         enviarDatosDeAsignacion();
     });
 });
+// Evento que captura el clic de la X para cerrar el modal de los productos del paquete
+document.querySelector('.close').addEventListener('click', cerrarModal);
 // metodo para cargar los detalles de la pagina
 async function cargarDatosDelServidor() {
     const url = window.myAppConfig.production + "/routerUser/getDetailAsignate";
@@ -231,20 +233,27 @@ function mostrarDetallePaquete(idPaquete) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            //todo el codigo para insertar los datos en la tabla del modal
             const productTable = document.getElementById('productTable').getElementsByTagName('tbody')[0];
-
+            //recorro y cargo los datos correspondients
             data.data.forEach((item) => {
                 item.package_products.forEach(product => {
                     const tr = document.createElement('tr');
+                    let total = parseInt(product.product.price_sale_product) * parseInt(product.cuantity_pp);
                     tr.innerHTML = `
                         <td>${product.product.id_product}</td>
                         <td>${product.product.name_product}</td>
                         <td>${product.product.description_product}</td>
-                        <td>${product.cuantity_pp}</td>
-                        <td>${product.product.price_sale_product}</td>
-                        <td>${product.product.price_cost_product}</td>
                         <td>${product.product.size_product}</td>
+                        <td>${product.cuantity_pp}</td>
+                        <td>${product.product.price_sale_product.toLocaleString('es-CO', {
+                            style: 'currency',
+                            currency: 'COP'
+                        })}</td>
+                        <td>${total.toLocaleString('es-CO', {
+                            style: 'currency',
+                            currency: 'COP'
+                        })}</td>
                     `;
                     productTable.appendChild(tr);
                 });
@@ -283,9 +292,6 @@ function abrirModal() {
 function cerrarModal() {
     document.getElementById('modal').style.display = 'none';
 }
-// Evento que captura el clic de la X para cerrar el modal de los productos del paquete
-document.querySelector('.close').addEventListener('click', cerrarModal);
-
 // funion para mostrar notificaiciones toast
 function showToast(message) {
     const toast = document.createElement('div');
