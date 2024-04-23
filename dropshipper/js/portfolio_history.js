@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Replace 'login.html' with the actual URL of your login page
                 window.location.href = 'login.html';
             }
+            console.log(data)
             // Procesar los datos y llenar la tabla
             const dataTable = $('#dataTable').DataTable();
             // ciclo para ver el estado del paquete y mostrarlo en color

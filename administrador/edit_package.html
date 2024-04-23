@@ -27,14 +27,17 @@
                 </div>
                 <div class="op2">
                     <h4 class="modulo">Paquetería</h4>
-                    <a href="my_packages.html"><i class="fa-solid fa-box"></i>Mis pedidos</a>
+                    <a href="my_city_packages.html" class="active"><i class="fa-solid fa-box"></i>Paquetes Locales</a>
+                    <a href="my_nacional_packages.html"><i class="fa-solid fa-box"></i>Paquetes Nacionales</a>
 
-                    <h4 class="modulo">Configuración</h4>
-                    <a href="data_banks.html"><i class="fa-solid fa-money-bill"></i>Datos bancarios</a>
+                    <h4 class="modulo">Transportistas</h4>
+                    <a href=""><i class="fa-regular fa-address-card"></i>Peticiones de Ingreso</a>
+                    <a href=""><i class="fa-solid fa-car"></i>Listado de Transportistas</a>
+                    <a href=""><i class="fa-solid fa-wallet"></i>Pagos Transportistas</a>
 
-                    <h4 class="modulo">Utilidades</h4>
-                    <a href="payments.html"><i class="fa-solid fa-wallet"></i>Retiro de saldo</a>
-                    <a href="portfolio_history.html"><i class="fa-solid fa-wallet"></i>Historial de cartera</a>
+                    <h4 class="modulo">Drosphippers</h4>
+                    <a href=""><i class="fa-solid fa-user"></i>Listado Dropshippers</a>
+                    <a href=""><i class="fa-solid fa-wallet"></i>Pagos Dropshippers</a>
                 </div>
             </div>
         </div>
@@ -43,7 +46,8 @@
 
     <div class="content">
         <div class="header">
-            <h2><i class="fa-solid fa-wallet"></i> <span class="wallet"></span></h2>
+            <h2><i class="fa-solid fa-car"></i> <span class="wallet1"></span></h2>
+            <h2><i class="fa-solid fa-user"></i> <span class="wallet2"></span></h2>
         </div>
         <h2 class="tittle">Editar paquete</h2>
         <div class="component">
@@ -130,7 +134,7 @@
                     <input type="text" name="guide_number" id="guide_number" value="">
 
                     <label for="">Nombre del Transportista:</label>
-                    <select name="carrier" id="carrier" disabled>
+                    <select name="carrier" id="carrier">
                         <!--Aqui van los transportistas disponibles-->
                     </select>
 
@@ -172,9 +176,9 @@
         // Verification sesion active
         function checkSession() {
             const token = localStorage.getItem('token');
-            const id_dropshipper = localStorage.getItem('id_dropshipper');
+            const id_manager = localStorage.getItem('id_manager');
 
-            if (!token || !id_dropshipper) {
+            if (!token || !id_manager) {
                 // redirection login if sesion non existing
                 window.location.href = 'login.html';
             }
