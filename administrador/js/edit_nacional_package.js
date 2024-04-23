@@ -264,7 +264,7 @@ document.getElementById('formDataCenterPackage').addEventListener('submit', func
                 // Save the token and id user router to local storage
                 localStorage.setItem('paqueteEditado', true);
                 // Redirect to home page
-                window.location = `./detail_package.html?id_p=${id_p}`;
+                window.location = `./detail_nacional_package.html?id_p=${id_p}`;
             }
         })
         .catch(error => {
@@ -309,7 +309,7 @@ document.getElementById('formDataCenterProducts').addEventListener('submit', fun
                 // Save the token and id user router to local storage
                 localStorage.setItem('productosEditado', true);
                 // Redireccionar a la página de inicio
-                window.location = `./detail_package.html?id_p=${id_p}`;
+                window.location = `./detail_nacional_package.html?id_p=${id_p}`;
             }
         })
         .catch(error => {
@@ -320,7 +320,7 @@ document.getElementById('formDataCenterProducts').addEventListener('submit', fun
 });
 // Añadir evento al botón regresar si es necesario
 document.getElementById('btnRegresar').addEventListener('click', function () {
-    window.location = "./detail_package.html?id_p=" + id_p;
+    window.location = "./detail_nacional_package.html?id_p=" + id_p;
 });
 /*
 ===================================================================
@@ -329,20 +329,17 @@ document.getElementById('btnRegresar').addEventListener('click', function () {
 */
 // Añadir evento al botón regresar si es necesario
 function regresar() {
-    window.location = "./detail_package.html?id_p=" + id_p;
+    window.location = "./detail_nacional_package.html?id_p=" + id_p;
 };
 //obtener los carriers de la ciudad
 function obtenerCarrier(idCarrier, city) {
     // Make the HTTP request to log in
-    fetch(window.myAppConfig.production + '/manager/getCarriersCity', {
-        method: 'POST',
+    fetch(window.myAppConfig.production + '/manager/getCarriers', {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-            city
-        })
+        }
     })
         .then(response => {
             // Check if the request was successful

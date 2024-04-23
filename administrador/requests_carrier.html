@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DP paky</title>
+    <title>RC paky</title>
     <!-- Style CSS Customer -->
-    <link rel="stylesheet" href="assets/css/detail_package.css">
+    <link rel="stylesheet" href="assets/css/requests_carrier.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <!-- Import font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
@@ -30,10 +30,10 @@
                 <div class="op2">
                     <h4 class="modulo">Paquetería</h4>
                     <a href="my_city_packages.html"><i class="fa-solid fa-box"></i>Paquetes Locales</a>
-                    <a href="my_nacional_packages.html" class="active"><i class="fa-solid fa-box"></i>Paquetes Nacionales</a>
+                    <a href="my_nacional_packages.html"><i class="fa-solid fa-box"></i>Paquetes Nacionales</a>
 
                     <h4 class="modulo">Transportistas</h4>
-                    <a href="requests_carrier.html"><i class="fa-regular fa-address-card"></i>Peticiones de Ingreso</a>
+                    <a href="requests_carrier.html" class="active"><i class="fa-regular fa-address-card"></i>Peticiones de Ingreso</a>
                     <a href="all_carries.html"><i class="fa-solid fa-car"></i>Listado de Transportistas</a>
                     <a href="payments_carriers.html"><i class="fa-solid fa-wallet"></i>Pagos Transportistas</a>
 
@@ -46,97 +46,22 @@
         <button id="cerrarSesion" class="btn-cerrar-sesion">Cerrar Sesión</button>
     </div>
 
-
     <div class="content">
         <div class="header">
             <h2><i class="fa-solid fa-car"></i> <span class="wallet1"></span></h2>
             <h2><i class="fa-solid fa-user"></i> <span class="wallet2"></span></h2>
         </div>
-        <h2 class="tittle">Detalles del paquete <button type="button" id="btnEdit" class="enlaces"><i
-                    class="fa-regular fa-pen-to-square"></i></button></h2>
-        <div class="component">
-            <div class="logo">
-                <img src="assets/images/pakylogo.svg" alt="">
-            </div>
-            <div class="content_timeline none" id="local">
-                <div class="timeline">
-                    <div class="circle" id="1"><p>En Bodega Dropshipper</p></div>
-                    <div class="circle" id="7"><p>En camino al centro de distribución</p></div>
-                    <div class="circle" id="4"><p>En centro de distribución</p></div>
-                    <div class="circle" id="5"><p>En camino a entrega final</p></div>
-                    <div class="circle" id="6"><p>Entregado</p></div>
-                </div>
-            </div>
-            <div class="content_timeline none" id="nacional">
-                <div class="timeline">
-                    <div class="circle" id="N1"><p>En Bodega Dropshipper</p></div>
-                    <div class="circle" id="N7"><p>En camino al centro de distribución origen</p></div>
-                    <div class="circle" id="N2"><p>En centro de distribución origen</p></div>
-                    <div class="circle" id="N3"><p>En camino entre centrales</p></div>
-                    <div class="circle" id="N4"><p>En centro de distribucion destino</p></div>
-                    <div class="circle" id="N5"><p>En Camino a entrega final</p></div>
-                    <div class="circle" id="N6"><p>Entregado</p></div>
-                </div>
-            </div>
-        </div>
-        <div class="content_info">
-            <div class="izq">
-                <p>Orden para:</p>
-                <p></p>
-                <p></p>
-                <p class="p_wpp"><i class="fa-brands fa-whatsapp"></i></p>
-                <p></p>
-            </div>
-            <div class="der">
-                <p class="orden"></p>
-                <p></p>
-                <p></p>
-                <p></p>
-                <p></p>
-                <p></p>
-                <p class="extra"></p>
-            </div>
-        </div>
-        <div class="address">
-            <div class="izq">
-                <p></p>
-                <p></p>
-            </div>
-            <div class="der">
-                <p></p>
-                <p></p>
-            </div>
-        </div>
         <div class="table-wrapper">
-            <h2>Productos del paquete</h2>
-            <table class="display">
+            <table id="dataTable" class="display">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nombre producto</th>
-                        <th>Descripción</th>
-                        <th>Dimensiones</th>
-                        <th>Precio costo</th>
-                        <th>Precio venta</th>
-                        <th>Cant.</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los datos se agregarán aquí dinámicamente -->
-                </tbody>
-            </table>
-        </div>
-        <div class="table-wrapper">
-            <h2>Historial de Estados</h2>
-            <table class="history" class="display">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Fecha del estado</th>
+                        <th>Cédula</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Tipo Transportista</th>
                         <th>Estado</th>
-                        <th>Transportista</th>
-                        <th>Comentarios</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -147,7 +72,7 @@
     </div>
     <!-- Import js personalized-->
     <script src="config/config.js"></script>
-    <script src="js/detail_package.js"></script>
+    <script src="js/requests_carrier.js"></script>
     <script src="js/logout.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
