@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MP paky</title>
+    <title>DPC paky</title>
     <!-- Style CSS Customer -->
-    <link rel="stylesheet" href="assets/css/my_city_packages.css">
+    <link rel="stylesheet" href="assets/css/detail_payment_carrier.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <!-- Import font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
@@ -29,19 +29,24 @@
                 </div>
                 <div class="op2">
                     <h4 class="modulo">Paquetería</h4>
-                    <a href="my_city_packages.html" class="active"><i class="fa-solid fa-box"></i>Paquetes Locales</a>
+                    <a href="my_city_packages.html"><i class="fa-solid fa-box"></i>Paquetes Locales</a>
                     <a href="my_nacional_packages.html"><i class="fa-solid fa-box"></i>Paquetes Nacionales</a>
 
                     <h4 class="modulo">Transportistas</h4>
-                    <a href="requests_carrier.html"><i class="fa-regular fa-address-card"></i>Peticiones de Ingreso</a>
-                    <a href="all_carries.html"><i class="fa-solid fa-car"></i>Listado de Transportistas</a>
-                    <a href="payments_carriers.html"><i class="fa-solid fa-wallet"></i>Pagos Transportistas</a>
-                    <a href="portfolio_carriers.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos Transportistas</a>
+                    <a href="requests_carrier.html"><i class="fa-regular fa-address-card"></i>Peticiones
+                        de Ingreso</a>
+                    <a href="all_carries.html"><i class="fa-solid fa-car"></i>Listado de
+                        Transportistas</a>
+                    <a href="payments_carriers.html" class="active"><i class="fa-solid fa-wallet"></i>Pagos
+                        Transportistas</a>
+                    <a href="portfolio_carriers.html"><i class="fa-regular fa-folder-open"></i></i>Historial Pagos
+                        Transportistas</a>
 
                     <h4 class="modulo">Drosphippers</h4>
                     <a href="list_dropshippers.html"><i class="fa-solid fa-user"></i>Listado Dropshippers</a>
                     <a href="payments_dropshippers.html"><i class="fa-solid fa-wallet"></i>Pagos Dropshippers</a>
-                    <a href="portfolio_dropshipper.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos Dropshipper</a>
+                    <a href="portfolio_dropshipper.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos
+                        Dropshipper</a>
                 </div>
             </div>
         </div>
@@ -53,19 +58,77 @@
             <h2><i class="fa-solid fa-car"></i> <span class="wallet1"></span></h2>
             <h2><i class="fa-solid fa-user"></i> <span class="wallet2"></span></h2>
         </div>
-        <h2 class="tittle">Gestión Paquetería Local</h2>
+        <h1>Detalles transportista <button type="button" id="btnEdit" class="enlaces"><i
+                    class="fa-regular fa-pen-to-square"></i></button></h1>
+        <div id="transportista-component" class="component">
+            <div class="info-section">
+                <h2>Información del Transportista</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo de Documento:</label>
+                        <input type="text" id="tipoDocumento" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Número de Documento:</label>
+                        <input type="text" id="numeroDocumento" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombres:</label>
+                        <input type="text" id="nombreTransportista" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellidos:</label>
+                        <input type="text" id="apellidoTransportista" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono:</label>
+                        <input type="text" id="telefonoTransportista" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="info-section">
+                <h2>Cuentas Registradas</h2>
+                <div class="content-form-row">
+                    <div class="cuentas">
+                        <h3 id="banco">Banco:</h3>
+                        <h3 id="nequi">Nequi:</h3>
+                        <h3 id="daviplata">DaviPlata:</h3>
+                    </div>
+                    <div class="tipoCuenta">
+                        <h3 id="tipocuenta">Tipo Cuenta:</h3>
+                    </div>
+                    <div class="numeroCuenta">
+                        <h3 id="numeroCuenta"># Cuenta:</h3>
+                    </div>
+                </div>
+                <div class="content-form-row-img">
+                    <div class="QR">
+                        <h3 id="QR">QR Cargado:</h3>
+                    </div>
+                    <div class="QRImg" id="QRImg">
+                        <!-- Imagen del QR -->
+                    </div>
+                </div>
+                <div class="form-row">
+                    <h3 id="montoSolicitado">Monto Solicitado:</h3>
+                </div>
+                <div class="acciones">
+                    <button type="submit" id="btnPagar">Pagar</button>
+                    <button type="button" id="btnRegresar">Regresar</button>
+                </div>
+            </div>
+        </div>
         <div class="table-wrapper">
-            <table id="dataTable" class="display">
+            <h2>Historial de Asignados</h2>
+            <table class="history" class="display">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Orden</th>
-                        <th>Fecha de creación</th>
-                        <th>Bodega</th>
-                        <th>Cliente</th>
-                        <th>Tipo Paquete</th>
-                        <th>Estado del paquete</th>
-                        <th>Transportista</th>
+                        <th># Orden</th>
+                        <th>Estado</th>
+                        <th>Nombres Cliente</th>
+                        <th>Teléfono Cliente</th>
+                        <th>Dirección</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -75,9 +138,20 @@
             </table>
         </div>
     </div>
+    <!-- Modal para mostrar los paquetes -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Evidencia</h2>
+            <p>jfdkafjd</p>
+            <div class="evidenceImg" id="evidenceImg">
+                <!-- Imagen del QR -->
+            </div>
+        </div>
+    </div>
     <!-- Import js personalized-->
     <script src="config/config.js"></script>
-    <script src="js/my_city_packages.js"></script>
+    <script src="js/detail_payment_carrier.js"></script>
     <script src="js/logout.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>

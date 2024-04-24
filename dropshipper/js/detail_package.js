@@ -228,9 +228,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${(totalVenta + data.data.profit_carrier_p).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
             </tr>
         `;
-
             // Agrega los totales al final de la tabla
             productsTable.innerHTML += footerRow;
+            
             //Ahora el dataTable del historial
             const historyTable = document.querySelector('.history tbody');
             historyTable.innerHTML = ''; // Clear existing rows

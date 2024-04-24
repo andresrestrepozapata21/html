@@ -134,7 +134,7 @@ h4 {
     margin-right: 20px;
 }
 
-.tittle {
+.content h1 {
     margin: 20px;
 }
 
@@ -224,7 +224,7 @@ th {
     padding: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -269,8 +269,28 @@ button.enlaces i {
     margin: 10px;
 }
 
+.informacion-transportista {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.component {
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 20px;
+    margin: 10px;
+}
+
 .info-section {
     margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .form-group {
@@ -291,7 +311,8 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="date"] {
+input[type="text"],
+textarea, select {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -299,49 +320,44 @@ input[type="date"] {
     resize: none;
 }
 
-.form-group button {
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    background-color: #4CAF50; /* Verde */
+input[type="text"][readonly],
+textarea[readonly] {
+    background-color: #f9f9f9;
+    cursor: not-allowed;
+}
+
+.capacidadVehiculo {
+    color: #892CFF;
+}
+
+.acciones button {
     color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    margin-top: 30px;
+    transition: 0.4s;
 }
 
-.form-group button:nth-child(2) {
-    margin-left: 10px;
-    background-color: #ba0000; /* rojo */
-}
-.form-group button:nth-child(3) {
-    margin-left: 10px;
-    background-color: #008CBA; /* Azul */
+#btnRegresar {
+    background-color: #bb2124;
 }
 
-.form-group button:hover {
-    background-color: #45a049; /* Verde más oscuro */
+#btnRegresar:hover {
+    background-color: #701416;
 }
 
-.form-group button:nth-child(2):hover {
-    background-color: #910101; /* Azul más oscuro */
+#btnEditar {
+    background-color: #4CAF50;
 }
 
-.form-group button:nth-child(3):hover {
-    margin-left: 10px;
-    background-color: #007197; /* Azul */
-}
-
-#btnDescargar i{
-    margin-right: 5px;
-}
-
-.inputs{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+#btnEditar:hover {
+    background-color: #2c6b2e;
 }
 
 #toast-container {
@@ -367,4 +383,30 @@ input[type="date"] {
 .toast.show {
     opacity: 1;
     transform: translateX(0);
+}
+
+#carrierDocuments {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#carrierDocuments img {
+    width: 600px;
+    height: 300px;
+    object-fit: contain;
+}
+
+#vehiculoDocuments {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#vehiculoDocuments img {
+    width: 600px;
+    height: 300px;
+    object-fit: contain;
 }

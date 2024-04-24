@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DP paky</title>
+    <title>RC paky</title>
     <!-- Style CSS Customer -->
-    <link rel="stylesheet" href="assets/css/detail_nacional_package.css">
+    <link rel="stylesheet" href="assets/css/edit_carrier.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <!-- Import font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
@@ -30,11 +30,12 @@
                 <div class="op2">
                     <h4 class="modulo">Paquetería</h4>
                     <a href="my_city_packages.html"><i class="fa-solid fa-box"></i>Paquetes Locales</a>
-                    <a href="my_nacional_packages.html" class="active"><i class="fa-solid fa-box"></i>Paquetes Nacionales</a>
+                    <a href="my_nacional_packages.html"><i class="fa-solid fa-box"></i>Paquetes Nacionales</a>
 
                     <h4 class="modulo">Transportistas</h4>
-                    <a href="requests_carrier.html"><i class="fa-regular fa-address-card"></i>Peticiones de Ingreso</a>
-                    <a href="all_carries.html"><i class="fa-solid fa-car"></i>Listado de Transportistas</a>
+                    <a href="requests_carrier.html"><i class="fa-regular fa-address-card"></i>Peticiones
+                        de Ingreso</a>
+                    <a href="all_carries.html" class="active"><i class="fa-solid fa-car"></i>Listado de Transportistas</a>
                     <a href="payments_carriers.html"><i class="fa-solid fa-wallet"></i>Pagos Transportistas</a>
                     <a href="portfolio_carriers.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos Transportistas</a>
 
@@ -48,108 +49,106 @@
         <button id="cerrarSesion" class="btn-cerrar-sesion">Cerrar Sesión</button>
     </div>
 
-
     <div class="content">
         <div class="header">
             <h2><i class="fa-solid fa-car"></i> <span class="wallet1"></span></h2>
             <h2><i class="fa-solid fa-user"></i> <span class="wallet2"></span></h2>
         </div>
-        <h2 class="tittle">Detalles del paquete <button type="button" id="btnEdit" class="enlaces"><i
-                    class="fa-regular fa-pen-to-square"></i></button></h2>
-        <div class="component">
-            <div class="logo">
-                <img src="assets/images/pakylogo.svg" alt="">
-            </div>
-            <div class="content_timeline none" id="local">
-                <div class="timeline">
-                    <div class="circle" id="1"><p>En Bodega Dropshipper</p></div>
-                    <div class="circle" id="7"><p>En camino al centro de distribución</p></div>
-                    <div class="circle" id="4"><p>En centro de distribución</p></div>
-                    <div class="circle" id="5"><p>En camino a entrega final</p></div>
-                    <div class="circle" id="6"><p>Entregado</p></div>
+        <h1>Editar Transportista</h1>
+        <div id="transportista-component" class="component">
+            <div class="info-section">
+                <h2>Información del Transportista</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo de Documento:</label>
+                        <select type="text" id="tipoDocumento" name="tipoDocumento" required>
+                            <!--Aqui van los tipos de documento-->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Número de Documento:</label>
+                        <input type="text" id="numeroDocumento" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombres:</label>
+                        <input type="text" id="nombreTransportista" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellidos:</label>
+                        <input type="text" id="apellidoTransportista" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono:</label>
+                        <input type="text" id="telefonoTransportista" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="text" id="emailTransportista" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo Transportista:</label>
+                        <select type="text" id="tipoCarrier" name="tipoCarrier" required>
+                            <!--Aqui van los tipos de documento-->
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="content_timeline none" id="nacional">
-                <div class="timeline">
-                    <div class="circle" id="N1"><p>En Bodega Dropshipper</p></div>
-                    <div class="circle" id="N7"><p>En camino al centro de distribución origen</p></div>
-                    <div class="circle" id="N2"><p>En centro de distribución origen</p></div>
-                    <div class="circle" id="N3"><p>En camino entre centrales</p></div>
-                    <div class="circle" id="N4"><p>En centro de distribucion destino</p></div>
-                    <div class="circle" id="N5"><p>En Camino a entrega final</p></div>
-                    <div class="circle" id="N6"><p>Entregado</p></div>
+            <div id="carrierDocuments">
+                <!--Aqui iran los documentos del transporitstas-->
+            </div>
+            <div class="info-section">
+                <h2>Información del Vehículo</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Placa:</label>
+                        <input type="text" id="placaTransportista" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Marca:</label>
+                        <input type="text" id="marcaTransportista" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Línea:</label>
+                        <input type="text" id="lineaTransportista" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Línea:</label>
+                        <input type="text" id="cilindrajeTransportista" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Modelo:</label>
+                        <input type="text" id="modeloTransportista" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Color:</label>
+                        <input type="text" id="colorTransportista" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Clase Vehículo:</label>
+                        <input type="text" id="claseTransportista" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Capacidad Paquetes:</label>
+                        <input type="text" id="capacidadVehiculo" class="capacidadVehiculo" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción:</label>
+                        <textarea id="descripcionVehiculo" required></textarea>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="content_info">
-            <div class="izq">
-                <p>Orden para:</p>
-                <p></p>
-                <p></p>
-                <p class="p_wpp"><i class="fa-brands fa-whatsapp"></i></p>
-                <p></p>
+            <div id="vehiculoDocuments">
+                <!--Aqui iran los documentos del vehiculo-->
             </div>
-            <div class="der">
-                <p class="orden"></p>
-                <p></p>
-                <p></p>
-                <p></p>
-                <p></p>
-                <p></p>
-                <p class="extra"></p>
+            <div class="acciones">
+                <button type="submit" id="btnEditar">Editar</button>
+                <button type="button" id="btnRegresar">Regresar</button>
             </div>
-        </div>
-        <div class="address">
-            <div class="izq">
-                <p></p>
-                <p></p>
-            </div>
-            <div class="der">
-                <p></p>
-                <p></p>
-            </div>
-        </div>
-        <div class="table-wrapper">
-            <h2>Productos del paquete</h2>
-            <table class="display">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre producto</th>
-                        <th>Descripción</th>
-                        <th>Dimensiones</th>
-                        <th>Precio costo</th>
-                        <th>Precio venta</th>
-                        <th>Cant.</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los datos se agregarán aquí dinámicamente -->
-                </tbody>
-            </table>
-        </div>
-        <div class="table-wrapper">
-            <h2>Historial de Estados</h2>
-            <table class="history" class="display">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Fecha del estado</th>
-                        <th>Estado</th>
-                        <th>Transportista</th>
-                        <th>Comentarios</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los datos se agregarán aquí dinámicamente -->
-                </tbody>
-            </table>
         </div>
     </div>
     <!-- Import js personalized-->
     <script src="config/config.js"></script>
-    <script src="js/detail_nacional_package.js"></script>
+    <script src="js/edit_carrier.js"></script>
     <script src="js/logout.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>

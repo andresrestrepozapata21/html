@@ -418,3 +418,7 @@ textarea[readonly] {
     height: 300px;
     object-fit: contain;
 }
+
+.tittle {
+    margin: 20px;
+}

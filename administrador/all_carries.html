@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MP paky</title>
+    <title>RC paky</title>
     <!-- Style CSS Customer -->
-    <link rel="stylesheet" href="assets/css/my_city_packages.css">
+    <link rel="stylesheet" href="assets/css/all_carriers.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <!-- Import font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
@@ -29,14 +29,14 @@
                 </div>
                 <div class="op2">
                     <h4 class="modulo">Paquetería</h4>
-                    <a href="my_city_packages.html" class="active"><i class="fa-solid fa-box"></i>Paquetes Locales</a>
+                    <a href="my_city_packages.html"><i class="fa-solid fa-box"></i>Paquetes Locales</a>
                     <a href="my_nacional_packages.html"><i class="fa-solid fa-box"></i>Paquetes Nacionales</a>
 
                     <h4 class="modulo">Transportistas</h4>
                     <a href="requests_carrier.html"><i class="fa-regular fa-address-card"></i>Peticiones de Ingreso</a>
-                    <a href="all_carries.html"><i class="fa-solid fa-car"></i>Listado de Transportistas</a>
+                    <a href="all_carries.html" class="active"><i class="fa-solid fa-car"></i>Listado de Transportistas</a>
                     <a href="payments_carriers.html"><i class="fa-solid fa-wallet"></i>Pagos Transportistas</a>
-                    <a href="portfolio_carriers.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos Transportistas</a>
+                    <a href="portfolio_carriers.html"><i class="fa-regular fa-folder-open"></i></i>Historial Pagos Transportistas</a>
 
                     <h4 class="modulo">Drosphippers</h4>
                     <a href="list_dropshippers.html"><i class="fa-solid fa-user"></i>Listado Dropshippers</a>
@@ -53,19 +53,17 @@
             <h2><i class="fa-solid fa-car"></i> <span class="wallet1"></span></h2>
             <h2><i class="fa-solid fa-user"></i> <span class="wallet2"></span></h2>
         </div>
-        <h2 class="tittle">Gestión Paquetería Local</h2>
+        <h2 class="tittle">Gestión de Transportistas</h2>
         <div class="table-wrapper">
             <table id="dataTable" class="display">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Orden</th>
-                        <th>Fecha de creación</th>
-                        <th>Bodega</th>
-                        <th>Cliente</th>
-                        <th>Tipo Paquete</th>
-                        <th>Estado del paquete</th>
-                        <th>Transportista</th>
+                        <th>Cédula</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Tipo Transportista</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -77,7 +75,7 @@
     </div>
     <!-- Import js personalized-->
     <script src="config/config.js"></script>
-    <script src="js/my_city_packages.js"></script>
+    <script src="js/all_carriers.js"></script>
     <script src="js/logout.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>

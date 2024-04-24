@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RC paky</title>
     <!-- Style CSS Customer -->
-    <link rel="stylesheet" href="assets/css/detail_requests_carrier.css">
+    <link rel="stylesheet" href="assets/css/detail_carrier.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <!-- Import font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
@@ -33,16 +33,19 @@
                     <a href="my_nacional_packages.html"><i class="fa-solid fa-box"></i>Paquetes Nacionales</a>
 
                     <h4 class="modulo">Transportistas</h4>
-                    <a href="requests_carrier.html" class="active"><i class="fa-regular fa-address-card"></i>Peticiones
+                    <a href="requests_carrier.html"><i class="fa-regular fa-address-card"></i>Peticiones
                         de Ingreso</a>
-                    <a href="all_carries.html"><i class="fa-solid fa-car"></i>Listado de Transportistas</a>
+                    <a href="all_carries.html" class="active"><i class="fa-solid fa-car"></i>Listado de
+                        Transportistas</a>
                     <a href="payments_carriers.html"><i class="fa-solid fa-wallet"></i>Pagos Transportistas</a>
-                    <a href="portfolio_carriers.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos Transportistas</a>
+                    <a href="portfolio_carriers.html"><i class="fa-regular fa-folder-open"></i></i>Historial Pagos
+                        Transportistas</a>
 
                     <h4 class="modulo">Drosphippers</h4>
                     <a href="list_dropshippers.html"><i class="fa-solid fa-user"></i>Listado Dropshippers</a>
                     <a href="payments_dropshippers.html"><i class="fa-solid fa-wallet"></i>Pagos Dropshippers</a>
-                    <a href="portfolio_dropshipper.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos Dropshipper</a>
+                    <a href="portfolio_dropshipper.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos
+                        Dropshipper</a>
                 </div>
             </div>
         </div>
@@ -54,7 +57,8 @@
             <h2><i class="fa-solid fa-car"></i> <span class="wallet1"></span></h2>
             <h2><i class="fa-solid fa-user"></i> <span class="wallet2"></span></h2>
         </div>
-        <h1>Gestionar petición</h1>
+        <h1>Detalles transportista <button type="button" id="btnEdit" class="enlaces"><i
+                    class="fa-regular fa-pen-to-square"></i></button></h1>
         <div id="transportista-component" class="component">
             <div class="info-section">
                 <h2>Información del Transportista</h2>
@@ -83,6 +87,14 @@
                         <label>Email:</label>
                         <input type="text" id="emailTransportista" readonly>
                     </div>
+                    <div class="form-group">
+                        <label>Tipo Transportista:</label>
+                        <input type="text" id="tipoTransportista" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Ciudad Transportista:</label>
+                        <input type="text" id="cityTransportista" readonly>
+                    </div>
                 </div>
             </div>
             <div id="carrierDocuments">
@@ -102,6 +114,10 @@
                     <div class="form-group">
                         <label>Línea:</label>
                         <input type="text" id="lineaTransportista" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Línea:</label>
+                        <input type="text" id="cilindrajeTransportista" required>
                     </div>
                     <div class="form-group">
                         <label>Modelo:</label>
@@ -128,16 +144,29 @@
             <div id="vehiculoDocuments">
                 <!--Aqui iran los documentos del vehiculo-->
             </div>
-            <div class="acciones">
-                <button type="submit" id="btnAceptar">Aceptar</button>
-                <button type="submit" id="btnRechazar">Rechazar</button>
-                <button type="button" id="btnRegresar">Regresar</button>
-            </div>
+        </div>
+        <div class="table-wrapper">
+            <h2>Historial de Asignados</h2>
+            <table class="history" class="display">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th># Orden</th>
+                        <th>Estado</th>
+                        <th>Nombres CLiente</th>
+                        <th>Teléfono Cliente</th>
+                        <th>Dirección</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos se agregarán aquí dinámicamente -->
+                </tbody>
+            </table>
         </div>
     </div>
     <!-- Import js personalized-->
     <script src="config/config.js"></script>
-    <script src="js/detail_requests_carrier.js"></script>
+    <script src="js/detail_carrier.js"></script>
     <script src="js/logout.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
