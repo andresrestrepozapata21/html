@@ -16,10 +16,10 @@ document.addEventListener('DOMContentLoaded', function () {
         // Llamar a showToast
         showToast('Paquete editado correctamente.');
         localStorage.removeItem('paqueteEditado');
-    } else if(productosEditado){
-         // Llamar a showToast
-         showToast('Cantidad de productos editados correctamente.');
-         localStorage.removeItem('productosEditado');
+    } else if (productosEditado) {
+        // Llamar a showToast
+        showToast('Cantidad de productos editados correctamente.');
+        localStorage.removeItem('productosEditado');
     }
     // Formatear el valor como moneda
     let valorFormateado = wallet.toLocaleString('es-CO', {
@@ -57,8 +57,6 @@ document.addEventListener('DOMContentLoaded', function () {
             let type_send = data.data.fk_id_tp_p;
             //capturo el status del paquete, el estado y el id de circulo tienen el mismo numero, por eso
             let status = data.data.status_p;
-            console.log(type_send)
-            console.log(status)
             //estructura condicional para saber que timline mostrar el local o nacional
             if (type_send == 1) {
                 document.getElementById('local').classList.remove('none');
@@ -230,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
             // Agrega los totales al final de la tabla
             productsTable.innerHTML += footerRow;
-            
+
             //Ahora el dataTable del historial
             const historyTable = document.querySelector('.history tbody');
             historyTable.innerHTML = ''; // Clear existing rows
@@ -264,15 +262,30 @@ document.addEventListener('DOMContentLoaded', function () {
                         statusText = "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
                         break;
                 }
-                const row = `
-                <tr>
-                    <td>${index + 1}</td>
+                let row;
+                if (event.evidence_sh == '') {
+                    row = `
+                 <tr>
+                    <td>${event.id_sh}</td>
                     <td>${new Date(event.createdAt).toLocaleString('es-CO')}</td>
                     <td>${statusText}</td>
                     <td>${event.carrier.name_carrier} ${event.carrier.last_name_carrier}</td>
                     <td>${event.comentary_sh}</td>
-                </tr>
-            `;
+                    <td></td>
+                 </tr>
+             `;
+                } else {
+                    row = `
+                     <tr>
+                     <td>${event.id_sh}</td>
+                     <td>${new Date(event.createdAt).toLocaleString('es-CO')}</td>
+                     <td>${statusText}</td>
+                     <td>${event.carrier.name_carrier} ${event.carrier.last_name_carrier}</td>
+                     <td>${event.comentary_sh}</td>
+                     <td><button type="button" id="btnDetalle" class="enlaces" onClick="verEvidencia(${event.id_sh})"><i class="fa-solid fa-magnifying-glass"></i></button></td>
+                 </tr>
+             `;
+                }
                 historyTable.innerHTML += row;
             });
             //estructura condicional para verificar si esta entregado o cancelado
@@ -303,6 +316,52 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById('btnEdit').addEventListener('click', function () {
     window.location = "./edit_package.html?id_p=" + id_p;
 });
+
+// Evento que captura el clic de la X para cerrar el modal de los productos del paquete
+document.querySelector('.close').addEventListener('click', function () {
+    document.getElementById('modal').style.display = 'none';
+});
+
+// Metodo para abrir el modal de los productos del paquete
+function verEvidencia(id_sh) {
+    // Realizar la petición Fetch al endpoint
+    fetch(window.myAppConfig.production + '/manager/getEvidenceHistory', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            id_sh
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Validate token Expired Redirection index.html
+            if (data.result === 2) {
+                // Clear the local storage which removes all data stored in the browser's local storage,
+                // including any user session data like tokens
+                localStorage.clear();
+                // Redirect the user to the login page by changing the current location of the window
+                // Replace 'login.html' with the actual URL of your login page
+                window.location.href = 'login.html';
+            }
+            const QRImg = document.getElementById('evidenceImg');
+            QRImg.innerHTML = `
+                <img src="${window.myAppConfig.production}/${data.data.evidence_sh}" alt="">
+            `;
+        })
+        .catch(error => {
+            console.error('Error en la petición Fetch:', error);
+        });
+    abrirModal();
+}
+
+// Metodo para abrir el modal de los productos del paquete
+function abrirModal() {
+    document.getElementById('modal').style.display = 'block';
+}
+
 // funion para mostrar notificaiciones toast
 function showToast(message) {
     const toast = document.createElement('div');

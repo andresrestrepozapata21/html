@@ -3,20 +3,28 @@ const token = localStorage.getItem('token');
 const id_manager = localStorage.getItem('id_manager');
 const wallet1 = localStorage.getItem('wallet1');
 const wallet2 = localStorage.getItem('wallet2');
-const pagado = localStorage.getItem('pagado');
-const rechazada = localStorage.getItem('rechazada');
+const eliminado = localStorage.getItem('eliminado');
+const agregado = localStorage.getItem('agregado');
+// busco todos los campos para poder enviarlos en el formulario de registro del dropshiiper
+const tipoDocumento = document.getElementById('tipoDocumento');
+const numeroDocumento = document.getElementById('numeroDocumento');
+const nombre = document.getElementById('nombre');
+const apellido = document.getElementById('apellido');
+const telefono = document.getElementById('telefono');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
 
 // cuando se carga la pantalla
 document.addEventListener('DOMContentLoaded', function () {
-    //estrutura condicional para mostrar los toast correspondientes
-    if (pagado) {
+    //lanzo el toaster que avise al usuario de la accion realizada
+    if (eliminado) {
         // Llamar a showToast
-        showToast('Solcitud pagada existosamente.');
-        localStorage.removeItem('pagado');
-    } else if (rechazada) {
+        showToast('Dropshipper eliminado existosamente.');
+        localStorage.removeItem('eliminado');
+    } else if (agregado) {
         // Llamar a showToast
-        showToast('Solicitud rechazada existosamente.');
-        localStorage.removeItem('rechazada');
+        showToast('Dropshipper creado existosamente.');
+        localStorage.removeItem('agregado');
     }
     // Formatear el valor como moneda
     let valorFormateado1 = wallet1.toLocaleString('es-CO', {
@@ -36,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
     walletElement2.textContent = valorFormateado2;
 
     // Realizar la petición Fetch al endpoint
-    fetch(window.myAppConfig.production + '/manager/getPaymentsRequestCarrier', {
+    fetch(window.myAppConfig.production + '/manager/getDropshippers', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -58,18 +66,25 @@ document.addEventListener('DOMContentLoaded', function () {
             const dataTable = $('#dataTable').DataTable();
             // ciclo para ver el estado del paquete y mostrarlo en color
             data.data.forEach(item => {
+                let status = item.status_dropshipper;
+                let textStatus;
+                if (status == 1) {
+                    textStatus = `<span style="color: #22bb33">Activo</span>`;
+                } else {
+                    textStatus = `<span style="color: #bb2124">Desactivado</span>`;
+                }
                 dataTable.row.add([
-                    item.id_cpr,
-                    item.carrier_bank_account.carrier.number_document_carrier,
-                    item.carrier_bank_account.carrier.name_carrier,
-                    item.carrier_bank_account.carrier.last_name_carrier,
-                    item.carrier_bank_account.carrier.types_carrier.description_tc,
-                    item.quantity_requested_cpr.toLocaleString('es-CO', {
-                        style: 'currency',
-                        currency: 'COP'
-                    }),
+                    item.id_dropshipper,
+                    item.tipo_documento,
+                    item.numero_documento,
+                    item.name_dropshipper,
+                    item.last_name_dropshipper,
+                    item.phone_number_dropshipper,
+                    item.email_dropshipper,
+                    item.password_dropshipper,
+                    textStatus,
                     `<div class="acciones">
-                        <button type="button" id="btnDetalle" class="enlaces" onClick="detalle(${item.id_cpr})"><i class="fa-solid fa-comments-dollar"></i></button>
+                        <button type="button" id="btnDetalle" class="enlaces" onClick="detalle(${item.id_dropshipper})"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                     `
                 ]).draw();
@@ -81,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //Metodo para mostrar los detelles del paquete.
-function detalle(id_cpr) {
-    window.location = "./detail_payment_carrier.html?id_cpr=" + id_cpr;
+function detalle(id_dropshipper) {
+    window.location = "./detail_carrier.html?id_dropshipper=" + id_dropshipper;
 }
 
 // funion para mostrar notificaiciones toast

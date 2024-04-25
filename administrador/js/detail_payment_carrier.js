@@ -5,16 +5,9 @@ const token = localStorage.getItem('token');
 const id_manager = localStorage.getItem('id_manager');
 const wallet1 = localStorage.getItem('wallet1');
 const wallet2 = localStorage.getItem('wallet2');
-const pagado = localStorage.getItem('pagado');
 
 // Inicializo la pagina
 document.addEventListener('DOMContentLoaded', function () {
-    //estrutura condicional para mostrar los toast correspondientes
-    if (pagado) {
-        // Llamar a showToast
-        showToast('Transportista pagado existosamente.');
-        localStorage.removeItem('pagado');
-    }
     // Formatear el valor como moneda
     let valorFormateado1 = wallet1.toLocaleString('es-CO', {
         style: 'currency',
@@ -134,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         break;
                 }
                 let row;
-                if(event.evidence_sh == ''){
+                if (event.evidence_sh == '') {
                     row = `
                  <tr>
                      <td>${event.id_sh}</td>
@@ -146,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
                      <td></td>
                  </tr>
              `;
-                } else{
+                } else {
                     row = `
                  <tr>
                      <td>${event.id_sh}</td>
@@ -168,8 +161,90 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Añadir evento al botón regresar si es necesario
-document.getElementById('btnEdit').addEventListener('click', function () {
-    window.location = './edit_carrier.html?id_carrier=' + id_carrier;
+document.getElementById('btnPagar').addEventListener('click', function () {
+
+    let result = confirm('¿Estas seguro que deseas pagarle al transportista?');
+
+    if (result) {
+        // Realizar la petición Fetch al endpoint
+        fetch(window.myAppConfig.production + '/manager/toPayCarrier', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                id_cpr: id_cpr
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Validate token Expired Redirection index.html
+                if (data.result === 2) {
+                    // Clear the local storage which removes all data stored in the browser's local storage,
+                    // including any user session data like tokens
+                    localStorage.clear();
+                    // Redirect the user to the login page by changing the current location of the window
+                    // Replace 'login.html' with the actual URL of your login page
+                    window.location.href = 'login.html';
+                }
+                if (data.result === 1) {
+                    // Save the token and id user router to local storage
+                    localStorage.setItem('pagado', true);
+                    // Redirect to home page
+                    window.location = './payments_carriers.html';
+                }
+            })
+            .catch(error => {
+                console.error('Error en la petición Fetch:', error);
+            });
+    }
+});
+
+// Añadir evento al botón regresar si es necesario
+document.getElementById('btnRechazar').addEventListener('click', function () {
+
+    let result = confirm('¿Estas seguro que deseas cancelar la solicitud, esto retornara el monto solicitado a la wallet del transportista?');
+
+    if (result) {
+        // Realizar la petición Fetch al endpoint
+        fetch(window.myAppConfig.production + '/manager/toPayRejectCarrier', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                id_cpr: id_cpr
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Validate token Expired Redirection index.html
+                if (data.result === 2) {
+                    // Clear the local storage which removes all data stored in the browser's local storage,
+                    // including any user session data like tokens
+                    localStorage.clear();
+                    // Redirect the user to the login page by changing the current location of the window
+                    // Replace 'login.html' with the actual URL of your login page
+                    window.location.href = 'login.html';
+                }
+                if (data.result === 1) {
+                    // Save the token and id user router to local storage
+                    localStorage.setItem('rechazada', true);
+                    // Redirect to home page
+                    window.location = './payments_carriers.html';
+                }
+            })
+            .catch(error => {
+                console.error('Error en la petición Fetch:', error);
+            });
+    }
+});
+
+// Añadir evento al botón regresar si es necesario
+document.getElementById('btnRegresar').addEventListener('click', function () {
+    window.location = './payments_carriers.html';
 });
 
 // Evento que captura el clic de la X para cerrar el modal de los productos del paquete

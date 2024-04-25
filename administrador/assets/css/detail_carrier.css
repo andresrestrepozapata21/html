@@ -121,7 +121,7 @@ h4 {
                         Lo estandar de todas las pantallas
 ============================================================================*/
 
-.header{
+.header {
     background-color: #FFFFFF;
     padding: 10px;
     text-align: right;
@@ -130,7 +130,7 @@ h4 {
     justify-content: end;
 }
 
-.header h2{
+.header h2 {
     margin-right: 20px;
 }
 
@@ -140,7 +140,8 @@ h4 {
 
 .content h1 button i {
     font-size: 15px;
-    color: #892CFF;        /* Tamaño del ícono */
+    color: #892CFF;
+    /* Tamaño del ícono */
 }
 
 .table-wrapper {
@@ -193,7 +194,20 @@ th {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Estilos para el modal */
+.modalEvidence {
+    display: none;
+    position: fixed;
+    z-index: 999;
     left: 0;
     top: 0;
     width: 100%;
@@ -210,7 +224,8 @@ th {
     width: 80%;
 }
 
-.close {
+.close,
+.closeEvidence {
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -218,7 +233,9 @@ th {
 }
 
 .close:hover,
-.close:focus {
+.close:focus,
+.closeEvidence:hover,
+.closeEvidence:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
@@ -235,36 +252,45 @@ th {
 
 /* Estilo general para los botones que solo muestran un ícono */
 button.enlaces {
-    background: none;       /* Sin fondo */
-    border: none;           /* Sin bordes */
-    color: inherit;         /* Hereda el color de texto del padre */
-    padding: 5px;           /* Espaciado interno para hacer clic más fácilmente */
-    cursor: pointer;        /* Cursor indica que es un elemento clickeable */
-    outline: none;          /* Sin contorno al hacer clic */
+    background: none;
+    /* Sin fondo */
+    border: none;
+    /* Sin bordes */
+    color: inherit;
+    /* Hereda el color de texto del padre */
+    padding: 5px;
+    /* Espaciado interno para hacer clic más fácilmente */
+    cursor: pointer;
+    /* Cursor indica que es un elemento clickeable */
+    outline: none;
+    /* Sin contorno al hacer clic */
 }
 
 button.enlaces:focus {
-    outline: none;          /* Elimina el contorno al estar enfocado (para accesibilidad, considera otra forma de indicar foco) */
+    outline: none;
+    /* Elimina el contorno al estar enfocado (para accesibilidad, considera otra forma de indicar foco) */
 }
 
 button.enlaces:hover,
 button.enlaces:focus {
     background: #eceaee;
-    border-radius: 3px; /* Opcional: un ligero cambio de fondo al pasar el mouse o al estar enfocado */
+    border-radius: 3px;
+    /* Opcional: un ligero cambio de fondo al pasar el mouse o al estar enfocado */
 }
 
 button.enlaces i {
     font-size: 12px;
-    color: #892CFF;        /* Tamaño del ícono */
+    color: #892CFF;
+    /* Tamaño del ícono */
 }
 
-.check{
+.check {
     cursor: pointer;
     margin: 0 5px;
 }
 
-.checked{
-        margin: 0 5px;
+.checked {
+    margin: 0 5px;
 }
 
 .component {
@@ -345,7 +371,6 @@ textarea[readonly] {
     margin: 4px 5px;
     cursor: pointer;
     border-radius: 4px;
-    margin-top: 30px;
     transition: 0.4s;
 }
 
@@ -387,7 +412,7 @@ textarea[readonly] {
     padding: 10px 20px;
     border-radius: 5px;
     margin-bottom: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     opacity: 0;
     transition: opacity 0.5s, transform 0.5s;
     transform: translateX(100px);
@@ -422,4 +447,12 @@ textarea[readonly] {
     width: 600px;
     height: 300px;
     object-fit: contain;
+}
+
+.evidenceImg {
+    width: 100%;
+}
+
+.evidenceImg img {
+    width: 100%;
 }

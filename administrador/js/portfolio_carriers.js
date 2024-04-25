@@ -3,21 +3,9 @@ const token = localStorage.getItem('token');
 const id_manager = localStorage.getItem('id_manager');
 const wallet1 = localStorage.getItem('wallet1');
 const wallet2 = localStorage.getItem('wallet2');
-const pagado = localStorage.getItem('pagado');
-const rechazada = localStorage.getItem('rechazada');
 
 // cuando se carga la pantalla
 document.addEventListener('DOMContentLoaded', function () {
-    //estrutura condicional para mostrar los toast correspondientes
-    if (pagado) {
-        // Llamar a showToast
-        showToast('Solcitud pagada existosamente.');
-        localStorage.removeItem('pagado');
-    } else if (rechazada) {
-        // Llamar a showToast
-        showToast('Solicitud rechazada existosamente.');
-        localStorage.removeItem('rechazada');
-    }
     // Formatear el valor como moneda
     let valorFormateado1 = wallet1.toLocaleString('es-CO', {
         style: 'currency',
@@ -36,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     walletElement2.textContent = valorFormateado2;
 
     // Realizar la petición Fetch al endpoint
-    fetch(window.myAppConfig.production + '/manager/getPaymentsRequestCarrier', {
+    fetch(window.myAppConfig.production + '/manager/getPortfolioCarrier', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -54,24 +42,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Replace 'login.html' with the actual URL of your login page
                 window.location.href = 'login.html';
             }
+            console.log(data)
             // Procesar los datos y llenar la tabla
             const dataTable = $('#dataTable').DataTable();
             // ciclo para ver el estado del paquete y mostrarlo en color
             data.data.forEach(item => {
                 dataTable.row.add([
-                    item.id_cpr,
-                    item.carrier_bank_account.carrier.number_document_carrier,
-                    item.carrier_bank_account.carrier.name_carrier,
-                    item.carrier_bank_account.carrier.last_name_carrier,
-                    item.carrier_bank_account.carrier.types_carrier.description_tc,
-                    item.quantity_requested_cpr.toLocaleString('es-CO', {
-                        style: 'currency',
-                        currency: 'COP'
-                    }),
-                    `<div class="acciones">
-                        <button type="button" id="btnDetalle" class="enlaces" onClick="detalle(${item.id_cpr})"><i class="fa-solid fa-comments-dollar"></i></button>
-                    </div>
-                    `
+                    item.id_phc,
+                    item.createdAt.slice(0, 19).replace("T", " "),
+                    item.type_phc,
+                    item.Quantity_pay_phc,
+                    item.description_phc
                 ]).draw();
             });
         })
@@ -80,10 +61,68 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 });
 
-//Metodo para mostrar los detelles del paquete.
-function detalle(id_cpr) {
-    window.location = "./detail_payment_carrier.html?id_cpr=" + id_cpr;
-}
+// Añadir evento al botón regresar si es necesario
+document.getElementById('btnDescargar').addEventListener('click', function (event) {
+    // I drop default form behavior
+    event.preventDefault();
+    // Login form data
+    const fechaInicio = document.getElementById('fechaInicio').value;
+    const fechaFin = document.getElementById('fechaFin').value;
+
+    if (!fechaInicio || !fechaFin) return console.log("Ingrese fechas")
+
+    // Realizar la petición Fetch al endpoint
+    fetch(window.myAppConfig.production + '/manager/downloadExcelPortfolioCarrier', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            startDate: fechaInicio,
+            endDate: fechaFin
+        })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Devuelve el contenido del archivo como un objeto Blob
+            return response.blob();
+        })
+        .then(blob => {
+            // Validate token Expired Redirection index.html
+            if (blob.result === 2) {
+                // Clear the local storage which removes all blob stored in the browser's local storage,
+                // including any user session blob like tokens
+                localStorage.clear();
+                // Redirect the user to the login page by changing the current location of the window
+                // Replace 'login.html' with the actual URL of your login page
+                window.location.href = 'login.html';
+            }
+            // Crea un URL de objeto (Object URL) para el Blob
+            const url = URL.createObjectURL(blob);
+            // Crea un enlace para descargar el archivo
+            const a = document.createElement('a');
+            a.href = url;
+            // Especifica el nombre del archivo
+            a.download = 'reporte_historial_cartera_carriers.xlsx'; // Puedes cambiar el nombre del archivo según tus necesidades
+            // Agrega el enlace al documento
+            document.body.appendChild(a);
+            // Haz clic en el enlace para iniciar la descarga
+            a.click();
+            // Libera el URL de objeto cuando ya no se necesite
+            URL.revokeObjectURL(url);
+            // Llamar a showToast
+            showToast('Reporte descargado correctamente.');
+            // Resetear el formulario después de una descarga exitosa
+            document.getElementById('form').reset();
+        })
+        .catch(error => {
+            // Handle login errors
+            console.error('Error de filtro:', error.message);
+        });
+});
 
 // funion para mostrar notificaiciones toast
 function showToast(message) {

@@ -146,22 +146,56 @@
             </div>
         </div>
         <div class="table-wrapper">
-            <h2>Historial de Asignados</h2>
-            <table class="history" class="display">
+            <h2>Paquetes de Asignados</h2>
+            <table class="history" id="dataTable" class="display">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th># Orden</th>
-                        <th>Estado</th>
-                        <th>Nombres CLiente</th>
+                        <th>Nombres Cliente</th>
                         <th>Teléfono Cliente</th>
                         <th>Dirección</th>
+                        <th>Estado Actual</th>
+                        <th>Accion</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Los datos se agregarán aquí dinámicamente -->
                 </tbody>
             </table>
+        </div>
+        <!-- Modal para mostrar los paquetes -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Historial</h2>
+                <table class="historyModal" class="display">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th># Orden</th>
+                            <th>Estado</th>
+                            <th>Nombres CLiente</th>
+                            <th>Teléfono Cliente</th>
+                            <th>Dirección</th>
+                            <th>Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los datos se agregarán aquí dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Modal para mostrar los paquetes -->
+        <div id="modalEvidence" class="modalEvidence">
+            <div class="modal-content">
+                <span class="closeEvidence">&times;</span>
+                <h2>Evidencia</h2>
+                <div class="evidenceImg" id="evidenceImg">
+                    <!-- Imagen del QR -->
+                </div>
+            </div>
         </div>
     </div>
     <!-- Import js personalized-->
