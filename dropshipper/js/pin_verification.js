@@ -80,7 +80,7 @@ document.getElementById("form").addEventListener('submit', function (event) {
                 document.querySelectorAll('.pin-input').forEach((input, index, array) => {
                     input.value = "";
                 });
-            }else if (data.result === 1) {
+            } else if (data.result === 1) {
                 window.location = "./confirmation_pin_correct.html"
             }
         })

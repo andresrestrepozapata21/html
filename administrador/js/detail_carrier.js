@@ -128,7 +128,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         statusText = "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
                         break;
                 }
-                let row;
                 let id = event.package.id_p;
                 if (!idsArray.includes(id)) {
                     idsArray.push(id);

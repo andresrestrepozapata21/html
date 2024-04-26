@@ -274,7 +274,7 @@ button.enlaces i {
 }
 
 .form-group {
-    flex: 1 1 25%;
+    flex: 0 1 25%;
     box-sizing: border-box;
     padding-right: 20px;
     margin-bottom: 15px;

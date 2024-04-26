@@ -59,33 +59,34 @@
         <h2 class="tittle">Gestión de Dropshippers</h2>
         <div id="transportista-component" class="component">
             <div class="info-section">
-                <h2>Información del Dropshipper</h2>
+                <h2>Información del Dropshipper <button type="button" id="btnEdit" class="enlaces"><i
+                    class="fa-regular fa-pen-to-square"></i></button></h2>
                 <br>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Tipo de Documento:</label>
-                            <input type="text" id="tipoDocumento" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>Número de Documento:</label>
-                            <input type="text" id="numeroDocumento" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>Nombres:</label>
-                            <input type="text" id="nombre" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>Apellidos:</label>
-                            <input type="text" id="apellido" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>Teléfono:</label>
-                            <input type="text" id="telefono" readonly>
-                        </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo de Documento:</label>
+                        <input type="text" id="tipoDocumento" readonly>
                     </div>
+                    <div class="form-group">
+                        <label>Número de Documento:</label>
+                        <input type="text" id="numeroDocumento" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombres:</label>
+                        <input type="text" id="nombre" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellidos:</label>
+                        <input type="text" id="apellido" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono:</label>
+                        <input type="text" id="telefono" readonly>
+                    </div>
+                </div>
             </div>
             <div class="info-section">
-                <h2>Crendenciales</h2>
+                <h2>Credenciales</h2>
                 <br>
                 <div class="form-row">
                     <div class="form-group">
@@ -99,26 +100,61 @@
                 </div>
             </div>
         </div>
-        <div class="table-wrapper">
-            <table id="dataTable" class="display">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tipo Documento</th>
-                        <th># Documento</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>Teléfono</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los datos se agregarán aquí dinámicamente -->
-                </tbody>
-            </table>
+        <h2 class="tittle">Gestion de Bodegas </h2>
+        <div id="transportista-component" class="component">
+            <div class="info-section">
+                <h2>Agregar Bodega</h2>
+                <br>
+                <form action="">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Departamento:</label>
+                            <select name="departamentoB" id="departamentoB" class="select" required>
+                                <!-- Aquí van los departamentos -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ciudad:</label>
+                            <select name="ciudadB" id="ciudadB" class="select" required>
+                                <!-- Aquí van los departamentos -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Dirección:</label>
+                            <input type="text" id="direccionB" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono:</label>
+                            <input type="text" id="telefonoB" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Capacidad:</label>
+                            <input type="text" id="capacidadB" required>
+                        </div>
+                    </div>
+                    <div class="acciones">
+                        <button type="submit" id="btnAgregar">Agregar Bodega</button>
+                    </div>
+                </form>
+            </div>
+            <div class="table-wrapper">
+                <h2>Bodegas del dropshipper</h2>
+                <br>
+                <table id="dataTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Capacidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los datos se agregarán aquí dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <!-- Import js personalized-->

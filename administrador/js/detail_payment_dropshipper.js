@@ -1,31 +1,13 @@
 // capturo las variables de entorno que puedo necesitar
+const urlParams = new URLSearchParams(window.location.search);
+const id_dpr = urlParams.get('id_dpr');
 const token = localStorage.getItem('token');
 const id_manager = localStorage.getItem('id_manager');
 const wallet1 = localStorage.getItem('wallet1');
 const wallet2 = localStorage.getItem('wallet2');
-const eliminado = localStorage.getItem('eliminado');
-const agregado = localStorage.getItem('agregado');
-// busco todos los campos para poder enviarlos en el formulario de registro del dropshiiper
-const tipoDocumento = document.getElementById('tipoDocumento');
-const numeroDocumento = document.getElementById('numeroDocumento');
-const nombre = document.getElementById('nombre');
-const apellido = document.getElementById('apellido');
-const telefono = document.getElementById('telefono');
-const email = document.getElementById('email');
-const password = document.getElementById('password');
 
-// cuando se carga la pantalla
+// Inicializo la pagina
 document.addEventListener('DOMContentLoaded', function () {
-    //lanzo el toaster que avise al usuario de la accion realizada
-    if (eliminado) {
-        // Llamar a showToast
-        showToast('Dropshipper eliminado existosamente.');
-        localStorage.removeItem('eliminado');
-    } else if (agregado) {
-        // Llamar a showToast
-        showToast('Dropshipper creado existosamente.');
-        localStorage.removeItem('agregado');
-    }
     // Formatear el valor como moneda
     let valorFormateado1 = wallet1.toLocaleString('es-CO', {
         style: 'currency',
@@ -42,14 +24,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // To asignate wallet value
     walletElement1.textContent = valorFormateado1;
     walletElement2.textContent = valorFormateado2;
-
     // Realizar la petición Fetch al endpoint
-    fetch(window.myAppConfig.production + '/manager/getDropshippers', {
-        method: 'GET',
+    fetch(window.myAppConfig.production + '/manager/detailPaymentRequestDropshipper', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
-        }
+        },
+        body: JSON.stringify({
+            id_dpr
+        })
     })
         .then(response => response.json())
         .then(data => {
@@ -62,67 +46,56 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Replace 'login.html' with the actual URL of your login page
                 window.location.href = 'login.html';
             }
-            // Procesar los datos y llenar la tabla
-            const dataTable = $('#dataTable').DataTable();
-            // ciclo para ver el estado del paquete y mostrarlo en color
-            data.data.forEach(item => {
-                let status = item.status_dropshipper;
-                let textStatus;
-                if (status == 1) {
-                    textStatus = `<span style="color: #22bb33">Activo</span>`;
-                } else {
-                    textStatus = `<span style="color: #bb2124">Desactivado</span>`;
-                }
-                dataTable.row.add([
-                    item.id_dropshipper,
-                    item.tipo_documento,
-                    item.numero_documento,
-                    item.name_dropshipper,
-                    item.last_name_dropshipper,
-                    item.phone_number_dropshipper,
-                    item.email_dropshipper,
-                    item.password_dropshipper,
-                    textStatus,
-                    `<div class="acciones">
-                        <button type="button" id="btnDetalle" class="enlaces" onClick="detalle(${item.id_dropshipper})"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        <button type="button" id="btnEdit" class="enlaces" onClick="editar(${item.id_dropshipper})"><i class="fa-regular fa-pen-to-square"></i></button>
-                        <button type="button" id="btnDelete" class="enlaces" onClick="eliminar(${item.id_dropshipper})"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                    `
-                ]).draw();
+            let dropshipper = data.data[0];
+            console.log(dropshipper)
+            // Obtener el elemento div
+            const div = document.getElementById('transportista-component');
+            // busco los div de cada uno
+            const tipoDocumentoInput = div.querySelector('#tipoDocumento');
+            const numeroDocumentoInput = div.querySelector('#numeroDocumento');
+            const nombreInput = div.querySelector('#nombre');
+            const apellidoInput = div.querySelector('#apellido');
+            const telefonoInput = div.querySelector('#telefono');
+             //Cuentas
+             const banco = div.querySelector('#banco');
+             const tipocuenta = div.querySelector('#tipocuenta');
+             const numeroCuenta = div.querySelector('#numeroCuenta');
+             const montoSolicitado = div.querySelector('#montoSolicitado');
+            //Info carrier
+            tipoDocumentoInput.value = dropshipper.dropshipper_bank_account.dropshipper.tipo_documento;
+            numeroDocumentoInput.value = dropshipper.dropshipper_bank_account.dropshipper.numero_documento;
+            nombreInput.value = dropshipper.dropshipper_bank_account.dropshipper.name_dropshipper;
+            apellidoInput.value = dropshipper.dropshipper_bank_account.dropshipper.last_name_dropshipper;
+            telefonoInput.value = dropshipper.dropshipper_bank_account.dropshipper.phone_number_dropshipper;
+            banco.textContent = `Banco: ${dropshipper.dropshipper_bank_account.bank_dba}`;
+            tipocuenta.textContent = `Tipo Cuenta: ${dropshipper.dropshipper_bank_account.type_dba}`;
+            numeroCuenta.textContent = `# Cuenta: ${dropshipper.dropshipper_bank_account.number_dba}`;
+            let cantidad = dropshipper.quantity_requested_dpr.toLocaleString('es-CO', {
+                style: 'currency',
+                currency: 'COP'
             });
+            montoSolicitado.textContent = `Monto Solicitado: ${cantidad}`;
         })
         .catch(error => {
             console.error('Error en la petición Fetch:', error);
         });
 });
 
-// Captura del evento click del botón "Asignar"
-document.getElementById('btnAgregar').addEventListener('click', function () {
-    let tipo_documento = tipoDocumento.value;
-    let numero_documento = numeroDocumento.value;
-    let name_dropshipper = nombre.value;
-    let last_name_dropshipper = apellido.value;
-    let phone_number_dropshipper = telefono.value;
-    let email_dropshipper = email.value;
-    let password_dropshipper = password.value;
+// Añadir evento al botón regresar si es necesario
+document.getElementById('btnPagar').addEventListener('click', function () {
 
-    if (tipoDocumento && numero_documento && name_dropshipper && last_name_dropshipper && phone_number_dropshipper && email_dropshipper && password_dropshipper) {
+    let result = confirm('¿Estas seguro que deseas pagarle al dropshipper?');
+
+    if (result) {
         // Realizar la petición Fetch al endpoint
-        fetch(window.myAppConfig.production + '/manager/addDropshipper', {
+        fetch(window.myAppConfig.production + '/manager/toPayDropshipper', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({
-                tipo_documento,
-                numero_documento,
-                name_dropshipper,
-                last_name_dropshipper,
-                phone_number_dropshipper,
-                email_dropshipper,
-                password_dropshipper
+                id_dpr
             })
         })
             .then(response => response.json())
@@ -138,9 +111,9 @@ document.getElementById('btnAgregar').addEventListener('click', function () {
                 }
                 if (data.result === 1) {
                     // Save the token and id user router to local storage
-                    localStorage.setItem('agregado', true);
+                    localStorage.setItem('pagado', true);
                     // Redirect to home page
-                    window.location.reload();
+                    window.location = './payments_dropshippers.html';
                 }
             })
             .catch(error => {
@@ -149,34 +122,24 @@ document.getElementById('btnAgregar').addEventListener('click', function () {
     }
 });
 
-//Metodo para mostrar los detelles del paquete.
-function detalle(id_dropshipper) {
-    window.location = "./detail_dropshipper.html?id_dropshipper=" + id_dropshipper;
-}
+// Añadir evento al botón regresar si es necesario
+document.getElementById('btnRechazar').addEventListener('click', function () {
 
-//Metodo para eliminar el paquete.
-function eliminar(id_dropshipper) {
-    // alert confirm para que el usuario confirme si efecrtivamente quiere eliminar el paquete
-    let result = confirm("¿Estas seguro que deseas eliminar este dropshipper?, confirmar antes de aceptar.");
-    // Si la confirmacion es positiva
+    let result = confirm('¿Estas seguro que deseas cancelar la solicitud, esto retornara el monto solicitado a la wallet del dropshipper?');
+
     if (result) {
         // Realizar la petición Fetch al endpoint
-        fetch(window.myAppConfig.production + '/manager/deleteDropshipper', {
-            method: 'DELETE',
+        fetch(window.myAppConfig.production + '/manager/toPayRejectDropshipper', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({
-                id_dropshipper
+                id_dpr
             })
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 // Validate token Expired Redirection index.html
                 if (data.result === 2) {
@@ -189,23 +152,21 @@ function eliminar(id_dropshipper) {
                 }
                 if (data.result === 1) {
                     // Save the token and id user router to local storage
-                    localStorage.setItem('eliminado', true);
-                    window.location.reload();
+                    localStorage.setItem('rechazada', true);
+                    // Redirect to home page
+                    window.location = './payments_dropshippers.html';
                 }
             })
             .catch(error => {
-                // Handle login errors
-                console.error('Error de filtro:', error.message);
+                console.error('Error en la petición Fetch:', error);
             });
-    } else {
-        checkboxesSeleccionados[0].checked = false;
     }
-}
+});
 
-//Metodo para editar el paquete.
-function editar(id_dropshipper) {
-    window.location = './edit_dropshipper.html?id_dropshipper=' + id_dropshipper;
-}
+// Añadir evento al botón regresar si es necesario
+document.getElementById('btnRegresar').addEventListener('click', function () {
+    window.location = './payments_dropshippers.html';
+});
 
 // funion para mostrar notificaiciones toast
 function showToast(message) {
