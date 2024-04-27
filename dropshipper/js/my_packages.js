@@ -2,9 +2,26 @@
 const token = localStorage.getItem('token');
 const id_dropshipper = localStorage.getItem('id_dropshipper');
 const wallet = localStorage.getItem('wallet');
+const eliminado = localStorage.getItem('eliminado');
+const confirmado = localStorage.getItem('confirmado');
+const recargado = localStorage.getItem('recargado');
 
 // cuando se carga la pantalla
 document.addEventListener('DOMContentLoaded', function () {
+    //estrutura condicional para mostrar los toast correspondientes
+    if (eliminado) {
+        // Llamar a showToast
+        showToast('Paquete eliminado existosamente.');
+        localStorage.removeItem('eliminado');
+    } else if (confirmado) {
+        // Llamar a showToast
+        showToast('Paquete confirmado existosamente.');
+        localStorage.removeItem('confirmado');
+    } else if (recargado) {
+        // Llamar a showToast
+        showToast('Tabla recargada existosamente.');
+        localStorage.removeItem('recargado');
+    }
     // Formatear el valor como moneda
     let valorFormateado = wallet.toLocaleString('es-CO', {
         style: 'currency',
@@ -43,11 +60,14 @@ document.addEventListener('DOMContentLoaded', function () {
             data.data.forEach(item => {
                 let statusText;
                 switch (item.status_p) {
+                    case 0:
+                        statusText = "<span style='color: #BB2124'>CANCELADO</span>";
+                        break;
                     case 1:
-                        statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
+                        statusText = "<span style='color: #BB2124'>En bodega dropshipper</span>";
                         break;
                     case 2:
-                        statusText = "<span style='color: #5BC0DE'>Bodega central origen</span>";
+                        statusText = "<span style='color: #5BC0DE'>En bodega central origen</span>";
                         break;
                     case 3:
                         statusText = "<span style='color: #F0AD4E'>En camino entre bodegas centrales</span>";
@@ -68,9 +88,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 let confirmation = item.confirmation_dropshipper_p;
                 let checkHTML;
                 if (confirmation === 1) {
-                    checkHTML = '<input type="checkbox" disabled checked>';
+                    checkHTML = '<input type="checkbox" class="checked" disabled checked>';
                 } else {
-                    checkHTML = `<input type="checkbox" name="seleccionPaquete" value="${item.id_p}" onchange="verificarSeleccionPaquetes()">`;
+                    checkHTML = `<input type="checkbox" class="check" name="seleccionPaquete" value="${item.id_p}" onchange="verificarSeleccionPaquetes()">`;
                 }
                 dataTable.row.add([
                     item.id_p,
@@ -82,10 +102,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     statusText,
                     item.carrier,
                     `<div class="acciones">
-                        <a href="#" class="enlaces" data-id="${item.id_p}"><i class="fa-solid fa-magnifying-glass"></i></a>
-                        <a href="#" class="enlaces" data-id="${item.id_p}"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <button type="button" id="btnDetalle" class="enlaces" onClick="detallePaquete(${item.id_p})"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <button type="button" id="btnEdit" class="enlaces" onClick="editarPaquete(${item.id_p})"><i class="fa-regular fa-pen-to-square"></i></button>
                         ${checkHTML}
-                        <a href="#" class="enlaces" data-id="${item.id_p}"><i class="fa-solid fa-trash"></i></a>
+                        <button type="button" id="btnDelete" class="enlaces" onClick="eliminarPaquete(${item.id_p})"><i class="fa-solid fa-trash"></i></button>
                     </div>
                     `
                 ]).draw();
@@ -134,16 +154,19 @@ document.getElementById("form").addEventListener('submit', function (event) {
                 window.location.href = 'login.html';
             }
             // Procesar los datos y llenar la tabla
-            const dataTable = $('#dataTable').DataTable().clear().destroy();
+            const dataTable = $('#dataTable').DataTable().clear();
             // ciclo para ver el estado del paquete y mostrarlo en color
             data.data.forEach(item => {
                 let statusText;
                 switch (item.status_p) {
+                    case 0:
+                        statusText = "<span style='color: #BB2124'>CANCELADO</span>";
+                        break;
                     case 1:
-                        statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
+                        statusText = "<span style='color: #BB2124'>En bodega dropshipper</span>";
                         break;
                     case 2:
-                        statusText = "<span style='color: #5BC0DE'>Bodega central origen</span>";
+                        statusText = "<span style='color: #5BC0DE'>En bodega central origen</span>";
                         break;
                     case 3:
                         statusText = "<span style='color: #F0AD4E'>En camino entre bodegas centrales</span>";
@@ -164,9 +187,9 @@ document.getElementById("form").addEventListener('submit', function (event) {
                 let confirmation = item.confirmation_dropshipper_p;
                 let checkHTML;
                 if (confirmation === 1) {
-                    checkHTML = '<input type="checkbox" disabled checked>';
+                    checkHTML = '<input type="checkbox" class="checked" disabled checked>';
                 } else {
-                    checkHTML = `<input type="checkbox" name="seleccionPaquete" value="${item.id_p}" onchange="verificarSeleccionPaquetes()">`;
+                    checkHTML = `<input type="checkbox" class="check" name="seleccionPaquete" value="${item.id_p}" onchange="verificarSeleccionPaquetes()">`;
                 }
                 dataTable.row.add([
                     item.id_p,
@@ -178,24 +201,21 @@ document.getElementById("form").addEventListener('submit', function (event) {
                     statusText,
                     item.carrier,
                     `<div class="acciones">
-                        <a href="#" class="enlaces" data-id="${item.id_p}"><i class="fa-solid fa-magnifying-glass"></i></a>
-                        <a href="#" class="enlaces" data-id="${item.id_p}"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <button type="button" id="btnDetalle" class="enlaces" onClick="detallePaquete(${item.id_p})"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <button type="button" id="btnEdit" class="enlaces" onClick="editarPaquete(${item.id_p})"><i class="fa-regular fa-pen-to-square"></i></button>
                         ${checkHTML}
-                        <a href="#" class="enlaces" data-id="${item.id_p}"><i class="fa-solid fa-trash"></i></a>
+                        <button type="button" id="btnDelete" class="enlaces" onClick="eliminarPaquete(${item.id_p})"><i class="fa-solid fa-trash"></i></button>
                     </div>
                     `
                 ]).draw();
             });
+            //llamo mi notificacion toast
+            showToast("Tabla filtrada existosamente.")
         })
         .catch(error => {
             // Handle login errors
             console.error('Error de filtro:', error.message);
         });
-});
-
-// Añadir evento al botón regresar si es necesario
-document.getElementById('btnRegresar').addEventListener('click', function () {
-    window.location.reload();
 });
 
 // Añadir evento al botón regresar si es necesario
@@ -251,11 +271,22 @@ document.getElementById('btnDescargar').addEventListener('click', function (even
             a.click();
             // Libera el URL de objeto cuando ya no se necesite
             URL.revokeObjectURL(url);
+            //Muestro el toast correspondiente
+            showToast('Descarga existosa.');
+            // Resetear el formulario después de una descarga exitosa
+            document.getElementById('form').reset();
         })
         .catch(error => {
             // Handle login errors
             console.error('Error de filtro:', error.message);
         });
+});
+
+// Añadir evento al botón regresar si es necesario
+document.getElementById('btnRegresar').addEventListener('click', function () {
+    // Save the token and id user router to local storage
+    localStorage.setItem('recargado', true);
+    window.location.reload();
 });
 
 //Metodo para verificar que la cantidad de paquetes sea la indicada.
@@ -269,41 +300,131 @@ function verificarSeleccionPaquetes() {
 
         console.log(id_p)
         // Realizar la petición Fetch al endpoint
-    fetch(window.myAppConfig.production + '/dropshipper/corfirmatePackage', {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-            id_p
+        fetch(window.myAppConfig.production + '/dropshipper/corfirmatePackage', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                id_p
+            })
         })
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Validate token Expired Redirection index.html
-            if (data.result === 2) {
-                // Clear the local storage which removes all data stored in the browser's local storage,
-                // including any user session data like tokens
-                localStorage.clear();
-                // Redirect the user to the login page by changing the current location of the window
-                // Replace 'login.html' with the actual URL of your login page
-                window.location.href = 'login.html';
-            }
-            if(data.result === 1){
-                window.location.reload();
-            }
-        })
-        .catch(error => {
-            // Handle login errors
-            console.error('Error de filtro:', error.message);
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Validate token Expired Redirection index.html
+                if (data.result === 2) {
+                    // Clear the local storage which removes all data stored in the browser's local storage,
+                    // including any user session data like tokens
+                    localStorage.clear();
+                    // Redirect the user to the login page by changing the current location of the window
+                    // Replace 'login.html' with the actual URL of your login page
+                    window.location.href = 'login.html';
+                }
+                if (data.result === 1) {
+                    // Save the token and id user router to local storage
+                    localStorage.setItem('confirmado', true);
+                    // Recargo la pagina
+                    window.location.reload();
+                }
+            })
+            .catch(error => {
+                // Handle login errors
+                console.error('Error de filtro:', error.message);
+            });
     } else {
         checkboxesSeleccionados[0].checked = false;
     }
+}
+
+//Metodo para eliminar el paquete.
+function eliminarPaquete(id_p) {
+
+    let result = confirm("¿Estas seguro que deseas eliminar este paquete?, confirmar antes de aceptar.");
+
+    if (result) {
+        console.log(id_p)
+        // Realizar la petición Fetch al endpoint
+        fetch(window.myAppConfig.production + '/dropshipper/deletePackage', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                id_p
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Validate token Expired Redirection index.html
+                if (data.result === 2) {
+                    // Clear the local storage which removes all data stored in the browser's local storage,
+                    // including any user session data like tokens
+                    localStorage.clear();
+                    // Redirect the user to the login page by changing the current location of the window
+                    // Replace 'login.html' with the actual URL of your login page
+                    window.location.href = 'login.html';
+                }
+                if (data.result === 1) {
+                    // Save the token and id user router to local storage
+                    localStorage.setItem('eliminado', true);
+                    window.location.reload();
+                }
+            })
+            .catch(error => {
+                // Handle login errors
+                console.error('Error de filtro:', error.message);
+            });
+    } else {
+        checkboxesSeleccionados[0].checked = false;
+    }
+}
+
+//Metodo para mostrar los detelles del paquete.
+function detallePaquete(id_p) {
+    window.location = "./detail_package.html?id_p=" + id_p;
+}
+
+//Metodo para editar el paquete.
+function editarPaquete(id_p) {
+    window.location = "./edit_package.html?id_p=" + id_p;
+}
+
+// funion para mostrar notificaiciones toast
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    const toastContainer = document.getElementById('toast-container');
+    if (toastContainer) {
+        toastContainer.appendChild(toast);
+    }
+
+    // Agrega la clase para mostrar el toast
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100); // Pequeño retraso antes de mostrar el toast
+
+    // Ocultar el toast después de 3 segundos
+    setTimeout(() => {
+        toast.classList.remove('show');
+
+        // Espera a que la transición termine para eliminar el toast
+        toast.addEventListener('transitionend', () => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        });
+    }, 3000);
 }

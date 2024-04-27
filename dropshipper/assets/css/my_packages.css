@@ -212,10 +212,6 @@ th {
     cursor: pointer;
 }
 
-.enlaces {
-    color: #892CFF;
-}
-
 .acciones {
     width: 100%;
     padding: 10px;
@@ -225,8 +221,38 @@ th {
     align-items: center;
 }
 
-.acciones input {
-    background-color: #892CFF;
+/* Estilo general para los botones que solo muestran un ícono */
+button.enlaces {
+    background: none;       /* Sin fondo */
+    border: none;           /* Sin bordes */
+    color: inherit;         /* Hereda el color de texto del padre */
+    padding: 5px;           /* Espaciado interno para hacer clic más fácilmente */
+    cursor: pointer;        /* Cursor indica que es un elemento clickeable */
+    outline: none;          /* Sin contorno al hacer clic */
+}
+
+button.enlaces:focus {
+    outline: none;          /* Elimina el contorno al estar enfocado (para accesibilidad, considera otra forma de indicar foco) */
+}
+
+button.enlaces:hover,
+button.enlaces:focus {
+    background: #eceaee;
+    border-radius: 3px; /* Opcional: un ligero cambio de fondo al pasar el mouse o al estar enfocado */
+}
+
+button.enlaces i {
+    font-size: 12px;
+    color: #892CFF;        /* Tamaño del ícono */
+}
+
+.check{
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.checked{
+        margin: 0 5px;
 }
 
 .component {
@@ -309,4 +335,29 @@ input[type="date"] {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+}
+
+#toast-container {
+    position: fixed;
+    top: 40px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    display: block;
+    background-color: #892CFF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.5s;
+    transform: translateX(100px);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
 }

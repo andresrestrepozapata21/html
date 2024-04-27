@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EP paky</title>
+    <!-- Style CSS Customer -->
+    <link rel="stylesheet" href="assets/css/edit_package.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <!-- Import font style -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <!-- Import Font Awesome CDN-->
+    <script src="https://kit.fontawesome.com/0a0c61a66b.js" crossorigin="anonymous"></script>
+    <!-- Add the icon page -->
+    <link rel="icon" href="assets/images/p.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="menu">
+            <a href="master.html"><img src="assets/images/p.png" alt="Logo"></a>
+            <div class="opciones">
+                <div class="op1">
+                    <h4>Opciones</h4>
+                </div>
+                <div class="op2">
+                    <h4 class="modulo">Paquetería</h4>
+                    <a href="my_packages.html"><i class="fa-solid fa-box"></i>Mis pedidos</a>
+
+                    <h4 class="modulo">Configuración</h4>
+                    <a href="data_banks.html"><i class="fa-solid fa-money-bill"></i>Datos bancarios</a>
+
+                    <h4 class="modulo">Utilidades</h4>
+                    <a href="payments.html"><i class="fa-solid fa-wallet"></i>Retiro de saldo</a>
+                    <a href="portfolio_history.html"><i class="fa-solid fa-wallet"></i>Historial de cartera</a>
+                </div>
+            </div>
+        </div>
+        <button id="cerrarSesion" class="btn-cerrar-sesion">Cerrar Sesión</button>
+    </div>
+
+    <div class="content">
+        <div class="header">
+            <h2><i class="fa-solid fa-wallet"></i> <span class="wallet"></span></h2>
+        </div>
+        <h2 class="tittle">Editar paquete</h2>
+        <div class="component">
+            <div class="logo">
+                <img src="assets/images/pakylogo.svg" alt="">
+            </div>
+            <div class="content_timeline none" id="local">
+                <div class="timeline">
+                    <div class="circle" id="1">
+                        <p>En Bodega Dropshipper</p>
+                    </div>
+                    <div class="circle" id="7">
+                        <p>En camino al centro de distribución</p>
+                    </div>
+                    <div class="circle" id="4">
+                        <p>En centro de distribución</p>
+                    </div>
+                    <div class="circle" id="5">
+                        <p>En camino a entrega final</p>
+                    </div>
+                    <div class="circle" id="6">
+                        <p>Entregado</p>
+                    </div>
+                </div>
+            </div>
+            <div class="content_timeline none" id="nacional">
+                <div class="timeline">
+                    <div class="circle" id="N1">
+                        <p>En Bodega Dropshipper</p>
+                    </div>
+                    <div class="circle" id="N7">
+                        <p>En camino al centro de distribución origen</p>
+                    </div>
+                    <div class="circle" id="N2">
+                        <p>En centro de distribución origen</p>
+                    </div>
+                    <div class="circle" id="N3">
+                        <p>En camino entre centrales</p>
+                    </div>
+                    <div class="circle" id="N4">
+                        <p>En centro de distribucion destino</p>
+                    </div>
+                    <div class="circle" id="N5">
+                        <p>En Camino a entrega final</p>
+                    </div>
+                    <div class="circle" id="N6">
+                        <p>Entregado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form id="formDataCenterPackage">
+            <div class="content_info">
+                <div class="izq">
+                    <p>Orden para:</p>
+                    <label for="">Nombre del Cliente:</label>
+                    <input type="hidden" name="id_p" id="id_p" value="">
+                    <input type="text" name="name_client" id="name_client" value="">
+                    <label for="">Dirección del Cliente:</label>
+                    <input type="text" name="direction_client" id="direction_client" value="">
+                    <label for="">Teléfono del Cliente:</label>
+                    <input type="text" name="phone_number_client" id="phone_number_client" value="">
+                    <label for="">Email del Cliente:</label>
+                    <input type="email" name="email_client" id="email_client" value="">
+                </div>
+                <div class="der">
+                    <p>Orden:</p>
+                    <label for="">Número de orden:</label>
+                    <input type="text" name="orden_number" id="orden_number" value="">
+                    <label for="">Fecha de creación:</label>
+                    <input type="date" name="order_date"id="order_date" value="">
+                    <label for="">Estado del Paquete:</label>
+                    <select name="status_p" id="status_p">
+                        <option id="s0" value="0" class="none">CANCELADO</option>
+                        <option id="s1" value="1" class="none">En bodega dropshipper</option>
+                        <option id="s7" value="7" class="none">En camino de bodega dropshipper a bodega central</option>
+                        <option id="s2" value="2" class="none">En bodega central origen</option>
+                        <option id="s3" value="3" class="none">En camino entre bodegas centrales</option>
+                        <option id="s4" value="4" class="none">En bodega central destino</option>
+                        <option id="s5" value="5" class="none">En camino a entrega final</option>
+                        <option id="s6" value="6" class="none">Entregado</option>
+                    </select>
+                    <label for="">Número de Guía:</label>
+                    <input type="text" name="guide_number" id="guide_number" value="">
+
+                    <label for="">Nombre del Transportista:</label>
+                    <select name="carrier" id="carrier" disabled>
+                        <!--Aqui van los transportistas disponibles-->
+                    </select>
+
+                    <label for="">Tipo de Pago:</label>
+                    <select name="type_of_shipping" id="type_of_shipping">
+                        <option value="0">SIN RECAUDO</option>
+                        <option value="1">CON RECAUDO</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" id="btnEditarPackage">Guardar</button>
+                <button type="button" id="btnRegresar">Regresar</button>
+            </div>
+        </form>
+        <div class="address">
+            <div class="izq">
+                <p></p>
+                <p></p>
+            </div>
+            <div class="der">
+                <p></p>
+                <p></p>
+            </div>
+        </div>
+        <div class="content_products">
+            <form id="formDataCenterProducts" class="formDataCenter">
+                <div id="component_products" class="component_products"></div>
+            </form>
+        </div>
+    </div>
+    <!-- Import js personalized-->
+    <script src="config/config.js"></script>
+    <script src="js/edit_package.js"></script>
+    <script src="js/logout.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script>
+        // Verification sesion active
+        function checkSession() {
+            const token = localStorage.getItem('token');
+            const id_dropshipper = localStorage.getItem('id_dropshipper');
+
+            if (!token || !id_dropshipper) {
+                // redirection login if sesion non existing
+                window.location.href = 'login.html';
+            }
+        }
+        // To call method checkSession
+        checkSession();
+
+        // Traduccion del dataTable
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    },
+                    "buttons": {
+                        "copy": "Copiar",
+                        "colvis": "Visibilidad"
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

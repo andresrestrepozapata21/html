@@ -92,7 +92,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 packageTable.clear().draw();
 
                 data.data.forEach(package => {
-                    const statusText = package.status_p;
+                    let statusText;
+                    switch (package.status_p) {
+                        case 1:
+                            statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
+                            break;
+                        case 2:
+                            statusText = "<span style='color: #5BC0DE'>Bodega central origen</span>";
+                            break;
+                        case 3:
+                            statusText = "<span style='color: #F0AD4E'>En camino entre bodegas centrales</span>";
+                            break;
+                        case 4:
+                            statusText = "<span style='color: #5BC0DE'>En bodega central destino</span>";
+                            break;
+                        case 5:
+                            statusText = "<span style='color: #F0AD4E'>En camino a entrega final</span>";
+                            break;
+                        case 6:
+                            statusText = "<span style='color: #22BB33'>Entregado</span>";
+                            break;
+                        case 7:
+                            statusText = "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
+                            break;
+                    }
                     const withCollectionText = package.with_collection_p ? 'Sí' : 'No';
 
                     packageTable.row.add([
@@ -103,7 +126,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         package.guide_number_p,
                         statusText,
                         withCollectionText,
-                        package.total_price_p
+                        package.total_price_p.toLocaleString('es-CO', {
+                            style: 'currency',
+                            currency: 'COP'
+                        })
                     ]).draw();
                 });
                 // Mostrar el modal

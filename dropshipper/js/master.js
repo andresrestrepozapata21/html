@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Replace 'login.html' with the actual URL of your login page
                 window.location.href = 'login.html';
             }
+
+            console.log(data)
             // i capture the wallet value dropshipper
             const wallet = data.data.wallet_dropshipper;
             // Formatear el valor como moneda

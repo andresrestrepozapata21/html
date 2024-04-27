@@ -3,9 +3,15 @@ const urlParams = new URLSearchParams(window.location.search);
 const id_carrier = urlParams.get('id_carrier');
 const token = localStorage.getItem('token');
 const id_ru = localStorage.getItem('id_ru');
+const asignado = localStorage.getItem('asignado');
 
 // Inicializo la pagina
 document.addEventListener('DOMContentLoaded', function () {
+    if (asignado) {
+        // Llamar a showToast
+        showToast('Paquetes asignados existosamente.');
+        localStorage.removeItem('asignado');
+    }
     //Llamo el metodo cargar datos del servidor
     cargarDatosDelServidor();
 
@@ -19,6 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
         enviarDatosDeAsignacion();
     });
 });
+// Evento que captura el clic de la X para cerrar el modal de los productos del paquete
+document.querySelector('.close').addEventListener('click', cerrarModal);
 // metodo para cargar los detalles de la pagina
 async function cargarDatosDelServidor() {
     const url = window.myAppConfig.production + "/routerUser/getDetailAsignateInter";
@@ -143,36 +151,27 @@ function cargarTablaPaquetes(paquetes, paquetes_asignados, capacidadVehiculo) {
         dataTablePackages.row.add(row).draw();
     });
 }
-
 // Función para obtener el texto de estado
 function getStatusText(status) {
     switch (status) {
         case 1:
-            return "<span style='color: #BB2124'>Bodega dropshipper</span>";
-
+            return statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
         case 2:
-            return "<span style='color: #5BC0DE'>Bodega central origen</span>";
-
+            return statusText = "<span style='color: #5BC0DE'>Bodega central origen</span>";
         case 3:
-            return "<span style='color: #F0AD4E'>En camino entre bodegas centrales</span>";
-
+            return statusText = "<span style='color: #F0AD4E'>En camino entre bodegas centrales</span>";
         case 4:
-            return "<span style='color: #5BC0DE'>En bodega central destino</span>";
-
+            return statusText = "<span style='color: #5BC0DE'>En bodega central destino</span>";
         case 5:
-            return "<span style='color: #F0AD4E'>En camino a entrega final</span>";
-
+            return statusText = "<span style='color: #F0AD4E'>En camino a entrega final</span>";
         case 6:
-            return "<span style='color: #22BB33'>Entregado</span>";
-
+            return statusText = "<span style='color: #22BB33'>Entregado</span>";
         case 7:
-            return "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
-
+            return statusText = "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
         default:
             return "";
     }
 }
-
 // Función para obtener el texto de recaudo
 function getWithCollectionText(withCollection) {
     switch (withCollection) {
@@ -215,7 +214,8 @@ function enviarDatosDeAsignacion() {
         .then(data => {
             console.log(data);
             if (data.result = 1) {
-                alert('Paquetes asignados correctamente.');
+                // Save the token and id user router to local storage
+                localStorage.setItem('asignado', true);
                 window.location.reload();
             }
         })
@@ -246,14 +246,21 @@ function mostrarDetallePaquete(idPaquete) {
             data.data.forEach((item) => {
                 item.package_products.forEach(product => {
                     const tr = document.createElement('tr');
+                    let total = parseInt(product.product.price_sale_product) * parseInt(product.cuantity_pp);
                     tr.innerHTML = `
                         <td>${product.product.id_product}</td>
                         <td>${product.product.name_product}</td>
                         <td>${product.product.description_product}</td>
-                        <td>${product.cuantity_pp}</td>
-                        <td>${product.product.price_sale_product}</td>
-                        <td>${product.product.price_cost_product}</td>
                         <td>${product.product.size_product}</td>
+                        <td>${product.cuantity_pp}</td>
+                        <td>${product.product.price_sale_product.toLocaleString('es-CO', {
+                            style: 'currency',
+                            currency: 'COP'
+                        })}</td>
+                        <td>${total.toLocaleString('es-CO', {
+                            style: 'currency',
+                            currency: 'COP'
+                        })}</td>
                     `;
                     productTable.appendChild(tr);
                 });
@@ -292,5 +299,30 @@ function abrirModal() {
 function cerrarModal() {
     document.getElementById('modal').style.display = 'none';
 }
-// Evento que captura el clic de la X para cerrar el modal de los productos del paquete
-document.querySelector('.close').addEventListener('click', cerrarModal);
+// funion para mostrar notificaiciones toast
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    const toastContainer = document.getElementById('toast-container');
+    if (toastContainer) {
+        toastContainer.appendChild(toast);
+    }
+
+    // Agrega la clase para mostrar el toast
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100); // Pequeño retraso antes de mostrar el toast
+
+    // Ocultar el toast después de 3 segundos
+    setTimeout(() => {
+        toast.classList.remove('show');
+
+        // Espera a que la transición termine para eliminar el toast
+        toast.addEventListener('transitionend', () => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        });
+    }, 3000);
+}
