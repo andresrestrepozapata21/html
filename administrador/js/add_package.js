@@ -1,10 +1,12 @@
 // capturo las variables de entorno que puedo necesitar
 const urlParams = new URLSearchParams(window.location.search);
 const id_dropshipper = urlParams.get('id_dropshipper');
+const id_store = urlParams.get('id_store');
 const token = localStorage.getItem('token');
 const id_manager = localStorage.getItem('id_manager');
 const wallet1 = localStorage.getItem('wallet1');
 const wallet2 = localStorage.getItem('wallet2');
+
 // Obtener el elemento select de departamento
 var selectDepartamento = document.getElementById('departamentoP');
 // cuando se carga la pantalla
@@ -146,49 +148,121 @@ document.addEventListener('DOMContentLoaded', function () {
                     item.size_product,
                     item.price_cost_product,
                     item.price_sale_product,
-                    `<input type="checkbox" name="seleccionProductos" value="${item.id_product}">`
+                    `<input type="checkbox" name="seleccionProductos" value="${item.id_product}" onchange="habilitarCantidad(this)">
+                     <input type="number" min="1" class="cantidad" id="cant${item.id_product}" disabled style="width: 60px;">`
                 ]).draw();
-            });
-            // Agregar evento clic a los enlaces "Ver Productos"
-            $('.show-modal').click(function (e) {
-                e.preventDefault();
-                const packageId = $(this).data('id');
-                showModal(packageId);
-            });
-            // Cerrar el modal al hacer clic en la "X"
-            $('.closeProducts').click(function () {
-                $('#myModal').css('display', 'none');
-            });
-
-            // Cerrar el modal al hacer clic fuera de él
-            $(window).click(function (event) {
-                if (event.target == $('#myModal')[0]) {
-                    $('#myModal').css('display', 'none');
-                }
             });
         })
         .catch(error => {
             console.error('Error en la petición Fetch:', error);
         });
-
 });
 
-document.getElementById('btnAgregar').addEventListener('click', function () {
-    let orden_p = document.getElementById(orden_p).value;
-    let guide_number_p = document.getElementById(guide_number_p).value;
-    let with_collection_p = document.getElementById(with_collection_p).value;
-    let profit_carrier_p = document.getElementById(profit_carrier_p).value;
-    let profit_carrier_inter_city_p = document.getElementById(profit_carrier_inter_city_p).value;
-    let profit_dropshipper_p = document.getElementById(profit_dropshipper_p).value;
-    let total_price_p = document.getElementById(total_price_p).value;
-    let fk_id_tp_p = document.getElementById(fk_id_tp_p).value;
-    let departamentoP = document.getElementById(departamentoP).value;
-    let ciudadP = document.getElementById(ciudadP).value;
-    let direction_client_p = document.getElementById(direction_client_p).value;
-    let comments_p = document.getElementById(comments_p).value;
-    let name_client_p = document.getElementById(name_client_p).value;
-    let phone_number_client_p = document.getElementById(phone_number_client_p).value;
-    let email_client_p = document.getElementById(email_client_p).value;
+document.getElementById('btnAgregar').addEventListener('click', function (e) {
+    e.preventDefault();
+    let orden_p = document.getElementById('orden_p').value;
+    let guide_number_p = document.getElementById('guide_number_p').value;
+    let with_collection_p = document.getElementById('with_collection_p').value;
+    let profit_carrier_p = document.getElementById('profit_carrier_p').value;
+    let profit_carrier_inter_city_p = document.getElementById('profit_carrier_inter_city_p').value;
+    let profit_dropshipper_p = document.getElementById('profit_dropshipper_p').value;
+    let total_price_p = document.getElementById('total_price_p').value;
+    let fk_id_tp_p = document.getElementById('fk_id_tp_p').value;
+    let fk_id_destiny_city_p = document.getElementById('ciudadP').value;
+    let fk_id_store_p = id_store;
+    let direction_client_p = document.getElementById('direction_client_p').value;
+    let comments_p = document.getElementById('comments_p').value;
+    let name_client_p = document.getElementById('name_client_p').value;
+    let phone_number_client_p = document.getElementById('phone_number_client_p').value;
+    let email_client_p = document.getElementById('email_client_p').value;
+    const checkboxesSeleccionados = document.querySelectorAll('input[name="seleccionProductos"]:checked');
+    // valido que todo este lleno
+    if (orden_p && guide_number_p && with_collection_p && profit_carrier_p && profit_carrier_inter_city_p && profit_dropshipper_p && total_price_p && fk_id_tp_p && fk_id_destiny_city_p && fk_id_store_p && direction_client_p && comments_p && name_client_p && phone_number_client_p && email_client_p && checkboxesSeleccionados.length > 0) {
+        // Realizar la petición Fetch al endpoint
+        fetch(window.myAppConfig.production + '/manager/addPackage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                orden_p,
+                guide_number_p,
+                with_collection_p,
+                profit_carrier_p,
+                profit_carrier_inter_city_p,
+                profit_dropshipper_p,
+                total_price_p,
+                direction_client_p,
+                comments_p,
+                name_client_p,
+                phone_number_client_p,
+                email_client_p,
+                fk_id_tp_p,
+                fk_id_destiny_city_p,
+                fk_id_store_p
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Validate token Expired Redirection index.html
+                if (data.result === 2) {
+                    // Clear the local storage which removes all data stored in the browser's local storage,
+                    // including any user session data like tokens
+                    localStorage.clear();
+                    // Redirect the user to the login page by changing the current location of the window
+                    // Replace 'login.html' with the actual URL of your login page
+                    window.location.href = 'login.html';
+                }
+                if (data.result === 1) {
+                    let fk_id_p_pp = data.data.id_p;
+                    //capturo los checks
+                    let products = [];
+
+                    checkboxesSeleccionados.forEach(function (checkbox) {
+                        let cantidad = document.getElementById('cant'+ checkbox.value).value;
+                        products.push({
+                            id_producto: parseInt(checkbox.value),
+                            cuantity_pp: cantidad
+                        });
+                    });
+
+                    const datosAsignacion = {
+                        fk_id_p_pp,
+                        products
+                    };
+                    //Ahora consumo el endpoint para agrearle los productos al paquete
+                    fetch(window.myAppConfig.production + '/manager/addProductToPackage', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(datosAsignacion)
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log(data);
+                            if (data.result = 1) {
+                                localStorage.setItem('agregado', true);
+                                window.location = 'detail_store.html?id_dropshipper=' + id_dropshipper + '&id_store=' + id_store;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error en la solicitud:', error);
+                            alert('Ocurrió un error al asignar los paquetes.');
+                        });
+                }
+            })
+            .catch(error => {
+                console.error('Error en la petición Fetch:', error);
+            });
+    }
 });
 
 // Escuchar el evento de cambio en el select de departamento
@@ -271,4 +345,18 @@ function showToast(message) {
             }
         });
     }, 3000);
+}
+
+// Escuchar eventos de clic en los checkboxes
+function habilitarCantidad(checkbox) {
+    // Encuentra el campo de entrada de cantidad correspondiente al checkbox
+    var inputCantidad = checkbox.nextElementSibling;
+
+    // Habilita o deshabilita el campo de entrada basado en el estado del checkbox
+    if (checkbox.checked) {
+        inputCantidad.disabled = false;
+    } else {
+        inputCantidad.disabled = true;
+        inputCantidad.value = ''; // Limpiar el valor si deseleccionan el producto
+    }
 }

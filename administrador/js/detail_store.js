@@ -7,6 +7,8 @@ const id_manager = localStorage.getItem('id_manager');
 const wallet1 = localStorage.getItem('wallet1');
 const wallet2 = localStorage.getItem('wallet2');
 const editado = localStorage.getItem('editado');
+const agregado = localStorage.getItem('agregado');
+
 // busco todos los campos para poder enviarlos en el formulario de registro del dropshiiper
 const direccion = document.getElementById('direccion');
 const ciudad = document.getElementById('ciudad');
@@ -22,6 +24,10 @@ document.addEventListener('DOMContentLoaded', function () {
         // Llamar a showToast
         showToast('Bodega editada existosamente.');
         localStorage.removeItem('editado');
+    } else if (agregado) {
+        // Llamar a showToast
+        showToast('Package creado existosamente.');
+        localStorage.removeItem('agregado');
     }
     // Formatear el valor como moneda
     let valorFormateado1 = wallet1.toLocaleString('es-CO', {
@@ -138,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.getElementById('btnAgregar').addEventListener('click', function () {
-    window.location = 'add_package.html?id_dropshipper=' + id_dropshipper;
+    window.location = 'add_package.html?id_dropshipper=' + id_dropshipper + '&id_store=' + id_store;
 });
 
 document.getElementById('btnEdit').addEventListener('click', function () {
