@@ -3,6 +3,7 @@ const token = localStorage.getItem('token');
 const id_dropshipper = localStorage.getItem('id_dropshipper');
 const wallet = localStorage.getItem('wallet');
 const eliminado = localStorage.getItem('eliminado');
+const rechazado = localStorage.getItem('rechazado');
 
 // cuando se carga la pantalla
 document.addEventListener('DOMContentLoaded', function () {
@@ -11,6 +12,10 @@ document.addEventListener('DOMContentLoaded', function () {
         // Llamar a showToast
         showToast('Solicitud eliminada exitosamente.');
         localStorage.removeItem('eliminado');
+    } else if (rechazado) {
+        // Llamar a showToast
+        showToast('Monto invalido.');
+        localStorage.removeItem('rechazado');
     }
     // Formatear el valor como moneda
     let valorFormateado = wallet.toLocaleString('es-CO', {
@@ -163,7 +168,11 @@ document.getElementById("form").addEventListener('submit', function (event) {
                 window.location.href = 'login.html';
             } else if (data.result === 1) {
                 let id_dpr = data.newPaymentRequest.id_dpr
-                window.location = './pin_verification.html?id_dpr=' + id_dpr
+                window.location = './pin_verification.html?id_dpr=' + id_dpr;
+            } else if (data.result === 5) {
+                // Save the token and id user router to local storage
+                localStorage.setItem('rechazado', true);
+                window.location.reload();
             }
         })
         .catch(error => {
@@ -173,7 +182,7 @@ document.getElementById("form").addEventListener('submit', function (event) {
 });
 
 // funcion para llevar a verificar el pin de seguridad
-function verificar(id_dpr){
+function verificar(id_dpr) {
     window.location = './pin_verification.html?id_dpr=' + id_dpr
 }
 

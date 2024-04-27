@@ -81,7 +81,19 @@ document.getElementById("form").addEventListener('submit', function (event) {
                     input.value = "";
                 });
             } else if (data.result === 1) {
-                window.location = "./confirmation_pin_correct.html"
+                // To remove olld wallet
+                localStorage.removeItem('wallet');
+                // i capture the wallet value dropshipper
+                const newWallet = data.newWallet;
+                // Formatear el valor como moneda
+                let valorFormateado = newWallet.toLocaleString('es-CO', {
+                    style: 'currency',
+                    currency: 'COP'
+                });
+                // Save the token and id user router to local storage
+                localStorage.setItem('wallet', valorFormateado);
+                //reload the page
+                window.location = "./confirmation_pin_correct.html";
             }
         })
         .catch(error => {
