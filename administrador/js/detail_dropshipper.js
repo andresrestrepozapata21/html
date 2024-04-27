@@ -214,7 +214,7 @@ selectDepartamento.addEventListener('change', function () {
 
 //Metodo para mostrar los detelles del paquete.
 function detalle(id_store) {
-    window.location = './detail_store.html?id_store=' + id_store;
+    window.location = './detail_store.html?id_store=' + id_store + '&id_dropshipper=' + id_dropshipper;
 }
 
 //Metodo para eliminar el paquete.
