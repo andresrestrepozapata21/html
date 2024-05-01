@@ -1,8 +1,8 @@
 // capturo las variables de entorno que puedo necesitar
 const token = localStorage.getItem('token');
 const id_manager = localStorage.getItem('id_manager');
-const wallet1 = localStorage.getItem('wallet1');
-const wallet2 = localStorage.getItem('wallet2');
+//const wallet1 = localStorage.getItem('wallet1');
+//const wallet2 = localStorage.getItem('wallet2');
 const pagado = localStorage.getItem('pagado');
 const rechazada = localStorage.getItem('rechazada');
 
@@ -19,21 +19,21 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.removeItem('rechazada');
     }
     // Formatear el valor como moneda
-    let valorFormateado1 = wallet1.toLocaleString('es-CO', {
-        style: 'currency',
-        currency: 'COP'
-    });
-    // Formatear el valor como moneda
-    let valorFormateado2 = wallet2.toLocaleString('es-CO', {
-        style: 'currency',
-        currency: 'COP'
-    });
-    // i select wallet component
-    const walletElement1 = document.querySelector('.wallet1');
-    const walletElement2 = document.querySelector('.wallet2');
-    // To asignate wallet value
-    walletElement1.textContent = valorFormateado1;
-    walletElement2.textContent = valorFormateado2;
+    //let valorFormateado1 = wallet1.toLocaleString('es-CO', {
+    //    style: 'currency',
+    //    currency: 'COP'
+    //});
+    //// Formatear el valor como moneda
+    //let valorFormateado2 = wallet2.toLocaleString('es-CO', {
+    //    style: 'currency',
+    //    currency: 'COP'
+    //});
+    //// i select wallet component
+    //const walletElement1 = document.querySelector('.wallet1');
+    //const walletElement2 = document.querySelector('.wallet2');
+    //// To asignate wallet value
+    //walletElement1.textContent = valorFormateado1;
+    //walletElement2.textContent = valorFormateado2;
 
     // Realizar la petición Fetch al endpoint
     fetch(window.myAppConfig.production + '/manager/getPaymentsRequestCarrier', {

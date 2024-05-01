@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrar transportista Paky</title>
+    <!-- Style CSS Customer -->
+    <link rel="stylesheet" href="assets/css/register_documents.css" />
+    <!-- Import font style -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+    />
+    <!-- Import Font Awesome CDN-->
+    <script
+      src="https://kit.fontawesome.com/0a0c61a66b.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Add the icon page -->
+    <link rel="icon" href="assets/images/p.png" type="image/x-icon" />
+  </head>
+
+  <body>
+    <div class="container">
+      <form id="uploadForm">
+        <div class="container_img">
+          <img src="assets/images/pakylogo.svg" />
+        </div>
+        <h2>Registrar documentos transportista</h2>
+        <p>Tome un fotos de su cédula por lado y lado en imagenes sepadas.</p>
+        <div class="form-group">
+          <input type="hidden" id="id_carrier" name="id_carrier" required />
+        </div>
+        <div class="form-group">
+          <label for="file1">Cédula parte frontal:</label>
+          <input type="file" id="file1" name="file1" required />
+        </div>
+        <div class="form-group">
+          <label for="file2">Cédula parte posterior:</label>
+          <input type="file" id="file2" name="file2" required />
+        </div>
+        <button type="submit">Cargar Documentos</button>
+      </form>
+    </div>
+    <!-- Import config URLS dev and prod, etc... -->
+    <!-- Import js index -->
+    <script src="config/config.js"></script>
+    <script src="js/register_documents.js"></script>
+  </body>
+</html>

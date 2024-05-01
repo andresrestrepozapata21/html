@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrar transportista Paky</title>
+    <!-- Style CSS Customer -->
+    <link rel="stylesheet" href="assets/css/register_vehicle.css" />
+    <!-- Import font style -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+    />
+    <!-- Import Font Awesome CDN-->
+    <script
+      src="https://kit.fontawesome.com/0a0c61a66b.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Add the icon page -->
+    <link rel="icon" href="assets/images/p.png" type="image/x-icon" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="container_img">
+        <img src="assets/images/pakylogo.svg" />
+      </div>
+      <form id="uploadForm">
+        <h2>Registro de vehiculo del transportista</h2>
+        <p>Ingrese la información de su vehiculo tal como aparece en su tarjeta de propiedad, adicionalmente debe cargar una foto clara del vehiculo.</p>
+        <div class="form-group">
+          <input type="hidden" id="id_carrier" name="id_carrier" required />
+        </div>
+        <div class="form-group">
+          <label for="placa">Placa:</label>
+          <input type="tel" id="placa" name="placa" required />
+        </div>
+        <div class="form-group">
+          <label for="marca">Marca:</label>
+          <input type="text" id="marca" name="marca" required />
+        </div>
+        <div class="form-group">
+          <label for="linea">Linea:</label>
+          <input type="text" id="linea" name="linea" required />
+        </div>
+        <div class="form-group">
+          <label for="modelo">Modelo:</label>
+          <input type="text" id="modelo" name="modelo" required />
+        </div>
+        <div class="form-group">
+          <label for="clase">Clase:</label>
+          <input type="text" id="clase" name="clase" required />
+        </div>
+        <div class="form-group">
+          <label for="color">Color:</label>
+          <input type="text" id="color" name="color" required />
+        </div>
+        <div class="form-group">
+          <label for="cilindraje">Cilindraje:</label>
+          <input type="text" id="cilindraje" name="cilindraje" required />
+        </div>
+        <div class="form-group">
+          <label for="descripcion">Descripcion: (Opcional)</label>
+          <input type="text" id="descripcion" name="descripcion" />
+        </div>
+        <div class="form-group">
+          <label for="file">Foto del Vehiculo:</label>
+          <input type="file" id="photo" name="photo" required />
+        </div>
+        <button type="submit">Registrar</button>
+      </form>
+    </div>
+    <!-- Import config URLS dev and prod, etc... -->
+    <!-- Import js index -->
+    <script src="config/config.js"></script>
+    <script src="js/register_vehicle.js"></script>
+  </body>
+</html>
