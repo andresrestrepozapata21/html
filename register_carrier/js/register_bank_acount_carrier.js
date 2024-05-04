@@ -27,9 +27,11 @@ document.getElementById('registrationForm').addEventListener('submit', function 
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            alert('Registro completado con éxito.');
-            const idCarrier = data.data.fk_id_carrier_cba;
-            window.location = './register_vehicle.html?id_carrier=' + idCarrier;
+            if(data.result === 1){
+                alert('Registro completado con éxito.');
+                const idCarrier = data.data.fk_id_carrier_cba;
+                window.location = './register_vehicle.html?id_carrier=' + idCarrier;
+            }
         })
         .catch((error) => {
             console.error('Error:', error);

@@ -29,9 +29,11 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            alert('Archivos subidos con éxito.');
-            const idVehicle = data.data.id_vehicle;
-            window.location = './register_documents_vehicle.html?id_vehicle=' + idVehicle + '&id_carrier=' + idCarrier;
+            if(data.result === 1){
+                alert('Vehiculo registrado éxitosamente.');
+                const idVehicle = data.data.id_vehicle;
+                window.location = './register_documents_vehicle.html?id_vehicle=' + idVehicle + '&id_carrier=' + idCarrier;
+            }
         })
         .catch((error) => {
             console.error('Error:', error);

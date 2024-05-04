@@ -23,8 +23,10 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            alert('Archivos subidos con éxito.');
-            window.location = './register_bank_acount_carrier.html?id_carrier=' + idCarrier;
+            if (data.result === 1) {
+                alert('Archivos subidos con éxito.');
+                window.location = './register_bank_acount_carrier.html?id_carrier=' + idCarrier;
+            }
         })
         .catch((error) => {
             console.error('Error:', error);

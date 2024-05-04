@@ -24,8 +24,10 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            alert('Archivos subidos con éxito.');
-            window.location = './confirmation_register.html';
+            if(data.result === 1){
+                alert('Archivos subidos con éxito.');
+                window.location = './confirmation_register.html';
+            }
         })
         .catch((error) => {
             console.error('Error:', error);

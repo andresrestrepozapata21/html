@@ -33,10 +33,12 @@ document
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        alert("Registro exitoso, continua con el registro hasta el final.");
-        const idCarrier = data.data.id_carrier;
-        window.location =
-          "./register_documents.html?id_carrier=" + idCarrier;
+        if (data.result === 1) {
+          alert("Registro exitoso, continua con el registro hasta el final.");
+          const idCarrier = data.data.id_carrier;
+          window.location =
+            "./register_documents.html?id_carrier=" + idCarrier;
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
