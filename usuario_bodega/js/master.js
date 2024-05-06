@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
     const token = localStorage.getItem('token');
-    const id_ru = localStorage.getItem('id_ru');
-    
+    const id_su = localStorage.getItem('id_su');
+    const city = localStorage.getItem('city');
 });

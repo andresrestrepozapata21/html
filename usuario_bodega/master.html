@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master paky</title>
+    <!-- Style CSS Customer -->
+    <link rel="stylesheet" href="assets/css/master.css">
+    <!-- Import font style -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <!-- Import Font Awesome CDN-->
+    <script src="https://kit.fontawesome.com/0a0c61a66b.js" crossorigin="anonymous"></script>
+    <!-- Add the icon page -->
+    <link rel="icon" href="assets/images/p.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="menu">
+            <a href="master.html"><img src="assets/images/p.png" alt="Logo"></a>
+            <div class="opciones">
+                <div class="op1">
+                    <h4>Opciones</h4>
+                </div>
+                <div class="op2">
+                    <h4 class="modulo">Paquetería</h4>
+                    <a href="list_package.html"><i class="fa-solid fa-box"></i>Listado de paquetes</a>
+
+                    <h4 class="modulo">Contabilidad</h4>
+                    <a href="list_carriers.html"><i class="fa-solid fa-cart-flatbed"></i>Pagos Transportistas</a>
+                </div>
+            </div>
+        </div>
+        <button id="cerrarSesion" class="btn-cerrar-sesion">Cerrar Sesión</button>
+    </div>
+
+    <div class="content">
+        <img src="assets/images/pakylogo.svg" alt="Imagen Central">
+    </div>
+
+    <!-- Import js personalized-->
+    <script src="js/master.js"></script>
+    <script src="js/logout.js"></script>
+    <script>
+        // Verification sesion active
+        function checkSession() {
+            const token = localStorage.getItem('token');
+            const id_su = localStorage.getItem('id_su');
+
+            if (!token || !id_su) {
+                // redirection login if sesion non existing
+                window.location.href = 'login.html';
+            }
+        }
+        // To call method checkSession
+        checkSession();
+    </script>
+</body>
+
+</html>

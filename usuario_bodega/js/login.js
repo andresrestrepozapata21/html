@@ -21,7 +21,7 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
     const password = document.getElementById('password').value;
 
     // Make the HTTP request to log in
-    fetch(window.myAppConfig.production + '/userStore/login', {
+    fetch(window.myAppConfig.production + '/storeUser/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
             // Save the token and id user router to local storage
             localStorage.setItem('token', data.token);
             localStorage.setItem('id_su', data.data[0].id_su);
-            localStorage.setItem('city', data.data[0].fk_id_city_ru);
+            localStorage.setItem('city', data.data[0].store.fk_id_city_store);
 
             // Redirect to home page
             window.location.href = 'master.html';
