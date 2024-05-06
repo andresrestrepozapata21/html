@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DB paky</title>
+    <title>RC paky</title>
     <!-- Style CSS Customer -->
-    <link rel="stylesheet" href="assets/css/data_banks.css">
+    <link rel="stylesheet" href="assets/css/detail_dropshipper.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <!-- Import font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    
+
     <div id="toast-container"></div>
 
     <div class="sidebar">
@@ -32,9 +32,9 @@
                     <a href="my_packages.html"><i class="fa-solid fa-box"></i>Mis pedidos</a>
 
                     <h4 class="modulo">Configuración</h4>
-                    <a href="detail_dropshipper.html"><i class="fa-solid fa-user"></i>Gestion del dropshipper</a>
+                    <a href="detail_dropshipper.html" class="active"><i class="fa-solid fa-user"></i>Gestion del dropshipper</a>
                     <a href="products.html"><i class="fa-solid fa-boxes-packing"></i>Gestion de productos</a>
-                    <a href="data_banks.html" class="active"><i class="fa-solid fa-money-bill"></i>Datos bancarios</a>
+                    <a href="data_banks.html"><i class="fa-solid fa-money-bill"></i>Datos bancarios</a>
 
                     <h4 class="modulo">Utilidades</h4>
                     <a href="payments.html"><i class="fa-solid fa-wallet"></i>Retiro de saldo</a>
@@ -49,65 +49,110 @@
         <div class="header">
             <h2><i class="fa-solid fa-wallet"></i> <span class="wallet"></span></h2>
         </div>
-        <h1>Datos Bancarios</h1>
-        <div class="component">
+        <h2 class="tittle">Gestión de Dropshippers</h2>
+        <div id="transportista-component" class="component">
             <div class="info-section">
-                <h2>Agregar cuenta bancaria</h2>
-                <form id="form">
-                    <div class="inputs">
+                <h2>Información del Dropshipper <button type="button" id="btnEdit" class="enlaces"><i
+                    class="fa-regular fa-pen-to-square"></i></button></h2>
+                <br>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo de Documento:</label>
+                        <input type="text" id="tipoDocumento" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Número de Documento:</label>
+                        <input type="text" id="numeroDocumento" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombres:</label>
+                        <input type="text" id="nombre" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellidos:</label>
+                        <input type="text" id="apellido" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono:</label>
+                        <input type="text" id="telefono" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="info-section">
+                <h2>Credenciales</h2>
+                <br>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" id="email" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Password:</label>
+                        <input type="text" id="password" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="tittle">Gestion de Bodegas </h2>
+        <div id="transportista-component" class="component">
+            <div class="info-section">
+                <h2>Agregar Bodega</h2>
+                <br>
+                <form action="">
+                    <div class="form-row">
                         <div class="form-group">
-                            <label for="numeroCuenta">Número de cuenta:</label>
-                            <input type="text" id="numeroCuenta" name="numeroCuenta" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="tipoCuenta">Tipo cuenta:</label>
-                            <select name="tipoCuenta" id="tipoCuenta" required>
-                                <option value="">Seleccionar Tipo Cuenta</option>
-                                <option value="Ahorros">Ahorros</option>
-                                <option value="Corriente">Corriente</option>
+                            <label>Departamento:</label>
+                            <select name="departamentoB" id="departamentoB" class="select" required>
+                                <!-- Aquí van los departamentos -->
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="banco">banco:</label>
-                            <select name="banco" id="banco" required>
-                                <option value="">Seleccionar Banco</option>
-                                <option value="Bancolombia">Bancolombia</option>
-                                <option value="Davivienda">Davivienda</option>
-                                <option value="Banco de Bogotá">Banco de Bogotá</option>
+                            <label>Ciudad:</label>
+                            <select name="ciudadB" id="ciudadB" class="select" required>
+                                <!-- Aquí van los departamentos -->
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="descripcion">Descripción:</label>
-                            <input type="text" id="descripcion" name="descripcion" required>
+                            <label>Dirección:</label>
+                            <input type="text" id="direccionB" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono:</label>
+                            <input type="text" id="telefonoB" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Capacidad:</label>
+                            <input type="text" id="capacidadB" required>
                         </div>
                     </div>
-                    <br>
-                    <div class="form-group">
-                        <button type="submit" id="btnAgregar">Guardar</button>
+                    <div class="acciones">
+                        <button type="submit" id="btnAgregar">Agregar Bodega</button>
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="table-wrapper">
-            <table id="dataTable" class="display">
-                <thead>
-                    <tr>
-                        <th># Cuenta</th>
-                        <th>Tipo de Cuenta</th>
-                        <th>Banco</th>
-                        <th>Descripción</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los datos se agregarán aquí dinámicamente -->
-                </tbody>
-            </table>
+            <div class="table-wrapper">
+                <h2>Bodegas del dropshipper</h2>
+                <br>
+                <table id="dataTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Capacidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los datos se agregarán aquí dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <!-- Import js personalized-->
     <script src="config/config.js"></script>
-    <script src="js/data_banks.js"></script>
+    <script src="js/detail_dropshipper.js"></script>
     <script src="js/logout.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
@@ -161,4 +206,4 @@
     </script>
 </body>
 
-</html>
+</html>s

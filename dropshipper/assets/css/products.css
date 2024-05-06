@@ -397,3 +397,8 @@ textarea[readonly] {
     opacity: 1;
     transform: translateX(0);
 }
+
+input.cantidad[disabled] {
+    background-color: #eee; /* Fondo gris para indicar que está deshabilitado */
+    color: #999; /* Texto en gris para mejorar la distinción */
+}

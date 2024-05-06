@@ -1,11 +1,9 @@
 // capturo las variables de entorno que puedo necesitar
 const urlParams = new URLSearchParams(window.location.search);
 const id_store = urlParams.get('id_store');
-const id_dropshipper = urlParams.get('id_dropshipper');
+const id_dropshipper = localStorage.getItem('id_dropshipper');
 const token = localStorage.getItem('token');
-const id_manager = localStorage.getItem('id_manager');
-const wallet1 = localStorage.getItem('wallet1');
-const wallet2 = localStorage.getItem('wallet2');
+const wallet = localStorage.getItem('wallet');
 const editado = localStorage.getItem('editado');
 const agregado = localStorage.getItem('agregado');
 
@@ -30,21 +28,14 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.removeItem('agregado');
     }
     // Formatear el valor como moneda
-    let valorFormateado1 = wallet1.toLocaleString('es-CO', {
-        style: 'currency',
-        currency: 'COP'
-    });
-    // Formatear el valor como moneda
-    let valorFormateado2 = wallet2.toLocaleString('es-CO', {
+    let valorFormateado = wallet.toLocaleString('es-CO', {
         style: 'currency',
         currency: 'COP'
     });
     // i select wallet component
-    const walletElement1 = document.querySelector('.wallet1');
-    const walletElement2 = document.querySelector('.wallet2');
+    const walletElement = document.querySelector('.wallet');
     // To asignate wallet value
-    walletElement1.textContent = valorFormateado1;
-    walletElement2.textContent = valorFormateado2;
+    walletElement.textContent = valorFormateado;
 
     // Realizar la petición Fetch al endpoint
     fetch(window.myAppConfig.production + '/manager/getPackagesByStore', {
@@ -144,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.getElementById('btnAgregar').addEventListener('click', function () {
-    window.location = 'add_package.html?id_dropshipper=' + id_dropshipper + '&id_store=' + id_store;
+    window.location = 'add_package.html?id_store=' + id_store;
 });
 
 document.getElementById('btnEdit').addEventListener('click', function () {

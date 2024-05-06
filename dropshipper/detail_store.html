@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DB paky</title>
+    <title>RC paky</title>
     <!-- Style CSS Customer -->
-    <link rel="stylesheet" href="assets/css/data_banks.css">
+    <link rel="stylesheet" href="assets/css/detail_store.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <!-- Import font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    
+
     <div id="toast-container"></div>
 
     <div class="sidebar">
@@ -32,9 +32,9 @@
                     <a href="my_packages.html"><i class="fa-solid fa-box"></i>Mis pedidos</a>
 
                     <h4 class="modulo">Configuración</h4>
-                    <a href="detail_dropshipper.html"><i class="fa-solid fa-user"></i>Gestion del dropshipper</a>
+                    <a href="detail_dropshipper.html" class="active"><i class="fa-solid fa-user"></i>Gestion del dropshipper</a>
                     <a href="products.html"><i class="fa-solid fa-boxes-packing"></i>Gestion de productos</a>
-                    <a href="data_banks.html" class="active"><i class="fa-solid fa-money-bill"></i>Datos bancarios</a>
+                    <a href="data_banks.html"><i class="fa-solid fa-money-bill"></i>Datos bancarios</a>
 
                     <h4 class="modulo">Utilidades</h4>
                     <a href="payments.html"><i class="fa-solid fa-wallet"></i>Retiro de saldo</a>
@@ -49,54 +49,112 @@
         <div class="header">
             <h2><i class="fa-solid fa-wallet"></i> <span class="wallet"></span></h2>
         </div>
-        <h1>Datos Bancarios</h1>
-        <div class="component">
+        <h2 class="tittle">Detalles de la Bodega <button type="button" id="btnEdit" class="enlaces"><i
+                    class="fa-regular fa-pen-to-square"></i></button></h2>
+        <div id="transportista-component" class="component">
             <div class="info-section">
-                <h2>Agregar cuenta bancaria</h2>
-                <form id="form">
-                    <div class="inputs">
-                        <div class="form-group">
-                            <label for="numeroCuenta">Número de cuenta:</label>
-                            <input type="text" id="numeroCuenta" name="numeroCuenta" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="tipoCuenta">Tipo cuenta:</label>
-                            <select name="tipoCuenta" id="tipoCuenta" required>
-                                <option value="">Seleccionar Tipo Cuenta</option>
-                                <option value="Ahorros">Ahorros</option>
-                                <option value="Corriente">Corriente</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="banco">banco:</label>
-                            <select name="banco" id="banco" required>
-                                <option value="">Seleccionar Banco</option>
-                                <option value="Bancolombia">Bancolombia</option>
-                                <option value="Davivienda">Davivienda</option>
-                                <option value="Banco de Bogotá">Banco de Bogotá</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="descripcion">Descripción:</label>
-                            <input type="text" id="descripcion" name="descripcion" required>
-                        </div>
-                    </div>
-                    <br>
+                <h2>Información de la bodega</h2>
+                <br>
+                <div class="form-row">
                     <div class="form-group">
-                        <button type="submit" id="btnAgregar">Guardar</button>
+                        <label>Departamento:</label>
+                        <input type="text" id="departamento" readonly>
                     </div>
-                </form>
+                    <div class="form-group">
+                        <label>Ciudad:</label>
+                        <input type="text" id="ciudad" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Dirección:</label>
+                        <input type="text" id="direccion" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono:</label>
+                        <input type="text" id="telefono" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Capacidad:</label>
+                        <input type="text" id="capacidad" readonly>
+                    </div>
+                </div>
             </div>
         </div>
+        <h2 class="tittle">Agregar Paquete</h2>
+        <div id="transportista-component" class="component">
+                <div class="acciones">
+                    <button type="submit" id="btnAgregar">Agregar Paquete</button>
+                </div>
+        </div>
         <div class="table-wrapper">
+            <h2>Paquetes en la bodega</h2>
+            <br>
             <table id="dataTable" class="display">
                 <thead>
                     <tr>
-                        <th># Cuenta</th>
-                        <th>Tipo de Cuenta</th>
-                        <th>Banco</th>
+                        <th>ID</th>
+                        <th># Orden</th>
+                        <th>Nombres Cliente</th>
+                        <th>Teléfono Cliente</th>
+                        <th>Dirección</th>
+                        <th>Estado Actual</th>
+                        <th>Ver Productos</th>
+                        <th>Historial</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos se agregarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Modal para mostrar los paquetes -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Historial</h2>
+            <table class="historyModal" class="display">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th># Orden</th>
+                        <th>Estado</th>
+                        <th>Nombres CLiente</th>
+                        <th>Teléfono Cliente</th>
+                        <th>Dirección</th>
+                        <th>Evidencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos se agregarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Modal para mostrar los paquetes -->
+    <div id="modalEvidence" class="modalEvidence">
+        <div class="modal-content">
+            <span class="closeEvidence">&times;</span>
+            <h2>Evidencia</h2>
+            <div class="evidenceImg" id="evidenceImg">
+                <!-- Imagen del QR -->
+            </div>
+        </div>
+    </div>
+    <!-- Modal para mostrar la información de los productos del paquete -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="closeProducts">&times;</span>
+            <h2>Productos del Paquete</h2>
+            <table id="productTable" class="display">
+                <thead>
+                    <tr>
+                        <th>ID Producto</th>
+                        <th>Nombre</th>
                         <th>Descripción</th>
-                        <th>Acción</th>
+                        <th>Dimensión</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -107,7 +165,7 @@
     </div>
     <!-- Import js personalized-->
     <script src="config/config.js"></script>
-    <script src="js/data_banks.js"></script>
+    <script src="js/detail_store.js"></script>
     <script src="js/logout.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
@@ -161,4 +219,4 @@
     </script>
 </body>
 
-</html>
+</html>s
