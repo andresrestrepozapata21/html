@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     statusText = "CANCELADO";
                     break;
                 case 1:
-                    statusText = "Bodega dropshipper";
+                    statusText = "Bodega Comercio";
                     break;
                 case 2:
                     statusText = "Bodega central origen";
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     statusText = "Entregado";
                     break;
                 case 7:
-                    statusText = "En camino de bodega dropshipper a bodega central";
+                    statusText = "En camino de Bodega Comercio a bodega central";
                     break;
             }
             document.querySelector('.der p:nth-child(3)').textContent = `Estado: ${statusText}`;
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         statusText = "<span style='color: #BB2124'>CANCELADO</span>";
                         break;
                     case 1:
-                        statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
+                        statusText = "<span style='color: #BB2124'>Bodega Comercio</span>";
                         break;
                     case 2:
                         statusText = "<span style='color: #5BC0DE'>Bodega central origen</span>";
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         fecha_de_entrega = event.createdAt
                         break;
                     case 7:
-                        statusText = "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
+                        statusText = "<span style='color: #F0AD43'>En camino de Bodega Comercio a bodega central</span>";
                         break;
                 }
                 let row;

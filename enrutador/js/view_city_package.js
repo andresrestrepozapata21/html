@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let statusText;
                 switch (item.status_p) {
                     case 1:
-                        statusText = "<span style='color: #BB2124'>Bodega dropshipper</span>";
+                        statusText = "<span style='color: #BB2124'>Bodega Comercio</span>";
                         break;
                     case 4:
                         statusText = "<span style='color: #5BC0DE'>En bodega central destino</span>";
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         statusText = "<span style='color: #22BB33'>Entregado</span>";
                         break;
                     case 7:
-                        statusText = "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
+                        statusText = "<span style='color: #F0AD43'>En camino de Bodega Comercio a bodega central</span>";
                         break;
                 }
 

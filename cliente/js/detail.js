@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     statusText = "CANCELADO";
                     break;
                 case 1:
-                    statusText = "Bodega dropshipper";
+                    statusText = "Bodega Comercio";
                     break;
                 case 2:
                     statusText = "Bodega central origen";
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     statusText = "Entregado";
                     break;
                 case 7:
-                    statusText = "En camino de bodega dropshipper a bodega central";
+                    statusText = "En camino de Bodega Comercio a bodega central";
                     break;
             }
             document.querySelector('.der p:nth-child(3)').textContent = `Estado: ${statusText}`;

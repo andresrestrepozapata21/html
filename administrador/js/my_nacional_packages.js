@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         statusText = "<span style='color: #BB2124'>CANCELADO</span>";
                         break;
                     case 1:
-                        statusText = "<span style='color: #BB2124'>En bodega dropshipper</span>";
+                        statusText = "<span style='color: #BB2124'>En Bodega Comercio</span>";
                         break;
                     case 2:
                         statusText = "<span style='color: #5BC0DE'>En bodega central origen</span>";
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         statusText = "<span style='color: #22BB33'>Entregado</span>";
                         break;
                     case 7:
-                        statusText = "<span style='color: #F0AD43'>En camino de bodega dropshipper a bodega central</span>";
+                        statusText = "<span style='color: #F0AD43'>En camino de Bodega Comercio a bodega central</span>";
                         break;
                 }
                 
