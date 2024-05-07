@@ -6,6 +6,7 @@ const token = localStorage.getItem('token');
 const wallet = localStorage.getItem('wallet');
 const editado = localStorage.getItem('editado');
 const agregado = localStorage.getItem('agregado');
+const cancelado = localStorage.getItem('cancelado');
 
 // busco todos los campos para poder enviarlos en el formulario de registro del dropshiiper
 const direccion = document.getElementById('direccion');
@@ -26,6 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
         // Llamar a showToast
         showToast('Package creado existosamente.');
         localStorage.removeItem('agregado');
+    } else if (cancelado) {
+        // Llamar a showToast
+        showToast('Package cancelado existosamente.');
+        localStorage.removeItem('cancelado');
     }
     // Formatear el valor como moneda
     let valorFormateado = wallet.toLocaleString('es-CO', {
@@ -106,9 +111,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     statusText,
                     `<a href="#" class="show-modal" data-id="${item.id_p}">Ver Productos</a>`,
                     `<div class="acciones">
-                        <button type="button" id="btnDetalle" class="enlaces" onClick="historial(${item.id_p})"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <button type="button" id="btnDetalle" class="enlaces" onClick="historial(${item.id_p})"><i class="fa-solid fa-clock-rotate-left"></i></i></button>
                     </div>
-                    `
+                    `,
+                    `<div class="acciones">
+                        <button type="button" id="btnDelete" class="enlaces" onClick="eliminarPackage(${item.id_p})"><i class="fa-solid fa-trash"></i></button>
+                    </div>`
                 ]).draw();
             });
             // Agregar evento clic a los enlaces "Ver Productos"
@@ -151,6 +159,42 @@ document.querySelector('.close').addEventListener('click', function () {
 document.querySelector('.closeEvidence').addEventListener('click', function () {
     document.getElementById('modalEvidence').style.display = 'none';
 });
+
+// Metodo para abrir el modal de los productos del paquete
+function eliminarPackage(id_p) {
+    // Realizar la petición Fetch al endpoint
+    fetch(window.myAppConfig.production + '/dropshipper/editPackage/' + id_p, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            status_p: 0
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Validate token Expired Redirection index.html
+            if (data.result === 2) {
+                // Clear the local storage which removes all data stored in the browser's local storage,
+                // including any user session data like tokens
+                localStorage.clear();
+                // Redirect the user to the login page by changing the current location of the window
+                // Replace 'login.html' with the actual URL of your login page
+                window.location.href = 'login.html';
+            }
+            // Validate result 1
+            if (data.result === 1) {
+                localStorage.setItem('cancelado', true);
+                window.location.reload();
+            }
+        })
+        .catch(error => {
+            console.error('Error en la petición Fetch:', error);
+        });
+    abrirModal();
+}
 
 // Metodo para abrir el modal de los productos del paquete
 function historial(id_p) {

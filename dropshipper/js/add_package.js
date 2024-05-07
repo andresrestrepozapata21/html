@@ -4,9 +4,42 @@ const id_store = urlParams.get('id_store');
 const id_dropshipper = localStorage.getItem('id_dropshipper');
 const token = localStorage.getItem('token');
 const wallet = localStorage.getItem('wallet');
-
 // Obtener el elemento select de departamento
 var selectDepartamento = document.getElementById('departamentoP');
+// Obtener el campo de selección de "con recaudo"
+let withCollectionField = document.getElementById('with_collection_p');
+// Obtener los campos siguientes que deseas ajustar
+let profitCarrierField = document.getElementById('profit_carrier_p');
+let profitCarrierInterCityField = document.getElementById('profit_carrier_inter_city_p');
+// Agregar un evento de cambio al campo de selección
+withCollectionField.addEventListener('change', function () {
+    // Obtener el valor seleccionado
+    let selectedValue = withCollectionField.value;
+    console.log(selectedValue)
+    // Verificar el valor seleccionado y ajustar los campos correspondientes
+    if (selectedValue == 0) {
+        profitCarrierField.value = 0;
+        profitCarrierInterCityField.value = 0;
+        profitCarrierField.readOnly = true;
+        profitCarrierInterCityField.readOnly = true;
+        profitCarrierField.removeAttribute('required');
+        profitCarrierInterCityField.removeAttribute('required');
+    } else if (selectedValue == 1) {
+        profitCarrierField.value = '';
+        profitCarrierInterCityField.value = '';
+        profitCarrierField.readOnly = false;
+        profitCarrierInterCityField.readOnly = false;
+        profitCarrierField.setAttribute('required', true);
+        profitCarrierInterCityField.setAttribute('required', true);
+    }
+
+    // Forzar la re-renderización del DOM
+    // Esto puede no ser necesario, pero podría ayudar a garantizar que los cambios se reflejen correctamente en algunos casos
+    document.body.style.display = 'none';
+    document.body.offsetHeight; // Truco para forzar la re-renderización del DOM
+    document.body.style.display = '';
+});
+
 // cuando se carga la pantalla
 document.addEventListener('DOMContentLoaded', function () {
     // Formatear el valor como moneda
@@ -137,10 +170,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     item.name_product,
                     item.description_product,
                     item.size_product,
-                    item.price_cost_product,
-                    item.price_sale_product,
-                    `<input type="checkbox" name="seleccionProductos" value="${item.id_product}" onchange="habilitarCantidad(this)">
-                     <input type="number" min="1" class="cantidad" id="cant${item.id_product}" disabled style="width: 60px;">`
+                    item.price_cost_product.toLocaleString('es-CO', {
+                        style: 'currency',
+                        currency: 'COP'
+                    }),
+                    item.price_sale_product.toLocaleString('es-CO', {
+                        style: 'currency',
+                        currency: 'COP'
+                    }),
+                    `<input type="checkbox" name="seleccionProductos" id="seleccionProductos" value="${item.id_product}" onchange="habilitarCantidad(this)" data-price="${item.price_sale_product}" data-cost="${item.price_cost_product}">
+                     <input type="number" min="1" class="cantidad" id="cant${item.id_product}" disabled style="width: 60px;" onchange="calcularPrecioTotalyGanancia()">`
                 ]).draw();
             });
         })
@@ -149,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 });
 
-document.getElementById('btnAgregar').addEventListener('click', function (e) {
+document.getElementById('form').addEventListener('submit', function (e) {
     e.preventDefault();
     let orden_p = document.getElementById('orden_p').value;
     let guide_number_p = document.getElementById('guide_number_p').value;
@@ -211,7 +250,7 @@ document.getElementById('btnAgregar').addEventListener('click', function (e) {
                     let products = [];
 
                     checkboxesSeleccionados.forEach(function (checkbox) {
-                        let cantidad = document.getElementById('cant'+ checkbox.value).value;
+                        let cantidad = document.getElementById('cant' + checkbox.value).value;
                         products.push({
                             id_producto: parseInt(checkbox.value),
                             cuantity_pp: cantidad
@@ -254,6 +293,10 @@ document.getElementById('btnAgregar').addEventListener('click', function (e) {
                 console.error('Error en la petición Fetch:', error);
             });
     }
+});
+
+document.getElementById('btnRegresar').addEventListener('click', function (e) {
+    window.location = './detail_store.html?id_store=' + id_store
 });
 
 // Escuchar el evento de cambio en el select de departamento
@@ -347,7 +390,55 @@ function habilitarCantidad(checkbox) {
     if (checkbox.checked) {
         inputCantidad.disabled = false;
     } else {
+        let checkboxesSeleccionados = document.querySelectorAll('input[name="seleccionProductos"]:checked');
+        let profit_dropshipper_p = 0;
+        let total_price_p = 0;
+        // Recorrer los checkboxes seleccionados para calcular el precio total del paquete
+        checkboxesSeleccionados.forEach(function (checkbox) {
+            let price_sale_product = parseFloat(checkbox.dataset.price);
+            let price_cost_product = parseFloat(checkbox.dataset.cost);
+
+            profit_dropshipper_p += price_cost_product;
+            total_price_p += price_sale_product;
+        });
+        // Actualizar los campos de precio total y ganancia del paquete
+        document.getElementById('total_price_p').value = total_price_p.toLocaleString('es-CO', {
+            style: 'currency',
+            currency: 'COP'
+        });
+        // Actualizar los campos de precio total y ganancia del paquete
+        document.getElementById('profit_dropshipper_p').value = profit_dropshipper_p.toLocaleString('es-CO', {
+            style: 'currency',
+            currency: 'COP'
+        });
         inputCantidad.disabled = true;
         inputCantidad.value = ''; // Limpiar el valor si deseleccionan el producto
     }
+}
+
+// Función para calcular el precio total y la ganancia
+function calcularPrecioTotalyGanancia() {
+    let checkboxesSeleccionados = document.querySelectorAll('input[name="seleccionProductos"]:checked');
+    let profit_dropshipper_p = 0;
+    let total_price_p = 0;
+
+    // Recorrer los checkboxes seleccionados para calcular el precio total del paquete
+    checkboxesSeleccionados.forEach(function (checkbox) {
+        let cantidad = parseFloat(document.getElementById('cant' + checkbox.value).value);
+        let price_sale_product = parseFloat(checkbox.dataset.price);
+        let price_cost_product = parseFloat(checkbox.dataset.cost);
+        profit_dropshipper_p += cantidad * price_cost_product;
+        total_price_p += cantidad * price_sale_product;
+    });
+
+    // Actualizar los campos de precio total y ganancia del paquete
+    document.getElementById('total_price_p').value = total_price_p.toLocaleString('es-CO', {
+        style: 'currency',
+        currency: 'COP'
+    });
+    // Actualizar los campos de precio total y ganancia del paquete
+    document.getElementById('profit_dropshipper_p').value = profit_dropshipper_p.toLocaleString('es-CO', {
+        style: 'currency',
+        currency: 'COP'
+    });
 }
