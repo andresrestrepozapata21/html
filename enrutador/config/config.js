@@ -2,8 +2,7 @@
 (function () {
     // Define tus URLs aquí
     const config = {
-        development: "http://localhost:3000",
-        production: "http://18.219.18.26:3000"
+        production: "http://paky.diegoarbelaez.com"
     };
 
     // Asigna el objeto de configuración a una variable global
@@ -13,4 +12,4 @@
 // window.myAppConfig.development
 // window.myAppConfig.production
 //development: "http://localhost:3000",
-//production: "http://18.219.18.26:3000"
+//production: "http://paky.diegoarbelaez.com"
