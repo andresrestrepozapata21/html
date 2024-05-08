@@ -193,7 +193,6 @@ function eliminarPackage(id_p) {
         .catch(error => {
             console.error('Error en la petición Fetch:', error);
         });
-    abrirModal();
 }
 
 // Metodo para abrir el modal de los productos del paquete

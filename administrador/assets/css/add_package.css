@@ -373,6 +373,14 @@ textarea[readonly] {
     background-color: #2c6b2e;
 }
 
+#btnRegresar {
+    background-color: #bb2124;
+}
+
+#btnRegresar:hover {
+    background-color: #701416;
+}
+
 #toast-container {
     position: fixed;
     top: 40px;

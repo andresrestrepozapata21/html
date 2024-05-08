@@ -183,12 +183,6 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
                 productsContent.innerHTML += row;
             });
-            productsContent.innerHTML += `
-                <div class="form-group">
-                    <button type="submit" id="btnEditarProducts">Guardar</button>
-                    <button type="button" id="btnRegresar1" onClick="regresar()">Regresar</button>
-                </div>
-            `;
             //estructura condicional para verificar si esta entregado o cancelado
             if (status === 0) {
                 // Selecciona el elemento .izq .p_wpp
@@ -261,62 +255,52 @@ document.getElementById('formDataCenterPackage').addEventListener('submit', func
         })
         .then(data => {
             if (data.result == 1) {
-                // Save the token and id user router to local storage
-                localStorage.setItem('paqueteEditado', true);
-                // Redirect to home page
-                window.location = `./detail_package.html?id_p=${id_p}`;
+                // Obtener todos los elementos que tienen IDs dinámicos de productos
+                const productInputs = document.querySelectorAll('[id^="id_product_pp_"]');
+                // Iterar sobre cada elemento de producto
+                productInputs.forEach(productInput => {
+                    const id_pp = productInput.value; // Obtener el ID del producto
+                    const cuantity_pp = document.getElementById(productInput.getAttribute('id').replace('id_product_pp_', 'cuantity_pp_')).value; // Obtener la cantidad del producto
+
+                    // Hacer la petición HTTP para editar la cantidad del producto
+                    fetch(window.myAppConfig.production + `/manager/editProductPackageCuantity/${id_pp}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({
+                            cuantity_pp
+                        })
+                    })
+                        .then(response => {
+                            // Verificar si la solicitud fue exitosa
+                            if (response.ok) {
+                                // Extraer el resultado de la respuesta
+                                return response.json();
+                            } else {
+                                throw new Error('Error: algo salio mal');
+                            }
+                        })
+                        .then(data => {
+                            if (data.result == 1) {
+                                // Save the token and id user router to local storage
+                                localStorage.setItem('productosEditado', true);
+                                // Redireccionar a la página de inicio
+                                window.location = `./detail_package.html?id_p=${id_p}`;
+                            }
+                        })
+                        .catch(error => {
+                            // Manejar errores de edición
+                            console.error('Error de editar:', error.message);
+                        });
+                });
             }
         })
         .catch(error => {
             // Handle login errors
             console.error('Error de editar:', error.message);
         });
-});
-// edit products package cuatity button click event
-document.getElementById('formDataCenterProducts').addEventListener('submit', function (event) {
-    // I drop default form behavior
-    event.preventDefault();
-
-    // Obtener todos los elementos que tienen IDs dinámicos de productos
-    const productInputs = document.querySelectorAll('[id^="id_product_pp_"]');
-    // Iterar sobre cada elemento de producto
-    productInputs.forEach(productInput => {
-        const id_pp = productInput.value; // Obtener el ID del producto
-        const cuantity_pp = document.getElementById(productInput.getAttribute('id').replace('id_product_pp_', 'cuantity_pp_')).value; // Obtener la cantidad del producto
-
-        // Hacer la petición HTTP para editar la cantidad del producto
-        fetch(window.myAppConfig.production + `/manager/editProductPackageCuantity/${id_pp}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                cuantity_pp
-            })
-        })
-        .then(response => {
-            // Verificar si la solicitud fue exitosa
-            if (response.ok) {
-                // Extraer el resultado de la respuesta
-                return response.json();
-            } else {
-                throw new Error('Error: algo salio mal');
-            }
-        })
-        .then(data => {
-            if (data.result == 1) {
-                // Save the token and id user router to local storage
-                localStorage.setItem('productosEditado', true);
-                // Redireccionar a la página de inicio
-                window.location = `./detail_package.html?id_p=${id_p}`;
-            }
-        })
-        .catch(error => {
-            // Manejar errores de edición
-            console.error('Error de editar:', error.message);
-        });
-    });
 });
 // Añadir evento al botón regresar si es necesario
 document.getElementById('btnRegresar').addEventListener('click', function () {

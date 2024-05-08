@@ -271,6 +271,10 @@ selectDepartamento.addEventListener('change', function () {
     cargarCiudades();
 });
 
+document.getElementById('btnRegresar').addEventListener('click', function (e) {
+    window.location = './detail_store.html?id_store=' + id_store + '&id_dropshipper=' + id_dropshipper;
+});
+
 // Función para cargar las ciudades basadas en el departamento seleccionado
 function cargarCiudades() {
     let departamentoSeleccionado = document.getElementById('departamentoP').value;

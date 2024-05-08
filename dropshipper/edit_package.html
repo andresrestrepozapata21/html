@@ -116,7 +116,7 @@
                     <label for="">Número de orden:</label>
                     <input type="text" name="orden_number" id="orden_number" value="">
                     <label for="">Fecha de creación:</label>
-                    <input type="date" name="order_date"id="order_date" value="">
+                    <input type="date" name="order_date" id="order_date" value="">
                     <label for="">Estado del Paquete:</label>
                     <select name="status_p" id="status_p">
                         <option id="s0" value="0" class="none">CANCELADO</option>
@@ -141,28 +141,46 @@
                         <option value="0">SIN RECAUDO</option>
                         <option value="1">CON RECAUDO</option>
                     </select>
+                    <br>
+                    <p class="extra"></p>
                 </div>
+            </div>
+            <div class="address">
+                <div class="izq">
+                    <p></p>
+                    <p></p>
+                </div>
+                <div class="der">
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <h2>Productos seleccionados y disponibles</h2>
+                <br>
+                <table id="dataTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Dimensión</th>
+                            <th>Precio Costo</th>
+                            <th>Precio Venta</th>
+                            <th>Selección</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los datos se agregarán aquí dinámicamente -->
+                    </tbody>
+                </table>
             </div>
             <div class="form-group">
                 <button type="submit" id="btnEditarPackage">Guardar</button>
-                <button type="button" id="btnRegresar">Regresar</button>
+                <button type="button" id="btnRegresar">Cancelar</button>
             </div>
         </form>
-        <div class="address">
-            <div class="izq">
-                <p></p>
-                <p></p>
-            </div>
-            <div class="der">
-                <p></p>
-                <p></p>
-            </div>
-        </div>
-        <div class="content_products">
-            <form id="formDataCenterProducts" class="formDataCenter">
-                <div id="component_products" class="component_products"></div>
-            </form>
-        </div>
     </div>
     <!-- Import js personalized-->
     <script src="config/config.js"></script>

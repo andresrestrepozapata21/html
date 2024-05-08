@@ -8,6 +8,8 @@ const wallet = localStorage.getItem('wallet');
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const id_p = urlParams.get('id_p');
+// ids de los productos que necesito para seleccionar en al tabla
+var id_products = [];
 // cuando se carga la pantalla
 document.addEventListener('DOMContentLoaded', function () {
     // Formatear el valor como moneda
@@ -153,38 +155,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 elemento4.appendChild(document.createTextNode(`Ciudad Destino: `));
                 elemento4.appendChild(span4);
             }
-            //aqui vamos a rellenar los data product
-            const productsContent = document.getElementById('component_products');
-            //recorro los productos y los muestro en pantalla
+            //recorro los productos y los guardo en un array
             data.data.package_products.forEach((product, index) => {
-                const row = `
-                <div class="info-section">
-                        <h2>Producto</h2>
-                        <div class="form-row1">
-                            <div class="form-group1">
-                                <label>Producto</label>
-                                <input type="hidden" id="id_product_pp_${index}" name="id_product_pp" value="${product.id_pp}">
-                                <input type="text" id="info" name="info" style="cursor: not-allowed; text-align: center;" value="${product.product.id_product} - ${product.product.description_product} - ${product.product.size_product} - ${product.product.price_sale_product.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}" readonly>
-                            </div>
-                            <div class="form-group1">
-                                <label>Cantidad:</label>
-                                <input type="text" id="cuantity_pp_${index}" style="text-align: center;" value="${product.cuantity_pp}" >
-                            </div>
-                        </div>
-                    </div>
-            `;
-                productsContent.innerHTML += row;
+                id_products.push({
+                    id_product: product.product.id_product,
+                    Quantity: product.cuantity_pp
+                })
             });
-            productsContent.innerHTML += `
-                <div class="form-group">
-                    <button type="submit" id="btnEditarProducts">Guardar</button>
-                    <button type="button" id="btnRegresar1" onClick="regresar()">Regresar</button>
-                </div>
-            `;
             //estructura condicional para verificar si esta entregado o cancelado
             if (status === 0) {
                 // Selecciona el elemento .izq .p_wpp
-                var elemento = document.querySelector('.der .extra');
+                var elemento = document.querySelector('.extra');
                 // Crea un elemento
                 var span = document.createElement('span');
                 span.classList.add('cancelado');
@@ -192,13 +173,74 @@ document.addEventListener('DOMContentLoaded', function () {
                 elemento.appendChild(span);
             } else if (status === 6) {
                 // Selecciona el elemento .izq .p_wpp
-                var elemento = document.querySelector('.der .extra');
+                var elemento = document.querySelector('.extra');
                 // Crea un elemento
                 var span = document.createElement('span');
                 span.classList.add('entregado');
-                span.textContent = `Fecha de entrega: ${new Date(fecha_de_entrega).toLocaleString('es-CO')}`
+                span.textContent = `ENTREGADO`
                 elemento.appendChild(span);
             }
+            // Realizar la petición Fetch al endpoint
+            fetch(window.myAppConfig.production + '/manager/getProductsByDropshipper', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    id_dropshipper
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Validate token Expired Redirection index.html
+                    if (data.result === 2) {
+                        // Clear the local storage which removes all data stored in the browser's local storage,
+                        // including any user session data like tokens
+                        localStorage.clear();
+                        // Redirect the user to the login page by changing the current location of the window
+                        // Replace 'login.html' with the actual URL of your login page
+                        window.location.href = 'login.html';
+                    }
+                    // Procesar los datos y llenar la tabla
+                    const dataTable = $('#dataTable').DataTable();
+                    // ciclo para ver el estado del paquete y mostrarlo en color
+                    data.data.forEach(item => {
+                        // Agregar el producto a la tabla
+                        const newRow = [
+                            item.id_product,
+                            item.name_product,
+                            item.description_product,
+                            item.size_product,
+                            item.price_cost_product.toLocaleString('es-CO', {
+                                style: 'currency',
+                                currency: 'COP'
+                            }),
+                            item.price_sale_product.toLocaleString('es-CO', {
+                                style: 'currency',
+                                currency: 'COP'
+                            }),
+                            `<input type="checkbox" name="seleccionProductos" id="seleccionProductos_${item.id_product}" value="${item.id_product}" onchange="habilitarCantidad(this, cant${item.id_product})" data-price="${item.price_sale_product}" data-cost="${item.price_cost_product}">`,
+                            `<input type="number" class="cantidad" id="cant${item.id_product}" disabled style="width: 60px;">`
+                        ];
+                        // Si el producto está en id_products, seleccionar el checkbox y establecer la cantidad
+                        id_products.forEach(element => {
+                            if (element.id_product == item.id_product) {
+                                newRow[6] = newRow[6].replace('>', ' checked>'); // Marcar el checkbox
+                                // Si el producto está en id_products, habilitar el input de cantidad y establecer el valor en el input de tipo número
+                                newRow[7] = newRow[7].replace('disabled', ''); // Habilitar el input de cantidad
+                                newRow[7] = newRow[7].replace('>', `value="${element.Quantity}">`)
+
+                                // Si el producto está en id_products, marcar el checkbox correspondiente
+                            }
+                        });
+
+                        dataTable.row.add(newRow).draw();
+                    });
+                })
+                .catch(error => {
+                    console.error('Error en la petición Fetch:', error);
+                });
 
         })
         .catch(error => {
@@ -222,6 +264,7 @@ document.getElementById('formDataCenterPackage').addEventListener('submit', func
     const carrierElement = document.getElementById('carrier');
     const carrier = carrierElement.value !== '0' ? carrierElement.value : null;
     const with_collection_p = document.getElementById('type_of_shipping').value;
+    const checkboxesSeleccionados = document.querySelectorAll('input[name="seleccionProductos"]:checked');
     // Make the HTTP request to log in
     fetch(window.myAppConfig.production + `/dropshipper/editPackage/${id_p}`, {
         method: 'PUT',
@@ -252,11 +295,50 @@ document.getElementById('formDataCenterPackage').addEventListener('submit', func
             }
         })
         .then(data => {
+            console.log(data)
             if (data.result == 1) {
-                // Save the token and id user router to local storage
-                localStorage.setItem('paqueteEditado', true);
-                // Redirect to home page
-                window.location = `./detail_package.html?id_p=${id_p}`;
+                let fk_id_p_pp = data.getPackage.id_p;
+                //capturo los checks
+                let products = [];
+
+                checkboxesSeleccionados.forEach(function (checkbox) {
+                    let cantidad = document.getElementById('cant' + checkbox.value).value;
+                    products.push({
+                        id_producto: parseInt(checkbox.value),
+                        cuantity_pp: cantidad
+                    });
+                });
+
+                const datosAsignacion = {
+                    fk_id_p_pp,
+                    products
+                };
+                //Ahora consumo el endpoint para agrearle los productos al paquete
+                fetch(window.myAppConfig.production + '/dropshipper/editProductToPackage', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(datosAsignacion)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
+                        if (data.result = 1) {
+                            localStorage.setItem('agregado', true);
+                            window.location = 'detail_package.html?id_p=' + fk_id_p_pp;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud:', error);
+                        alert('Ocurrió un error al asignar los paquetes.');
+                    });
             }
         })
         .catch(error => {
@@ -264,52 +346,7 @@ document.getElementById('formDataCenterPackage').addEventListener('submit', func
             console.error('Error de editar:', error.message);
         });
 });
-// edit products package cuatity button click event
-document.getElementById('formDataCenterProducts').addEventListener('submit', function (event) {
-    // I drop default form behavior
-    event.preventDefault();
 
-    // Obtener todos los elementos que tienen IDs dinámicos de productos
-    const productInputs = document.querySelectorAll('[id^="id_product_pp_"]');
-    // Iterar sobre cada elemento de producto
-    productInputs.forEach(productInput => {
-        const id_pp = productInput.value; // Obtener el ID del producto
-        const cuantity_pp = document.getElementById(productInput.getAttribute('id').replace('id_product_pp_', 'cuantity_pp_')).value; // Obtener la cantidad del producto
-
-        // Hacer la petición HTTP para editar la cantidad del producto
-        fetch(window.myAppConfig.production + `/dropshipper/editProductPackageCuantity/${id_pp}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                cuantity_pp
-            })
-        })
-        .then(response => {
-            // Verificar si la solicitud fue exitosa
-            if (response.ok) {
-                // Extraer el resultado de la respuesta
-                return response.json();
-            } else {
-                throw new Error('Error: algo salio mal');
-            }
-        })
-        .then(data => {
-            if (data.result == 1) {
-                // Save the token and id user router to local storage
-                localStorage.setItem('productosEditado', true);
-                // Redireccionar a la página de inicio
-                window.location = `./detail_package.html?id_p=${id_p}`;
-            }
-        })
-        .catch(error => {
-            // Manejar errores de edición
-            console.error('Error de editar:', error.message);
-        });
-    });
-});
 // Añadir evento al botón regresar si es necesario
 document.getElementById('btnRegresar').addEventListener('click', function () {
     window.location = "./detail_package.html?id_p=" + id_p;
@@ -378,4 +415,14 @@ function obtenerCarrier(idCarrier, city) {
             // Handle login errors
             console.error('Error de obtener carrier:', error.message);
         });
+}
+// Escuchar eventos de clic en los checkboxes
+function habilitarCantidad(checkbox, inputCantidad) {
+    // Habilita o deshabilita el campo de entrada basado en el estado del checkbox
+    if (checkbox.checked) {
+        inputCantidad.disabled = false;
+    } else {
+        inputCantidad.disabled = true;
+        inputCantidad.value = ''; // Limpiar el valor si deseleccionan el producto
+    }
 }

@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <button type="button" id="btnDetalle" class="enlaces" onClick="detallePaquete(${item.id_p})"><i class="fa-solid fa-magnifying-glass"></i></button>
                         <button type="button" id="btnEdit" class="enlaces" onClick="editarPaquete(${item.id_p})"><i class="fa-regular fa-pen-to-square"></i></button>
                         ${checkHTML}
-                        <button type="button" id="btnDelete" class="enlaces" onClick="eliminarPaquete(${item.id_p})"><i class="fa-solid fa-trash"></i></button>
+                        <button type="button" id="btnDelete" class="enlaces" onClick="eliminarPaquete(${item.id_p})"><i class="fa-solid fa-ban"></i></button>
                     </div>
                     `
                 ]).draw();
@@ -345,7 +345,7 @@ function verificarSeleccionPaquetes() {
 //Metodo para eliminar el paquete.
 function eliminarPaquete(id_p) {
 
-    let result = confirm("¿Estas seguro que deseas eliminar este paquete?, confirmar antes de aceptar.");
+    let result = confirm("¿Estas seguro que deseas CANCELAR este paquete?, confirmar antes de aceptar.");
 
     if (result) {
         console.log(id_p)

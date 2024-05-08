@@ -212,16 +212,6 @@ document.addEventListener('DOMContentLoaded', function () {
             </tr>
             <tr>
                 <td colspan="6"></td>
-                <td>Ganancia:</td>
-                <td>${data.data.profit_dropshipper_p.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-            </tr>
-            <tr>
-                <td colspan="6"></td>
-                <td>Total Costo:</td>
-                <td>${totalCosto.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-            </tr>
-            <tr>
-                <td colspan="6"></td>
                 <td>Total Neto:</td>
                 <td>${(totalVenta + data.data.profit_carrier_p).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
             </tr>

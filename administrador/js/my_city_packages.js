@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
 //Metodo para eliminar el paquete.
 function eliminarPaquete(id_p) {
     // alert confirm para que el usuario confirme si efecrtivamente quiere eliminar el paquete
-    let result = confirm("¿Estas seguro que deseas eliminar este paquete?, confirmar antes de aceptar.");
+    let result = confirm("¿Estas seguro que deseas CANCELAR este paquete?, confirmar antes de aceptar.");
     // Si la confirmacion es positiva
     if (result) {
         console.log(id_p)
