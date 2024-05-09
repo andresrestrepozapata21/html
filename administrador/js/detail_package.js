@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         break;
                 }
                 let row;
-                if (event.evidence_sh == '') {
+                if (event.evidence_sh == null) {
                     row = `
                  <tr>
                     <td>${event.id_sh}</td>

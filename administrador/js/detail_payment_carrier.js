@@ -305,7 +305,7 @@ function historial(id_p) {
                         break;
                 }
                 let row;
-                if (event.evidence_sh == '') {
+                if (event.evidence_sh == null) {
                     row = `
                     <tr>
                     <td>${event.id_sh}</td>
