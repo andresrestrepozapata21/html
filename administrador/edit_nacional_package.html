@@ -28,18 +28,21 @@
                 <div class="op2">
                     <h4 class="modulo">Paquetería</h4>
                     <a href="my_city_packages.html"><i class="fa-solid fa-box"></i>Paquetes Locales</a>
-                    <a href="my_nacional_packages.html" class="active"><i class="fa-solid fa-box"></i>Paquetes Nacionales</a>
+                    <a href="my_nacional_packages.html" class="active"><i class="fa-solid fa-box"></i>Paquetes
+                        Nacionales</a>
 
                     <h4 class="modulo">Transportistas</h4>
                     <a href="requests_carrier.html"><i class="fa-regular fa-address-card"></i>Peticiones de Ingreso</a>
                     <a href="all_carries.html"><i class="fa-solid fa-car"></i>Listado de Transportistas</a>
                     <a href="payments_carriers.html"><i class="fa-solid fa-wallet"></i>Pagos Transportistas</a>
-                    <a href="portfolio_carriers.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos Transportistas</a>
+                    <a href="portfolio_carriers.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos
+                        Transportistas</a>
 
                     <h4 class="modulo">Drosphippers</h4>
                     <a href="list_dropshippers.html"><i class="fa-solid fa-user"></i>Listado Dropshippers</a>
                     <a href="payments_dropshippers.html"><i class="fa-solid fa-wallet"></i>Pagos Dropshippers</a>
-                    <a href="portfolio_dropshipper.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos Dropshipper</a>
+                    <a href="portfolio_dropshipper.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos
+                        Dropshipper</a>
                 </div>
             </div>
         </div>
@@ -120,7 +123,7 @@
                     <label for="">Número de orden:</label>
                     <input type="text" name="orden_number" id="orden_number" value="">
                     <label for="">Fecha de creación:</label>
-                    <input type="date" name="order_date"id="order_date" value="">
+                    <input type="date" name="order_date" id="order_date" value="">
                     <label for="">Estado del Paquete:</label>
                     <select name="status_p" id="status_p">
                         <option id="s0" value="0" class="none">CANCELADO</option>
@@ -147,26 +150,24 @@
                     </select>
                 </div>
             </div>
+            <div class="address">
+                <div class="izq">
+                    <p></p>
+                    <p></p>
+                </div>
+                <div class="der">
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+            <div class="content_products">
+                <div id="component_products" class="component_products"></div>
+            </div>
             <div class="form-group">
                 <button type="submit" id="btnEditarPackage">Guardar</button>
-                <button type="button" id="btnRegresar">Regresar</button>
+                <button type="button" id="btnRegresar">Cancelar</button>
             </div>
         </form>
-        <div class="address">
-            <div class="izq">
-                <p></p>
-                <p></p>
-            </div>
-            <div class="der">
-                <p></p>
-                <p></p>
-            </div>
-        </div>
-        <div class="content_products">
-            <form id="formDataCenterProducts" class="formDataCenter">
-                <div id="component_products" class="component_products"></div>
-            </form>
-        </div>
     </div>
     <!-- Import js personalized-->
     <script src="config/config.js"></script>

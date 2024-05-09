@@ -1,8 +1,8 @@
 // capturo las variables de entorno que puedo necesitar
 const token = localStorage.getItem('token');
 const id_manager = localStorage.getItem('id_manager');
-const wallet1 = localStorage.getItem('wallet1');
-const wallet2 = localStorage.getItem('wallet2');
+//const wallet1 = localStorage.getItem('wallet1');
+//const wallet2 = localStorage.getItem('wallet2');
 const paqueteEditado = localStorage.getItem('paqueteEditado');
 const productosEditado = localStorage.getItem('productosEditado');
 // Obtener la URL actual
@@ -22,22 +22,22 @@ document.addEventListener('DOMContentLoaded', function () {
         showToast('Cantidad de productos editados correctamente.');
         localStorage.removeItem('productosEditado');
     }
-    // Formatear el valor como moneda
-    let valorFormateado1 = wallet1.toLocaleString('es-CO', {
-        style: 'currency',
-        currency: 'COP'
-    });
-    // Formatear el valor como moneda
-    let valorFormateado2 = wallet2.toLocaleString('es-CO', {
-        style: 'currency',
-        currency: 'COP'
-    });
-    // i select wallet component
-    const walletElement1 = document.querySelector('.wallet1');
-    const walletElement2 = document.querySelector('.wallet2');
-    // To asignate wallet value
-    walletElement1.textContent = valorFormateado1;
-    walletElement2.textContent = valorFormateado2;
+    //// Formatear el valor como moneda
+    //let valorFormateado1 = wallet1.toLocaleString('es-CO', {
+    //    style: 'currency',
+    //    currency: 'COP'
+    //});
+    //// Formatear el valor como moneda
+    //let valorFormateado2 = wallet2.toLocaleString('es-CO', {
+    //    style: 'currency',
+    //    currency: 'COP'
+    //});
+    //// i select wallet component
+    //const walletElement1 = document.querySelector('.wallet1');
+    //const walletElement2 = document.querySelector('.wallet2');
+    //// To asignate wallet value
+    //walletElement1.textContent = valorFormateado1;
+    //walletElement2.textContent = valorFormateado2;
 
     // Realizar la petición Fetch al endpoint
     fetch(window.myAppConfig.production + '/manager/detailPackage', {
@@ -219,16 +219,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td colspan="6"></td>
                 <td>Costo de Envio:</td>
                 <td>${data.data.profit_carrier_p.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-            </tr>
-            <tr>
-                <td colspan="6"></td>
-                <td>Ganancia:</td>
-                <td>${data.data.profit_dropshipper_p.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-            </tr>
-            <tr>
-                <td colspan="6"></td>
-                <td>Total Costo:</td>
-                <td>${totalCosto.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
             </tr>
             <tr>
                 <td colspan="6"></td>

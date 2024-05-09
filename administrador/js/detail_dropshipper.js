@@ -3,8 +3,8 @@ const urlParams = new URLSearchParams(window.location.search);
 const id_dropshipper = urlParams.get('id_dropshipper');
 const token = localStorage.getItem('token');
 const id_manager = localStorage.getItem('id_manager');
-const wallet1 = localStorage.getItem('wallet1');
-const wallet2 = localStorage.getItem('wallet2');
+//const wallet1 = localStorage.getItem('wallet1');
+//const wallet2 = localStorage.getItem('wallet2');
 const eliminado = localStorage.getItem('eliminado');
 const eliminadoStore = localStorage.getItem('eliminadoStore');
 const editado = localStorage.getItem('editado');
@@ -40,22 +40,22 @@ document.addEventListener('DOMContentLoaded', function () {
         showToast('Bodega eliminada existosamente.');
         localStorage.removeItem('eliminadoStore');
     }
-    // Formatear el valor como moneda
-    let valorFormateado1 = wallet1.toLocaleString('es-CO', {
-        style: 'currency',
-        currency: 'COP'
-    });
-    // Formatear el valor como moneda
-    let valorFormateado2 = wallet2.toLocaleString('es-CO', {
-        style: 'currency',
-        currency: 'COP'
-    });
-    // i select wallet component
-    const walletElement1 = document.querySelector('.wallet1');
-    const walletElement2 = document.querySelector('.wallet2');
-    // To asignate wallet value
-    walletElement1.textContent = valorFormateado1;
-    walletElement2.textContent = valorFormateado2;
+    //// Formatear el valor como moneda
+    //let valorFormateado1 = wallet1.toLocaleString('es-CO', {
+    //    style: 'currency',
+    //    currency: 'COP'
+    //});
+    //// Formatear el valor como moneda
+    //let valorFormateado2 = wallet2.toLocaleString('es-CO', {
+    //    style: 'currency',
+    //    currency: 'COP'
+    //});
+    //// i select wallet component
+    //const walletElement1 = document.querySelector('.wallet1');
+    //const walletElement2 = document.querySelector('.wallet2');
+    //// To asignate wallet value
+    //walletElement1.textContent = valorFormateado1;
+    //walletElement2.textContent = valorFormateado2;
 
     // Realizar la petición Fetch al endpoint
     fetch(window.myAppConfig.production + '/manager/getDetailDropshipper', {
@@ -267,7 +267,7 @@ function eliminarStore(id_store) {
 
 //Metodo para editar el paquete.
 function editarStore(id_store) {
-    window.location = './edit_store.html?id_store=' + id_store;
+    window.location = './edit_store.html?id_store=' + id_store + '&id_dropshipper=' + id_dropshipper;
 }
 
 // funion para mostrar notificaiciones toast
