@@ -2,7 +2,7 @@
 (function () {
     // Define tus URLs aquí
     const config = {
-        production: "http://localhost:3000"
+        production: "https://paky.diegoarbelaez.com"
     };
 
     // Asigna el objeto de configuración a una variable global
