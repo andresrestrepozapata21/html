@@ -402,15 +402,9 @@ function habilitarCantidad(checkbox) {
             total_price_p += price_sale_product;
         });
         // Actualizar los campos de precio total y ganancia del paquete
-        document.getElementById('total_price_p').value = total_price_p.toLocaleString('es-CO', {
-            style: 'currency',
-            currency: 'COP'
-        });
+        document.getElementById('total_price_p').value = total_price_p
         // Actualizar los campos de precio total y ganancia del paquete
-        document.getElementById('profit_dropshipper_p').value = profit_dropshipper_p.toLocaleString('es-CO', {
-            style: 'currency',
-            currency: 'COP'
-        });
+        document.getElementById('profit_dropshipper_p').value = profit_dropshipper_p
         inputCantidad.disabled = true;
         inputCantidad.value = ''; // Limpiar el valor si deseleccionan el producto
     }
@@ -432,13 +426,7 @@ function calcularPrecioTotalyGanancia() {
     });
 
     // Actualizar los campos de precio total y ganancia del paquete
-    document.getElementById('total_price_p').value = total_price_p.toLocaleString('es-CO', {
-        style: 'currency',
-        currency: 'COP'
-    });
+    document.getElementById('total_price_p').value = total_price_p
     // Actualizar los campos de precio total y ganancia del paquete
-    document.getElementById('profit_dropshipper_p').value = profit_dropshipper_p.toLocaleString('es-CO', {
-        style: 'currency',
-        currency: 'COP'
-    });
+    document.getElementById('profit_dropshipper_p').value = profit_dropshipper_p
 }
