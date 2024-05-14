@@ -240,9 +240,10 @@ function mostrarDetallePaquete(idPaquete) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            //selecciono el data table en el body
             const productTable = document.getElementById('productTable').getElementsByTagName('tbody')[0];
-
+            // Limpia el contenido de la tabla antes de insertar nuevos datos
+            productTable.innerHTML = '';
             data.data.forEach((item) => {
                 item.package_products.forEach(product => {
                     const tr = document.createElement('tr');
@@ -254,13 +255,13 @@ function mostrarDetallePaquete(idPaquete) {
                         <td>${product.product.size_product}</td>
                         <td>${product.cuantity_pp}</td>
                         <td>${product.product.price_sale_product.toLocaleString('es-CO', {
-                            style: 'currency',
-                            currency: 'COP'
-                        })}</td>
+                        style: 'currency',
+                        currency: 'COP'
+                    })}</td>
                         <td>${total.toLocaleString('es-CO', {
-                            style: 'currency',
-                            currency: 'COP'
-                        })}</td>
+                        style: 'currency',
+                        currency: 'COP'
+                    })}</td>
                     `;
                     productTable.appendChild(tr);
                 });

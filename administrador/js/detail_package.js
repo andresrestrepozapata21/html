@@ -65,8 +65,6 @@ document.addEventListener('DOMContentLoaded', function () {
             let type_send = data.data.fk_id_tp_p;
             //capturo el status del paquete, el estado y el id de circulo tienen el mismo numero, por eso
             let status = data.data.status_p;
-            console.log(type_send)
-            console.log(status)
             //estructura condicional para saber que timline mostrar el local o nacional
             if (type_send == 1) {
                 document.getElementById('local').classList.remove('none');
@@ -263,6 +261,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         break;
                 }
                 let row;
+                let detail;
+                if(event.details_sh == null){
+                    detail = '';
+                } else {
+                    detail = event.details_sh;
+                }
                 if (event.evidence_sh == null) {
                     row = `
                  <tr>
@@ -271,6 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>${statusText}</td>
                     <td>${event.carrier.name_carrier} ${event.carrier.last_name_carrier}</td>
                     <td>${event.comentary_sh}</td>
+                    <td>${detail}</td>
                     <td></td>
                  </tr>
              `;
@@ -282,6 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
                      <td>${statusText}</td>
                      <td>${event.carrier.name_carrier} ${event.carrier.last_name_carrier}</td>
                      <td>${event.comentary_sh}</td>
+                     <td>${detail}</td>
                      <td><button type="button" id="btnDetalle" class="enlaces" onClick="verEvidencia(${event.id_sh})"><i class="fa-solid fa-magnifying-glass"></i></button></td>
                  </tr>
              `;

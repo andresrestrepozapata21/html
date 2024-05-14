@@ -235,6 +235,8 @@ function mostrarDetallePaquete(idPaquete) {
         .then(data => {
             //todo el codigo para insertar los datos en la tabla del modal
             const productTable = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+            // Limpia el contenido de la tabla antes de insertar nuevos datos
+            productTable.innerHTML = '';
             //recorro y cargo los datos correspondients
             data.data.forEach((item) => {
                 item.package_products.forEach(product => {
@@ -247,13 +249,13 @@ function mostrarDetallePaquete(idPaquete) {
                         <td>${product.product.size_product}</td>
                         <td>${product.cuantity_pp}</td>
                         <td>${product.product.price_sale_product.toLocaleString('es-CO', {
-                            style: 'currency',
-                            currency: 'COP'
-                        })}</td>
+                        style: 'currency',
+                        currency: 'COP'
+                    })}</td>
                         <td>${total.toLocaleString('es-CO', {
-                            style: 'currency',
-                            currency: 'COP'
-                        })}</td>
+                        style: 'currency',
+                        currency: 'COP'
+                    })}</td>
                     `;
                     productTable.appendChild(tr);
                 });
