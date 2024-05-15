@@ -46,7 +46,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     item.id_phd,
                     item.createdAt.slice(0, 19).replace("T", " "),
                     item.type_phd,
-                    item.monto_phd,
+                    item.monto_phd.toLocaleString('es-CO', {
+                        style: 'currency',
+                        currency: 'COP'
+                    }),
                     item.description_phd
                 ]).draw();
             });

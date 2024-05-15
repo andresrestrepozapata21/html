@@ -62,8 +62,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     item.name_product,
                     item.description_product,
                     item.size_product,
-                    item.price_cost_product,
-                    item.price_sale_product,
+                    item.price_cost_product.toLocaleString('es-CO', {
+                        style: 'currency',
+                        currency: 'COP'
+                    }),
+                    item.price_sale_product.toLocaleString('es-CO', {
+                        style: 'currency',
+                        currency: 'COP'
+                    }),
                     `<div class="acciones">
                         <button type="button" id="btnEdit" class="enlaces" onClick="editarProduct(${item.id_product})"><i class="fa-regular fa-pen-to-square"></i></button>
                         <button type="button" id="btnDelete" class="enlaces" onClick="eliminarProduct(${item.id_product})"><i class="fa-solid fa-trash"></i></button>

@@ -51,7 +51,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     item.id_phc,
                     item.createdAt.slice(0, 19).replace("T", " "),
                     item.type_phc,
-                    item.Quantity_pay_phc,
+                    item.Quantity_pay_phc.toLocaleString('es-CO', {
+                        style: 'currency',
+                        currency: 'COP'
+                    }),
                     item.description_phc
                 ]).draw();
             });

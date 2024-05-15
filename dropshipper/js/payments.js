@@ -103,7 +103,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (item.statusReal == "EN VERIFICACION DE PIN") {
                     dataTable.row.add([
                         item.id_dpr,
-                        item.quantity_requested_dpr,
+                        item.quantity_requested_dpr.toLocaleString('es-CO', {
+                            style: 'currency',
+                            currency: 'COP'
+                        }),
                         item.statusReal,
                         item.createdAt,
                         `<div class="acciones">
@@ -115,7 +118,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     dataTable.row.add([
                         item.id_dpr,
-                        item.quantity_requested_dpr,
+                        item.quantity_requested_dpr.toLocaleString('es-CO', {
+                            style: 'currency',
+                            currency: 'COP'
+                        }),
                         item.statusReal,
                         item.createdAt,
                         `<div class="acciones">

@@ -155,10 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>${product.product.name_product}</td>
                     <td>${product.product.description_product}</td>
                     <td>${product.product.size_product}</td>
-                    <td>${product.product.price_cost_product.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-                    <td>${product.product.price_sale_product.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
                     <td>${product.cuantity_pp}</td>
-                    <td>${(product.product.price_sale_product * product.cuantity_pp).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
                 </tr>
             `;
                 productsTable.innerHTML += row;
@@ -168,12 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Agrega los totales al final de la tabla
             const footerRow = `
             <tr>
-                <td colspan="6"></td>
-                <td>Costo de Envio:</td>
-                <td>${data.data.profit_carrier_p.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-            </tr>
-            <tr>
-                <td colspan="6"></td>
+                <td colspan="3"></td>
                 <td>Total Neto:</td>
                 <td>${(totalVenta + data.data.profit_carrier_p).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
             </tr>

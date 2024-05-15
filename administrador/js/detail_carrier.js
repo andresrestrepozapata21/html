@@ -100,34 +100,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const historyTable = document.querySelector('.history tbody');
             historyTable.innerHTML = ''; // Clear existing rows
             let idsArray = [];
+            console.log(data)
             data.data_history.forEach((event, index) => {
-                let statusText;
-                switch (event.status_sh) {
-                    case 0:
-                        statusText = "<span style='color: #BB2124'>CANCELADO</span>";
-                        break;
-                    case 1:
-                        statusText = "<span style='color: #BB2124'>Bodega Comercio</span>";
-                        break;
-                    case 2:
-                        statusText = "<span style='color: #5BC0DE'>Bodega central origen</span>";
-                        break;
-                    case 3:
-                        statusText = "<span style='color: #F0AD4E'>En camino entre bodegas centrales</span>";
-                        break;
-                    case 4:
-                        statusText = "<span style='color: #5BC0DE'>En bodega central destino</span>";
-                        break;
-                    case 5:
-                        statusText = "<span style='color: #F0AD4E'>En camino a entrega final</span>";
-                        break;
-                    case 6:
-                        statusText = "<span style='color: #22BB33'>Entregado</span>";
-                        break;
-                    case 7:
-                        statusText = "<span style='color: #F0AD43'>En camino de Bodega Comercio a bodega central</span>";
-                        break;
-                }
                 let id = event.package.id_p;
                 if (!idsArray.includes(id)) {
                     idsArray.push(id);
@@ -137,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         event.package.name_client_p,
                         event.package.phone_number_client_p,
                         event.package.direction_client_p,
-                        statusText,
                         `<div class="acciones">
                             <button type="button" id="btnDetalle" class="enlaces" onClick="historial(${id})"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
