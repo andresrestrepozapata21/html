@@ -1,8 +1,9 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const token = localStorage.getItem('token');
-    const id_ru = localStorage.getItem('id_ru');
-    const city = localStorage.getItem('city');
+//capturo las variables que tengo en el sotrage
+const token = localStorage.getItem('token');
+const id_ru = localStorage.getItem('id_ru');
+const city = localStorage.getItem('city');
 
+document.addEventListener('DOMContentLoaded', function () {
     // Realizar la petición Fetch al endpoint
     fetch(window.myAppConfig.production + '/routerUser/getInterCityPackages', {
         method: 'POST',
