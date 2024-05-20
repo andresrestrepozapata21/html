@@ -70,69 +70,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         currency: 'COP'
                     }),
                     statusText,
-                    `<a href="#" class="show-modal" data-id="${item.id_p}">Ver Productos</a>`
+                    `<a href="#" class="show-modal" onClick="showModal(${item.id_p})">Ver Productos</a>`
                 ]).draw();
-            });
-
-            // Agregar evento clic a los enlaces "Ver Productos"
-            $('.show-modal').click(function (e) {
-                e.preventDefault();
-                const packageId = $(this).data('id');
-                showModal(packageId);
             });
         })
         .catch(error => {
             console.error('Error en la petición Fetch:', error);
         });
-    // Función para mostrar el modal con la información de los productos del paquete
-    function showModal(packageId) {
-        const formData = {
-            id_p: packageId,
-        };
-        // Realizar la petición Fetch para obtener los productos del paquete
-        fetch(window.myAppConfig.production + `/routerUser/getProductsPackage`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify(formData),
-        })
-            .then(response => response.json())
-            .then(data => {
-                const productTable = $('#productTable').DataTable();
-                productTable.clear().draw();
-
-                // Procesar los datos y llenar la tabla de productos del paquete
-                data.data.forEach(item => {
-                    item.package_products.forEach(product => {
-                        let total = parseInt(product.product.price_sale_product) * parseInt(product.cuantity_pp);
-                        productTable.row.add([
-                            product.product.id_product,
-                            product.product.name_product,
-                            product.product.description_product,
-                            product.product.size_product,
-                            product.cuantity_pp,
-                            product.product.price_sale_product.toLocaleString('es-CO', {
-                                style: 'currency',
-                                currency: 'COP'
-                            }),
-                            total.toLocaleString('es-CO', {
-                                style: 'currency',
-                                currency: 'COP'
-                            })
-                        ]).draw();
-                    });
-                });
-
-                // Mostrar el modal
-                $('#myModal').css('display', 'block');
-            })
-            .catch(error => {
-                console.error('Error en la petición Fetch de productos del paquete:', error);
-            });
-    }
-
     // Cerrar el modal al hacer clic en la "X"
     $('.close').click(function () {
         $('#myModal').css('display', 'none');
@@ -145,3 +89,52 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+// Función para mostrar el modal con la información de los productos del paquete
+function showModal(packageId) {
+    const formData = {
+        id_p: packageId,
+    };
+    // Realizar la petición Fetch para obtener los productos del paquete
+    fetch(window.myAppConfig.production + `/routerUser/getProductsPackage`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+    })
+        .then(response => response.json())
+        .then(data => {
+            const productTable = $('#productTable').DataTable();
+            productTable.clear().draw();
+
+            // Procesar los datos y llenar la tabla de productos del paquete
+            data.data.forEach(item => {
+                item.package_products.forEach(product => {
+                    let total = parseInt(product.product.price_sale_product) * parseInt(product.cuantity_pp);
+                    productTable.row.add([
+                        product.product.id_product,
+                        product.product.name_product,
+                        product.product.description_product,
+                        product.product.size_product,
+                        product.cuantity_pp,
+                        product.product.price_sale_product.toLocaleString('es-CO', {
+                            style: 'currency',
+                            currency: 'COP'
+                        }),
+                        total.toLocaleString('es-CO', {
+                            style: 'currency',
+                            currency: 'COP'
+                        })
+                    ]).draw();
+                });
+            });
+
+            // Mostrar el modal
+            $('#myModal').css('display', 'block');
+        })
+        .catch(error => {
+            console.error('Error en la petición Fetch de productos del paquete:', error);
+        });
+}

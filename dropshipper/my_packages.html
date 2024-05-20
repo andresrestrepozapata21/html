@@ -52,7 +52,7 @@
         <h1>Mis Pedidos</h1>
         <div class="component">
             <div class="info-section">
-                <h2>Filtro de Pedidos</h2>
+                <h2>Filtro por Fecha:</h2>
                 <form id="form">
                     <div class="inputs">
                         <div class="form-group">
@@ -73,6 +73,51 @@
                 </form>
             </div>
         </div>
+        <div class="component">
+            <div class="info-section">
+                <h2>Filtros:</h2>
+                <form id="advancedFilterForm">
+                    <div class="inputs">
+                        <div class="form-group">
+                            <label for="filterClient">Cliente:</label>
+                            <input type="text" id="filterClient" name="filterClient">
+                        </div>
+                        <div class="form-group">
+                            <label for="typerPackage">Tipo Paquete:</label>
+                            <select id="typerPackage" name="typerPackage">
+                                <option value="">Todos</option>
+                                <option value="Local">Local</option>
+                                <option value="Nacional">Nacional</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="filterWarehouse">Bodega:</label>
+                            <select id="filterWarehouse" name="filterWarehouse">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="filterStatus">Estado:</label>
+                            <select id="filterStatus" name="filterStatus">
+                                <option value="">Todos</option>
+                                <option value="0">CANCELADO</option>
+                                <option value="1">En Bodega Comercio</option>
+                                <option value="7">En camino de Bodega Comercio a bodega central</option>
+                                <option value="2">En bodega central origen</option>
+                                <option value="3">En camino entre bodegas centrales</option>
+                                <option value="4">En bodega central destino</option>
+                                <option value="5">En camino a entrega final</option>
+                                <option value="6">Entregado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="btnAdvancedFilter">Aplicar Filtro</button>
+                        <button type="button" id="btnClearFilter">Limpiar Filtro</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
         <div class="table-wrapper">
             <table id="dataTable" class="display">
                 <thead>

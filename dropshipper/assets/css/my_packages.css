@@ -284,7 +284,7 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="date"] {
+input[type="date"], input[type="text"], #filterStatus, #filterWarehouse, #typerPackage {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;

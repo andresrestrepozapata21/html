@@ -114,6 +114,47 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => {
             console.error('Error en la petición Fetch:', error);
         });
+    // Realizar la petición Fetch al endpoint
+    fetch(window.myAppConfig.production + '/manager/getDetailDropshipper', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            id_dropshipper
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Validate token Expired Redirection index.html
+            if (data.result === 2) {
+                // Clear the local storage which removes all data stored in the browser's local storage,
+                // including any user session data like tokens
+                localStorage.clear();
+                // Redirect the user to the login page by changing the current location of the window
+                // Replace 'login.html' with the actual URL of your login page
+                window.location.href = 'login.html';
+            }
+            var select = document.getElementById('filterWarehouse');
+            // Limpiar el select de ciudades
+            select.innerHTML = '';
+            // Crear la opción por defecto
+            var optionDefault = document.createElement('option');
+            optionDefault.value = '';
+            optionDefault.textContent = `Todos`;
+            select.appendChild(optionDefault);
+            // ciclo para ver el estado del paquete y mostrarlo en color
+            data.data.stores.forEach(item => {
+                var option = document.createElement('option');
+                option.value = item.direction_store;
+                option.textContent = `${item.direction_store} - ${item.city.name_city} - ${item.city.department.name_d}`;
+                select.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error en la petición Fetch:', error);
+        });
 });
 
 // Fragmento de codigo para realizar el filtro en la tabla
@@ -288,6 +329,80 @@ document.getElementById('btnRegresar').addEventListener('click', function () {
     localStorage.setItem('recargado', true);
     window.location.reload();
 });
+
+//formulario de filtro adicional
+document.getElementById("advancedFilterForm").addEventListener('submit', function (event) {
+    // Prevengo el comportamiento por defecto del formulario
+    event.preventDefault();
+
+    // Obtengo los valores de los filtros
+    const filterClient = document.getElementById('filterClient').value.toLowerCase();
+    const filterWarehouse = document.getElementById('filterWarehouse').value.toLowerCase();
+    const filterType = document.getElementById('typerPackage').value.toLowerCase();
+    const filterStatus = document.getElementById('filterStatus').value;
+
+    // Filtro la tabla con los valores introducidos
+    const dataTable = $('#dataTable').DataTable();
+
+    // Limpiar todas las búsquedas previas
+    dataTable.columns().search('');
+
+    // Aplicar los filtros si tienen valores
+    if (filterWarehouse) {
+        dataTable.column(3).search(filterWarehouse);
+    }
+    if (filterClient) {
+        dataTable.column(4).search(filterClient);
+    }
+    if (filterType) {
+        dataTable.column(5).search(filterType);
+    }
+    if (filterStatus !== "") {
+        // Es posible que necesites ajustar esta línea según cómo se almacene el estado en la tabla.
+        const statusText = getStatusText(filterStatus);
+        dataTable.column(6).search(statusText);
+    }
+
+    // Aplicar la búsqueda
+    dataTable.draw();
+});
+
+// Limpiar filtros
+document.getElementById('btnClearFilter').addEventListener('click', function () {
+    // Limpiar los valores de los filtros
+    document.getElementById('filterWarehouse').value = '';
+    document.getElementById('filterClient').value = '';
+    document.getElementById('filterStatus').value = '';
+    document.getElementById('typerPackage').value = '';
+
+    // Resetear la búsqueda del DataTable
+    const dataTable = $('#dataTable').DataTable();
+    dataTable.search('').columns().search('').draw();
+});
+
+//Valido el estado del paquete para mostrarlo
+function getStatusText(status) {
+    switch (status) {
+        case "0":
+            return "CANCELADO";
+        case "1":
+            return "En Bodega Comercio";
+        case "2":
+            return "En bodega central origen";
+        case "3":
+            return "En camino entre bodegas centrales";
+        case "4":
+            return "En bodega central destino";
+        case "5":
+            return "En camino a entrega final";
+        case "6":
+            return "Entregado";
+        case "7":
+            return "En camino de Bodega Comercio a bodega central";
+        default:
+            return "";
+    }
+}
 
 //Metodo para verificar que la cantidad de paquetes sea la indicada.
 function verificarSeleccionPaquetes() {
