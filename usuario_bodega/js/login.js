@@ -48,6 +48,7 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
             // Save the token and id user router to local storage
             localStorage.setItem('token', data.token);
             localStorage.setItem('id_su', data.data[0].id_su);
+            localStorage.setItem('id_store', data.data[0].store.id_store);
             localStorage.setItem('city', data.data[0].store.fk_id_city_store);
 
             // Redirect to home page
