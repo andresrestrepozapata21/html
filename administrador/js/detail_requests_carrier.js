@@ -70,6 +70,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 `;
                 divDocumentsTransportista.innerHTML += row;
             });
+            // Colocamos la hora de vida del transporista que viene en los datos del carrier JSON response nivel 1
+            const divHVTransportista = document.getElementById('carrierHV');
+            divHVTransportista.innerHTML = '';
+            const row = `
+                <a href="${window.myAppConfig.production}/${transportista.url_hv_carrier}" target="_blank">Abrir Hoja de Vida PDF</a>
+                `;
+            divHVTransportista.innerHTML += row;
             // Ahora los del vehiculo
             const divDocumentsVehiculo = document.getElementById('vehiculoDocuments');
             divDocumentsVehiculo.innerHTML = '';

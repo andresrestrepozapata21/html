@@ -422,3 +422,28 @@ textarea[readonly] {
 .tittle {
     margin: 20px;
 }
+
+.carrierHV{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carrierHV a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #007bff; /* Color de fondo azul */
+    color: #fff; /* Color del texto blanco */
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease; /* Transición suave para el hover */
+}
+
+.carrierHV a:hover {
+    background-color: #0056b3; /* Color de fondo azul oscuro al pasar el cursor */
+}

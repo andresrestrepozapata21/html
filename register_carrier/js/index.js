@@ -10,25 +10,24 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const formData = {
-      number_document_carrier: document.getElementById("NumeroD").value,
-      name_carrier: document.getElementById("nombres").value,
-      last_name_carrier: document.getElementById("apellidos").value,
-      phone_number_carrier: document.getElementById("telefono").value,
-      email_carrier: document.getElementById("email").value,
-      password_carrier: document.getElementById("password").value,
-      fk_id_tc_carrier: document.getElementById("tipoTransportista").value,
-      fk_id_city_carrier: document.getElementById("ciudades").value,
-      fk_id_td_carrier: document.getElementById("tipoDocumento").value,
-    };
+    const formData = new FormData();
+    formData.append('number_document_carrier', document.getElementById("NumeroD").value);
+    formData.append('name_carrier', document.getElementById("nombres").value);
+    formData.append('last_name_carrier', document.getElementById("apellidos").value);
+    formData.append('phone_number_carrier', document.getElementById("telefono").value);
+    formData.append('email_carrier', document.getElementById("email").value);
+    formData.append('password_carrier', document.getElementById("password").value);
+    formData.append('fk_id_tc_carrier', document.getElementById("tipoTransportista").value);
+    formData.append('fk_id_city_carrier', document.getElementById("ciudades").value);
+    formData.append('fk_id_td_carrier', document.getElementById("tipoDocumento").value);
+    formData.append('url_hv_carrier', document.getElementById('file1').files[0]);
+
+
     // window.myAppConfig.development
     // window.myAppConfig.production
     fetch(window.myAppConfig.production + "/carrier/register", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
+      body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
