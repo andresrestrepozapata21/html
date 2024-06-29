@@ -107,10 +107,13 @@ body {
 
 .content {
     width: 80%;
-    height: 100%;
+    height: 100vh;
     background-color: #E9E9E9;
     margin-left: 20%;
     overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* =========================================================================
@@ -121,8 +124,9 @@ body {
     background-color: #FFFFFF;
     padding: 10px;
     text-align: right;
+    display: none;
 }
-
+/*
 .titulo {
     width: 100%;
     background-color: #bbbbbb;
@@ -206,4 +210,9 @@ body {
     width: calc(25% - 10px);
     border-radius: 5px;
     margin: 20px;
+} */
+
+.content img {
+    max-width: 100%;
+    height: auto;
 }

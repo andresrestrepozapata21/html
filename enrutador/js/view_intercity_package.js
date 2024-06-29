@@ -54,7 +54,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         statusText = "<span style='color: #F0AD43'>En camino de Bodega Comercio a bodega central</span>";
                         break;
                 }
-
+                let priceTotal = 0;
+                if (item.does_shopify_p === 1) {
+                    priceTotal = item.total_price_shopify_p;
+                } else {
+                    priceTotal = item.total_price_p;
+                }
                 dataTable.row.add([
                     item.id_p,
                     item.orden_p,
@@ -62,11 +67,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     item.direction_client_p,
                     item.createdAt.slice(0, 19).replace("T", " "),
                     item.with_collection_p ? "Sí" : "No",
-                    item.profit_carrier_p.toLocaleString('es-CO', {
+                    item.profit_carrier_inter_city_p.toLocaleString('es-CO', {
                         style: 'currency',
                         currency: 'COP'
                     }),
-                    item.total_price_p.toLocaleString('es-CO', {
+                    priceTotal.toLocaleString('es-CO', {
                         style: 'currency',
                         currency: 'COP'
                     }),

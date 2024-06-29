@@ -107,16 +107,27 @@ body {
 
 .content {
     width: 80%;
-    height: 100%;
+    height: 100vh;
     background-color: #E9E9E9;
     margin-left: 20%;
     overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* =========================================================================
                         Lo estandar de todas las pantallas
 ============================================================================*/
 
+.header{
+    background-color: #FFFFFF;
+    padding: 10px;
+    text-align: right;
+    display: none;
+}
+
+/*
 .header{
     background-color: #FFFFFF;
     padding: 10px;
@@ -213,4 +224,4 @@ body {
     width: calc(25% - 10px);
     border-radius: 5px;
     margin: 20px;
-}
+}*/

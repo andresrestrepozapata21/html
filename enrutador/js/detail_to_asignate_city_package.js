@@ -121,7 +121,6 @@ function cargarTablaPaquetes(paquetes, paquetes_asignados, capacidadVehiculo) {
             paquete.guide_number_p,
             statusText,
             withCollectionText,
-            paquete.total_price_p,
             `<a href="#" class="view-products" onclick="mostrarDetallePaquete(${paquete.id_p})">Ver Productos</a>`,
             '<input type="checkbox" disabled checked>'
         ];
@@ -141,7 +140,6 @@ function cargarTablaPaquetes(paquetes, paquetes_asignados, capacidadVehiculo) {
             paquete.guide_number_p,
             statusText,
             withCollectionText,
-            paquete.total_price_p,
             `<a href="#" class="view-products" onclick="mostrarDetallePaquete(${paquete.id_p})">Ver Productos</a>`,
             `<input type="checkbox" name="seleccionPaquete" value="${paquete.id_p}" onchange="verificarSeleccionPaquetes(${capacidadVehiculo})">`
         ];
@@ -169,9 +167,9 @@ function getStatusText(status) {
 function getWithCollectionText(withCollection) {
     switch (withCollection) {
         case 0:
-            return "Con Recaudo";
-        case 1:
             return "Sin Recaudo";
+        case 1:
+            return "Con Recaudo";
         default:
             return "";
     }

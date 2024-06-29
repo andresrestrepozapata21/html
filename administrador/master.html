@@ -1,56 +1,84 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Master paky</title>
     <!-- Style CSS Customer -->
-    <link rel="stylesheet" href="assets/css/master.css">
+    <link rel="stylesheet" href="assets/css/master.css" />
     <!-- Import font style -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+    />
     <!-- Import Font Awesome CDN-->
-    <script src="https://kit.fontawesome.com/0a0c61a66b.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/0a0c61a66b.js"
+      crossorigin="anonymous"
+    ></script>
     <!-- Add the icon page -->
-    <link rel="icon" href="assets/images/p.png" type="image/x-icon">
-</head>
+    <link rel="icon" href="assets/images/p.png" type="image/x-icon" />
+  </head>
 
-<body>
-
+  <body>
     <div class="sidebar">
-        <div class="menu">
-            <a href="master.html"><img src="assets/images/p.png" alt="Logo"></a>
-            <div class="opciones">
-                <div class="op1">
-                    <h4>Opciones</h4>
-                </div>
-                <div class="op2">
-                    <h4 class="modulo">Paquetería</h4>
-                    <a href="my_city_packages.html"><i class="fa-solid fa-box"></i>Paquetes Locales</a>
-                    <a href="my_nacional_packages.html" class="active"><i class="fa-solid fa-box"></i>Paquetes Nacionales</a>
+      <div class="menu">
+        <a href="master.html"><img src="assets/images/p.png" alt="Logo" /></a>
+        <div class="opciones">
+          <div class="op1">
+            <h4>Opciones</h4>
+          </div>
+          <div class="op2">
+            <h4 class="modulo">Paquetería</h4>
+            <a href="my_city_packages.html"
+              ><i class="fa-solid fa-box"></i>Paquetes Locales</a
+            >
+            <a href="my_nacional_packages.html" class="active"
+              ><i class="fa-solid fa-box"></i>Paquetes Nacionales</a
+            >
 
-                    <h4 class="modulo">Transportistas</h4>
-                    <a href="requests_carrier.html"><i class="fa-regular fa-address-card"></i>Peticiones de Ingreso</a>
-                    <a href="all_carries.html"><i class="fa-solid fa-car"></i>Listado de Transportistas</a>
-                    <a href="payments_carriers.html"><i class="fa-solid fa-wallet"></i>Pagos Transportistas</a>
-                    <a href="portfolio_carriers.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos Transportistas</a>
+            <h4 class="modulo">Transportistas</h4>
+            <a href="requests_carrier.html"
+              ><i class="fa-regular fa-address-card"></i>Peticiones de
+              Ingreso</a
+            >
+            <a href="all_carries.html"
+              ><i class="fa-solid fa-car"></i>Listado de Transportistas</a
+            >
+            <a href="payments_carriers.html"
+              ><i class="fa-solid fa-wallet"></i>Pagos Transportistas</a
+            >
+            <a href="portfolio_carriers.html"
+              ><i class="fa-regular fa-folder-open"></i>Historial Pagos
+              Transportistas</a
+            >
 
-                    <h4 class="modulo">Drosphippers</h4>
-                    <a href="list_dropshippers.html"><i class="fa-solid fa-user"></i>Listado Dropshippers</a>
-                    <a href="payments_dropshippers.html"><i class="fa-solid fa-wallet"></i>Pagos Dropshippers</a>
-                    <a href="portfolio_dropshipper.html"><i class="fa-regular fa-folder-open"></i>Historial Pagos Dropshipper</a>
-                </div>
-            </div>
+            <h4 class="modulo">Drosphippers</h4>
+            <a href="list_dropshippers.html"
+              ><i class="fa-solid fa-user"></i>Listado Dropshippers</a
+            >
+            <a href="payments_dropshippers.html"
+              ><i class="fa-solid fa-wallet"></i>Pagos Dropshippers</a
+            >
+            <a href="portfolio_dropshipper.html"
+              ><i class="fa-regular fa-folder-open"></i>Historial Pagos
+              Dropshipper</a
+            >
+          </div>
         </div>
-        <button id="cerrarSesion" class="btn-cerrar-sesion">Cerrar Sesión</button>
+      </div>
+      <button id="cerrarSesion" class="btn-cerrar-sesion">Cerrar Sesión</button>
     </div>
 
     <div class="content">
-        <div class="header">
-            <h2><i class="fa-solid fa-car"></i> <span class="wallet1"></span></h2>
-            <h2><i class="fa-solid fa-user"></i> <span class="wallet2"></span></h2>
-        </div>
-        <div class="content1">
+      <div class="header">
+        <h2><i class="fa-solid fa-car"></i> <span class="wallet1"></span></h2>
+        <h2><i class="fa-solid fa-user"></i> <span class="wallet2"></span></h2>
+      </div>
+      <div class="content1">
+        <img src="assets/images/pakylogo.svg" alt="Imagen Central" />
+
+        <!--
             <div class="titulo">
                 <h2>Métricas Locales</h2>
             </div>
@@ -186,8 +214,8 @@
                     <img src="assets/images/image 3.png" alt="" srcset="">
                     <img src="assets/images/image 7.png" alt="" srcset="">
                 </div>
-            </div>
-        </div>
+            </div>-->
+      </div>
     </div>
 
     <!-- Import js personalized-->
@@ -195,19 +223,18 @@
     <script src="js/master.js"></script>
     <script src="js/logout.js"></script>
     <script>
-        // Verification sesion active
-        function checkSession() {
-            const token = localStorage.getItem('token');
-            const id_manager = localStorage.getItem('id_manager');
+      // Verification sesion active
+      function checkSession() {
+        const token = localStorage.getItem("token");
+        const id_manager = localStorage.getItem("id_manager");
 
-            if (!token || !id_manager) {
-                // redirection login if sesion non existing
-                window.location.href = 'login.html';
-            }
+        if (!token || !id_manager) {
+          // redirection login if sesion non existing
+          window.location.href = "login.html";
         }
-        // To call method checkSession
-        checkSession();
+      }
+      // To call method checkSession
+      checkSession();
     </script>
-</body>
-
+  </body>
 </html>

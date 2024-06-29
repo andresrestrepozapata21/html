@@ -6,7 +6,7 @@ const urlParams = new URLSearchParams(queryString);
 const guia = urlParams.get('guia');
 // cuando se carga la pantalla
 document.addEventListener('DOMContentLoaded', function () {
-    
+
     // Realizar la petición Fetch al endpoint
     fetch(window.myAppConfig.production + '/client/getPackageGuide', {
         method: 'POST',
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Agrega el número de teléfono seguido del icono de WhatsApp al elemento .p_wpp
             elementoWpp.appendChild(document.createTextNode(`Tel: ${data.data.phone_number_client_p}`));
             elementoWpp.appendChild(espacioDeTexto); // Agrega el espacio de texto
-    
+
             //sigo colocando los datos faciles como el email
             document.querySelector('.izq p:nth-child(5)').textContent = `Email: ${data.data.email_client_p}`;
             document.querySelector('.der .orden').textContent = `Orden #${data.data.orden_p}`;
@@ -163,16 +163,26 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             // Agrega los totales al final de la tabla
-            const footerRow = `
-            <tr>
-                <td colspan="3"></td>
-                <td>Total Neto:</td>
-                <td>${(totalVenta + data.data.profit_carrier_p).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
-            </tr>
-        `;
+            if (data.data.does_shopify_p === 1) {
+                const footerRowWithShopify = `
+                        <tr>
+                            <td colspan="3"></td>
+                            <td style='color: #892CFF'>Total Orden:</td>
+                            <td style='color: #892CFF'>${(data.data.total_price_shopify_p).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                        </tr>
 
-            // Agrega los totales al final de la tabla
-            productsTable.innerHTML += footerRow;
+                    `;
+                productsTable.innerHTML += footerRowWithShopify;
+            } else {
+                const footerRowWithoutShopify = `
+                    <tr>
+                        <td colspan="3"></td>
+                        <td style='color: #892CFF'>Total Orden:</td>
+                        <td style='color: #892CFF'>${(totalVenta + data.data.profit_carrier_p).     toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                    </tr>
+                `;
+                productsTable.innerHTML += footerRowWithoutShopify;
+            }
         })
         .catch(error => {
             console.error('Error en la petición Fetch:', error);

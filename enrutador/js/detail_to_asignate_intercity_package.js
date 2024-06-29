@@ -124,7 +124,6 @@ function cargarTablaPaquetes(paquetes, paquetes_asignados, capacidadVehiculo) {
             paquete.guide_number_p,
             statusText,
             withCollectionText,
-            paquete.total_price_p,
             `<a href="#" class="view-products" onclick="mostrarDetallePaquete(${paquete.id_p})">Ver Productos</a>`,
             '<input type="checkbox" disabled checked>'
         ];
@@ -144,7 +143,6 @@ function cargarTablaPaquetes(paquetes, paquetes_asignados, capacidadVehiculo) {
             paquete.guide_number_p,
             statusText,
             withCollectionText,
-            paquete.total_price_p,
             `<a href="#" class="view-products" onclick="mostrarDetallePaquete(${paquete.id_p})">Ver Productos</a>`,
             `<input type="checkbox" name="seleccionPaquete" value="${paquete.id_p}" onchange="verificarSeleccionPaquetes(${capacidadVehiculo})">`
         ];

@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             // Validate token Expired Redirection index.html
             if (data.result === 2) {
                 // Clear the local storage which removes all data stored in the browser's local storage,
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             // Procesar los datos y llenar la tabla
             const dataTable = $('#dataTable').DataTable();
-
+            // Recorro la tabla de datos y pinto los datos
             data.data.forEach(item => {
                 let statusText;
                 switch (item.status_p) {
@@ -49,7 +50,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         statusText = "<span style='color: #F0AD43'>En camino de Bodega Comercio a bodega central</span>";
                         break;
                 }
-
+                //Decloaración de la variable para el precio total
+                let priceTotal = 0;
+                if (item.does_shopify_p === 1) {
+                    priceTotal = item.total_price_shopify_p;
+                } else {
+                    priceTotal = item.total_price_p;
+                }
+                // Agregar una fila a la tabla
                 dataTable.row.add([
                     item.id_p,
                     item.orden_p,
@@ -61,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         style: 'currency',
                         currency: 'COP'
                     }),
-                    item.total_price_p.toLocaleString('es-CO', {
+                    priceTotal.toLocaleString('es-CO', {
                         style: 'currency',
                         currency: 'COP'
                     }),

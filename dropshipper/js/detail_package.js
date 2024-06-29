@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
             productsTable.innerHTML = ''; // Clear existing rows
             // Calcula los totales
             let totalVenta = 0;
-            let totalCosto = 0;
+            //let totalCosto = 0;
             data.data.package_products.forEach(product => {
                 const row = `
                 <tr>
@@ -200,25 +200,49 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
                 productsTable.innerHTML += row;
                 totalVenta += product.product.price_sale_product * product.cuantity_pp;
-                totalCosto += product.product.price_cost_product * product.cuantity_pp;
+                //totalCosto += product.product.price_cost_product * product.cuantity_pp;
             });
+            // Agrega los totales al final de la tabla dependiendo de si es con o sin shopify
+            if (data.data.does_shopify_p === 1) {
+                const footerRowWithShopify = `
+                        <tr>
+                            <td colspan="6"></td>
+                            <td style='color: #bb2124'>Pago Transportista Paky:</td>
+                            <td style='color: #bb2124'>${data.data.profit_carrier_p.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6"></td>
+                            <td>Costo envio shopify:</td>
+                            <td>${data.data.send_cost_shopify_p.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6"></td>
+                            <td>Costo envío prioritario:</td>
+                            <td>${data.data.send_priority_shopify_p.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6"></td>
+                            <td style='color: #892CFF'>Total Orden:</td>
+                            <td style='color: #892CFF'>${(data.data.total_price_shopify_p).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                        </tr>
 
-            // Agrega los totales al final de la tabla
-            const footerRow = `
+                    `;
+                productsTable.innerHTML += footerRowWithShopify;
+            } else {
+                const footerRowWithoutShopify = `
             <tr>
                 <td colspan="6"></td>
-                <td>Costo de Envio:</td>
+                <td>Pago Transportista Paky:</td>
                 <td>${data.data.profit_carrier_p.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
             </tr>
             <tr>
                 <td colspan="6"></td>
-                <td>Total Neto:</td>
-                <td>${(totalVenta + data.data.profit_carrier_p).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                <td style='color: #892CFF'>Total Orden:</td>
+                <td style='color: #892CFF'>${(totalVenta + data.data.profit_carrier_p).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
             </tr>
         `;
-            // Agrega los totales al final de la tabla
-            productsTable.innerHTML += footerRow;
-
+                productsTable.innerHTML += footerRowWithoutShopify;
+            }
             //Ahora el dataTable del historial
             const historyTable = document.querySelector('.history tbody');
             historyTable.innerHTML = ''; // Clear existing rows
@@ -254,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 let row;
                 let detail;
-                if(event.details_sh == null){
+                if (event.details_sh == null) {
                     detail = '';
                 } else {
                     detail = event.details_sh;
