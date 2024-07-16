@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (confirmation === 1) {
                     checkHTML = '<input type="checkbox" class="checked" disabled checked>';
                 } else {
-                    checkHTML = `<input type="checkbox" class="check" name="seleccionPaquete" value="${item.id_p}" onchange="verificarSeleccionPaquetes()">`;
+                    checkHTML = `<input type="checkbox" class="check" name="seleccionPaquete" value="${item.id_p}"  title="Confirmar" onchange="verificarSeleccionPaquetes()">`;
                 }
                 dataTable.row.add([
                     item.id_p,
@@ -102,12 +102,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     statusText,
                     item.carrier,
                     `<div class="acciones">
-                        <button type="button" id="btnDetalle" class="enlaces" onClick="detallePaquete(${item.id_p})"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        <button type="button" id="btnEdit" class="enlaces" onClick="editarPaquete(${item.id_p})"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button type="button" id="btnDetalle" class="enlaces" onClick="detallePaquete(${item.id_p})" title="Ver detalles"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <button type="button" id="btnEdit" class="enlaces" onClick="editarPaquete(${item.id_p})" title="Editar"><i class="fa-regular fa-pen-to-square"></i></button>
                         ${checkHTML}
-                        <button type="button" id="btnDelete" class="enlaces" onClick="eliminarPaquete(${item.id_p})"><i class="fa-solid fa-ban"></i></button>
-                    </div>
-                    `
+                        <button type="button" id="btnDelete" class="enlaces" onClick="eliminarPaquete(${item.id_p})" title="Eliminar"><i class="fa-solid fa-ban"></i></button>
+                    </div>`
                 ]).draw();
             });
         })
