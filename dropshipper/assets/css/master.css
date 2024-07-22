@@ -212,7 +212,11 @@ body {
     margin: 20px;
 } */
 
-.content img {
+.content1{
+    width: 20%;
+}   
+ 
+.content1 img {
     max-width: 100%;
     height: auto;
 }
