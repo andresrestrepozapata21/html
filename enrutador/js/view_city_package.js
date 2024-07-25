@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     item.id_p,
                     item.orden_p,
                     item.guide_number_p,
+                    item.name_client_p,
                     item.direction_client_p,
                     item.createdAt.slice(0, 19).replace("T", " "),
                     item.with_collection_p ? "Sí" : "No",
