@@ -1,4 +1,4 @@
-// capturo las variables de entorno que puedo necesitar
+// capturo las variables de entorno que puedo necesitar 
 const token = localStorage.getItem('token');
 const id_dropshipper = localStorage.getItem('id_dropshipper');
 const wallet = localStorage.getItem('wallet');
