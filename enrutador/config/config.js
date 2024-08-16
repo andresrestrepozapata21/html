@@ -12,4 +12,4 @@
 // window.myAppConfig.development
 // window.myAppConfig.production
 //development: "http://localhost:3000",
-//production: "http://paky.diegoarbelaez.com"
+//production: "https://paky.diegoarbelaez.com"
