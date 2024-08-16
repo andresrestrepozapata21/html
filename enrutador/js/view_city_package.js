@@ -59,21 +59,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 // Agregar una fila a la tabla
                 dataTable.row.add([
-                    item.id_p,
                     item.orden_p,
-                    item.guide_number_p,
+                    item.guide_number_p ? item.guide_number_p : "Sin guía",
                     item.name_client_p,
                     item.direction_client_p,
                     item.createdAt.slice(0, 19).replace("T", " "),
                     item.with_collection_p ? "Sí" : "No",
-                    item.profit_carrier_p.toLocaleString('es-CO', {
-                        style: 'currency',
-                        currency: 'COP'
-                    }),
-                    priceTotal.toLocaleString('es-CO', {
-                        style: 'currency',
-                        currency: 'COP'
-                    }),
                     statusText,
                     `<a href="#" class="show-modal" onClick="showModal(${item.id_p})">Ver Productos</a>`
                 ]).draw();

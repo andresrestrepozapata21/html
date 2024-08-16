@@ -93,11 +93,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     checkHTML = `<input type="checkbox" class="check" name="seleccionPaquete" value="${item.id_p}"  data-tooltip="Confirmar" onchange="verificarSeleccionPaquetes()">`;
                 }
                 dataTable.row.add([
-                    item.id_p,
                     item.orden_p,
                     item.createdAt.slice(0, 19).replace("T", " "),
                     item.warehouse,
-                    item.client_p,
+                    item.name_client_p.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase(),
+                    item.address_client_p,
                     item.type_send,
                     statusText,
                     item.carrier,
@@ -232,11 +232,11 @@ document.getElementById("form").addEventListener('submit', function (event) {
                     checkHTML = `<input type="checkbox" class="check" name="seleccionPaquete" value="${item.id_p}" onchange="verificarSeleccionPaquetes()">`;
                 }
                 dataTable.row.add([
-                    item.id_p,
                     item.orden_p,
                     item.createdAt.slice(0, 19).replace("T", " "),
                     item.warehouse,
-                    item.client_p,
+                    item.name_client_p.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase(),
+                    item.address_client_p,
                     item.type_send,
                     statusText,
                     item.carrier,
@@ -333,7 +333,6 @@ document.getElementById('btnRegresar').addEventListener('click', function () {
 document.getElementById("advancedFilterForm").addEventListener('submit', function (event) {
     // Prevengo el comportamiento por defecto del formulario
     event.preventDefault();
-
     // Obtengo los valores de los filtros
     const filterClient = document.getElementById('filterClient').value.toLowerCase();
     const filterWarehouse = document.getElementById('filterWarehouse').value.toLowerCase();
@@ -348,10 +347,10 @@ document.getElementById("advancedFilterForm").addEventListener('submit', functio
 
     // Aplicar los filtros si tienen valores
     if (filterWarehouse) {
-        dataTable.column(3).search(filterWarehouse);
+        dataTable.column(2).search(filterWarehouse);
     }
     if (filterClient) {
-        dataTable.column(4).search(filterClient);
+        dataTable.column(3).search(filterClient);
     }
     if (filterType) {
         dataTable.column(5).search(filterType);
@@ -361,7 +360,6 @@ document.getElementById("advancedFilterForm").addEventListener('submit', functio
         const statusText = getStatusText(filterStatus);
         dataTable.column(6).search(statusText);
     }
-
     // Aplicar la búsqueda
     dataTable.draw();
 });
@@ -377,6 +375,12 @@ document.getElementById('btnClearFilter').addEventListener('click', function () 
     // Resetear la búsqueda del DataTable
     const dataTable = $('#dataTable').DataTable();
     dataTable.search('').columns().search('').draw();
+});
+
+// Mostrar/ocultar los filtros adicionales
+document.getElementById('btnToggleFilters').addEventListener('click', function () {
+    var filtersContainer = document.getElementById('filtersContainer');
+    filtersContainer.classList.toggle('show');
 });
 
 //Valido el estado del paquete para mostrarlo

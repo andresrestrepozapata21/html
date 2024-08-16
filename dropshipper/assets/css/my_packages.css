@@ -388,3 +388,43 @@ input[type="date"], input[type="text"], #filterStatus, #filterWarehouse, #typerP
     opacity: 1;
     visibility: visible;
 }
+
+.componentBottom{
+    width: 100%;
+    padding-right: 20px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+/* Botón para mostrar/ocultar filtros */
+#btnToggleFilters {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#btnToggleFilters i {
+    font-size: 12px;
+}
+
+/* Contenedor de filtros */
+#filtersContainer {
+    margin: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+}
+
+#filtersContainer.show {
+    max-height: 1000px; /* Altura máxima arbitraria suficiente para mostrar todo el contenido */
+    opacity: 1;
+}

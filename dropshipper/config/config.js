@@ -2,7 +2,7 @@
 (function () {
     // Define tus URLs aquí
     const config = {
-        production: "https://paky.diegoarbelaez.com"
+        production: "http://paky.diegoarbelaez.com"
     };
 
     // Asigna el objeto de configuración a una variable global
