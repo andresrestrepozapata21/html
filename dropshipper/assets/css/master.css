@@ -114,22 +114,38 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.content1 {
+    width: 100%;
+    height: 100%;
+    background-color: #E9E9E9;
+    overflow-y: auto;
 }
 
 /* =========================================================================
                         Lo estandar de todas las pantallas
 ============================================================================*/
 
-.header{
+.header {
+    width: 100%;
     background-color: #FFFFFF;
     padding: 10px;
-    text-align: right;
-    display: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-/*
+
 .titulo {
     width: 100%;
-    background-color: #bbbbbb;
+    background-color: #dfdfdf;
+    margin: 5px 0;
+    padding: 5px;
+}
+
+.titulo1 {
+    width: 100%;
     margin: 5px 0;
     padding: 5px;
 }
@@ -161,47 +177,49 @@ body {
 }
 
 .inStore {
-    background-color: #BB2124;
-    color: #FFFFFF;
+    background-color: #dfdfdf;
+    color: #000000;
 }
 
 .onWayToCentral,
 .onWayBetweenCentrals {
-    background-color: #dd9f48;
-    color: #FFFFFF;
+    background-color: #dfdfdf;
+    color: #000000;
 }
 
 .inCentral,
 .inCentralOrigin {
-    background-color: #5BC0DE;
-    color: #FFFFFF;
+    background-color: #dfdfdf;
+    color: #000000;
 }
 
 .inCentralDestiny {
-    background-color: #AAAAAA;
-    color: #FFFFFF;
+    background-color: #dfdfdf;
+    color: #000000;
 }
 
 .onWayToClient {
-    background-color: #F0AD4E;
-    color: #FFFFFF;
+    background-color: #dfdfdf;
+    color: #000000;
 }
 
 .delivered {
-    background-color: #22BB33;
-    color: #FFFFFF;
+    background-color: #dfdfdf;
+    color: #000000;
 }
 
 .graphics {
     background-color: #fff;
     border-radius: 10px;
-    padding: 50px 20px;
+    padding: 10px;
     margin: 0 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 
+                0 6px 6px rgba(0, 0, 0, 0.1);
 }
 
 .contentGraphics {
     display: flex;
-    justify-content: space-between  ;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: 50px;
 }
@@ -210,13 +228,46 @@ body {
     width: calc(25% - 10px);
     border-radius: 5px;
     margin: 20px;
-} */
+}
 
-.content1{
-    width: 20%;
-}   
- 
-.content1 img {
-    max-width: 100%;
-    height: auto;
+.table-wrapper {
+    max-height: 100%;
+    /* Limita la altura máxima del contenedor a la altura del viewport */
+    overflow-y: auto;
+    /* Agrega un scroll vertical si es necesario */
+    margin: 20px;
+}
+
+/* Estilo para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Estilo para las celdas de la tabla */
+th,
+td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Estilo para las filas impares */
+tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+/* Estilo para el encabezado de la tabla */
+th {
+    background-color: #892CFF;
+    color: white;
+}
+
+.span {
+    color: #892CFF;
+}
+
+.quantity h2 {
+    font-size: 25px;
 }
