@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         },
                     },
                     order: [[1, "desc"]],
-                    pageLength: 100,
+                    pageLength: 10,
                 });
                 // i capture the data to show in the container
                 contador++;
