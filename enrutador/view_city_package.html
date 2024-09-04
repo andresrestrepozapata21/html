@@ -1,85 +1,97 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VCP paky</title>
     <!-- Style CSS Customer -->
-    <link rel="stylesheet" href="assets/css/view_city_package.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="assets/css/view_city_package.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css"
+    />
     <!-- Import font style -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+    />
     <!-- Import Font Awesome CDN-->
-    <script src="https://kit.fontawesome.com/0a0c61a66b.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/0a0c61a66b.js"
+      crossorigin="anonymous"
+    ></script>
     <!-- Add the icon page -->
-    <link rel="icon" href="assets/images/p.png" type="image/x-icon">
-</head>
+    <link rel="icon" href="assets/images/p.png" type="image/x-icon" />
+  </head>
 
-<body>
-
+  <body>
     <div class="sidebar">
-        <div class="menu">
-            <a href="master.html"><img src="assets/images/p.png" alt="Logo"></a>
-            <div class="opciones">
-                <div class="op1">
-                    <h4>Opciones</h4>
-                </div>
-                <div class="op2">
-                    <h4 class="modulo">Paquetería Local</h4>
-                    <a href="view_city_package.html" class="active"><i class="fa-solid fa-box"></i>Visor de Paquetes Locales</a>
-                    <a href="to_asignate_city_package.html"><i class="fa-solid fa-boxes-packing"></i>Asignar Paquetes Locales</a>
-
-                </div>
-            </div>
+      <div class="menu">
+        <a href="master.html"><img src="assets/images/p.png" alt="Logo" /></a>
+        <div class="opciones">
+          <div class="op1">
+            <h4>Opciones</h4>
+          </div>
+          <div class="op2">
+            <h4 class="modulo">Paquetería Local</h4>
+            <a href="view_city_package.html" class="active"
+              ><i class="fa-solid fa-box"></i>Visor de Paquetes Locales</a
+            >
+            <a href="to_asignate_city_package.html"
+              ><i class="fa-solid fa-boxes-packing"></i>Asignar Paquetes
+              Locales</a
+            >
+          </div>
         </div>
-        <button id="cerrarSesion" class="btn-cerrar-sesion">Cerrar Sesión</button>
+      </div>
+      <button id="cerrarSesion" class="btn-cerrar-sesion">Cerrar Sesión</button>
     </div>
 
     <div class="content">
-        <h1>Visión de Paquetes Locales</h1>
-        <div class="table-wrapper">
-            <table id="dataTable" class="display">
-                <thead>
-                    <tr>
-                        <th>Orden</th>
-                        <th>Número de guía</th>
-                        <th>Nombre Cliente</th>
-                        <th>Dirección del cliente</th>
-                        <th>Fecha de creación</th>
-                        <th>¿Con Cobro?</th>
-                        <th>Estado del paquete</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los datos se agregarán aquí dinámicamente -->
-                </tbody>
-            </table>
-        </div>
+      <h1>Visión de Paquetes Locales</h1>
+      <div class="table-wrapper">
+        <table id="dataTable" class="display">
+          <thead>
+            <tr>
+              <th>Orden</th>
+              <th>Número de guía</th>
+              <th>Nombre Cliente</th>
+              <th>Dirección del cliente</th>
+              <th>Fecha de creación</th>
+              <th>¿Con Cobro?</th>
+              <th>Estado del paquete</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Los datos se agregarán aquí dinámicamente -->
+          </tbody>
+        </table>
+      </div>
     </div>
     <!-- Modal para mostrar la información de los productos del paquete -->
     <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Productos del Paquete</h2>
-            <table id="productTable" class="display">
-                <thead>
-                    <tr>
-                        <th>ID Producto</th>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Dimensión</th>
-                        <th>Cantidad</th>
-                        <th>Precio Unitario</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los datos se agregarán aquí dinámicamente -->
-                </tbody>
-            </table>
-        </div>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Productos del Paquete</h2>
+        <table id="productTable" class="display">
+          <thead>
+            <tr>
+              <th>ID Producto</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Dimensión</th>
+              <th>Cantidad</th>
+              <th>Precio Unitario</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Los datos se agregarán aquí dinámicamente -->
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Import js personalized-->
@@ -89,19 +101,58 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script>
-        // Verification sesion active
-        function checkSession() {
-            const token = localStorage.getItem('token');
-            const id_ru = localStorage.getItem('id_ru');
+      // Verification sesion active
+      function checkSession() {
+        const token = localStorage.getItem("token");
+        const id_ru = localStorage.getItem("id_ru");
 
-            if (!token || !id_ru) {
-                // redirection login if sesion non existing
-                window.location.href = 'login.html';
-            }
+        if (!token || !id_ru) {
+          // redirection login if sesion non existing
+          window.location.href = "login.html";
         }
-        // To call method checkSession
-        checkSession();
-    </script>
-</body>
+      }
+      // To call method checkSession
+      checkSession();
 
+      // Traduccion del dataTable
+      $(document).ready(function () {
+        $("#dataTable").DataTable({
+          language: {
+            sProcessing: "Procesando...",
+            sLengthMenu: "Mostrar _MENU_ registros",
+            sZeroRecords: "No se encontraron resultados",
+            sEmptyTable: "Ningún dato disponible en esta tabla",
+            sInfo:
+              "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            sInfoEmpty:
+              "Mostrando registros del 0 al 0 de un total de 0 registros",
+            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sInfoPostFix: "",
+            sSearch: "Buscar:",
+            sUrl: "",
+            sInfoThousands: ",",
+            sLoadingRecords: "Cargando...",
+            oPaginate: {
+              sFirst: "Primero",
+              sLast: "Último",
+              sNext: "Siguiente",
+              sPrevious: "Anterior",
+            },
+            oAria: {
+              sSortAscending:
+                ": Activar para ordenar la columna de manera ascendente",
+              sSortDescending:
+                ": Activar para ordenar la columna de manera descendente",
+            },
+            buttons: {
+              copy: "Copiar",
+              colvis: "Visibilidad",
+            },
+          },
+          order: [[1, "desc"]],
+          pageLength: 100,
+        });
+      });
+    </script>
+  </body>
 </html>

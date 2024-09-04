@@ -38,12 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
             // i show the data in the container
             for (const bodega of data.data_by_store) {
                 container1.innerHTML += `
-                    <div class="stadystics">
-                        <div class="titulo1">
-                            <h2>Bodega: <span class="span">${bodega.id_store}</span></h2>
-                            <h2>Dirección: <span class="span">${bodega.direction_store}</span> - <span class="span">${bodega.city_store}</span> - <span class="span">${bodega.department_store}</span></span></h2>
-                            <h2>Cantidad de paquetes locales: <span class="span">${bodega.total_cuantity_cityPackages}</span> paquetes</span></h2>
-                        </div>
+                <div class="titulo1">
+                    <h2>Bodega: <span class="span">${bodega.id_store}</span></h2>
+                    <h2>Dirección: <span class="span">${bodega.direction_store}</span> - <span class="span">${bodega.city_store}</span> - <span class="span">${bodega.department_store}</span></span></h2>
+                    <h2>Cantidad de paquetes locales: <span class="span">${bodega.total_cuantity_cityPackages}</span> paquetes</span></h2>
+                </div>
+                <div class="stadystics">
                         <div class="inStore">
                             <div class="text">
                                 <h3>En Bodega Comercio</h3>
@@ -53,6 +53,17 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <h2 class="number" id="inStore">${bodega.cityPackage_inStoreDrop}</h2>
                             </div>
                         </div>
+                        <div class="delivered">
+                            <div class="text">
+                                <h3>Entregados</h3>
+                                <h6>Paquetes que estan entregados</h6>
+                            </div>
+                            <div class="quantity">
+                                <h2 class="number" id="delivered">${bodega.cityPackage_Delived}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stadystics">
                         <div class="onWayToCentral">
                             <div class="text">
                                 <h3>En Camino a bodega central</h3>
@@ -78,15 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                             <div class="quantity">
                                 <h2 class="number" id="onWayToClient">${bodega.cityPackage_inWayClient}</h2>
-                            </div>
-                        </div>
-                        <div class="delivered">
-                            <div class="text">
-                                <h3>Entregados</h3>
-                                <h6>Paquetes que estan entregados</h6>
-                            </div>
-                            <div class="quantity">
-                                <h2 class="number" id="delivered">${bodega.cityPackage_Delived}</h2>
                             </div>
                         </div>
                     </div>

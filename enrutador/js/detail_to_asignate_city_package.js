@@ -4,6 +4,8 @@ const id_carrier = urlParams.get('id_carrier');
 const token = localStorage.getItem('token');
 const id_ru = localStorage.getItem('id_ru');
 const asignado = localStorage.getItem('asignado');
+// Array para almacenar los paquetes seleccionados
+let paquetesSeleccionados = [];
 // Inicializo la pagina
 document.addEventListener('DOMContentLoaded', function () {
     if (asignado) {
@@ -105,8 +107,25 @@ function cargarTablaPaquetes(paquetes, paquetes_asignados, capacidadVehiculo) {
     tbody2.innerHTML = '';
 
     // Inicializar los DataTables para cada tabla
-    const dataTablePackages = $('#tabla-paquetes').DataTable();
-    const dataTableAsignated = $('#tabla-paquetes-asignated').DataTable();
+    const dataTablePackages = $('#tabla-paquetes').DataTable({
+        'destroy': true, // Permite destruir la tabla previa
+        'paging': true,  // Habilita la paginación
+        'order': [],     // No ordena por defecto
+        'initComplete': function() {
+            // Restaurar los checkboxes seleccionados al cambiar de página
+            this.api().rows().every(function() {
+                const row = this.node();
+                const checkbox = $(row).find('input[type="checkbox"]');
+                const paqueteId = checkbox.val();
+                if (paquetesSeleccionados.includes(paqueteId)) {
+                    checkbox.prop('checked', true);
+                }
+            });
+        }
+    });
+    const dataTableAsignated = $('#tabla-paquetes-asignated').DataTable({
+        'destroy': true
+    });
 
     // Iterar sobre los paquetes asignados y agregarlos al DataTable correspondiente
     paquetes_asignados.forEach((paquete) => {
@@ -141,7 +160,7 @@ function cargarTablaPaquetes(paquetes, paquetes_asignados, capacidadVehiculo) {
             statusText,
             withCollectionText,
             `<a href="#" class="view-products" onclick="mostrarDetallePaquete(${paquete.id_p})">Ver Productos</a>`,
-            `<input type="checkbox" name="seleccionPaquete" value="${paquete.id_p}" onchange="verificarSeleccionPaquetes(${capacidadVehiculo})">`
+            `<input type="checkbox" name="seleccionPaquete" value="${paquete.id_p}" onchange="actualizarSeleccionPaquete(this, ${capacidadVehiculo})">`
         ];
         dataTablePackages.row.add(row).draw();
     });
@@ -176,18 +195,12 @@ function getWithCollectionText(withCollection) {
 }
 // Envio los datos de asignaicion
 function enviarDatosDeAsignacion() {
-    const checkboxesSeleccionados = document.querySelectorAll('input[name="seleccionPaquete"]:checked');
-    let idsPaquetes = [];
-
-    checkboxesSeleccionados.forEach(function (checkbox) {
-        idsPaquetes.push(parseInt(checkbox.value));
-    });
-
+    // Validar que se hayan seleccionado paquetes
     const datosAsignacion = {
         id_carrier,
-        ids_p: idsPaquetes
+        ids_p: paquetesSeleccionados
     };
-
+    // Realizar la petición Fetch para asignar los paquetes
     fetch(window.myAppConfig.production + '/routerUser/toAsignatePackages', {
         method: 'POST',
         headers: {
@@ -266,17 +279,17 @@ function mostrarDetallePaquete(idPaquete) {
 }
 //Metodo para verificar que la cantidad de paquetes sea la indicada.
 function verificarSeleccionPaquetes(capacidadVehiculo) {
-    const seleccionados = document.querySelectorAll('input[name="seleccionPaquete"]:checked').length;
+    // Obtener el botón de asignar
     const btnAsignar = document.getElementById('btnAsignar');
-
-    if (seleccionados > capacidadVehiculo) {
+    // Verificar si la cantidad de paquetes seleccionados excede la capacidad del vehículo
+    if (paquetesSeleccionados.length > capacidadVehiculo) {
         alert(`La selección esta excediendo la capacidad del vehículo de ${capacidadVehiculo} paquetes, asegurese de que el vehiculo tenga la capcidad actual para asignar esta cantidad.`);
     } else {
         console.log(capacidadVehiculo)
-        console.log(seleccionados)
+        console.log(paquetesSeleccionados)
     }
-
-    if (seleccionados > 0) {
+    // Habilitar o deshabilitar el botón de asignar según la cantidad de paquetes seleccionados
+    if (paquetesSeleccionados.length > 0) {
         btnAsignar.disabled = false;
         btnAsignar.classList.remove('disabled');
     } else {
@@ -318,4 +331,21 @@ function showToast(message) {
             }
         });
     }, 3000);
+}
+// Función para actualizar el array de paquetes seleccionados
+function actualizarSeleccionPaquete(checkbox, capacidadVehiculo) {
+    // Obtener el id del paquete
+    const paqueteId = checkbox.value;
+    // Verificar si el checkbox está seleccionado
+    if (checkbox.checked) {
+        // Si el paquete es seleccionado, añadirlo al array
+        if (!paquetesSeleccionados.includes(paqueteId)) {
+            paquetesSeleccionados.push(paqueteId);
+        }
+    } else {
+        // Si se deselecciona, removerlo del array
+        paquetesSeleccionados = paquetesSeleccionados.filter(id => id !== paqueteId);
+    }
+    // Verificar la cantidad de paquetes seleccionados
+    verificarSeleccionPaquetes(capacidadVehiculo);
 }
